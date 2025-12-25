@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,4 +30,9 @@ Route::get('/test', function () {
 
 Route::fallback(function () {
     return view('404');
+});
+
+Route::get('/coba_query', function () {
+    $member = Member::all();
+    dd($member->toArray());
 });
