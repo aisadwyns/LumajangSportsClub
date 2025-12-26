@@ -4,6 +4,7 @@ use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
@@ -33,6 +34,10 @@ Route::fallback(function () {
 });
 
 Route::get('/coba_query', function () {
+    //eloquent
     $member = Member::all();
     dd($member->toArray());
 });
+
+#######################################################################################
+Route::resource('member', MemberController::class);
