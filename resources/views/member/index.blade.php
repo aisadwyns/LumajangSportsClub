@@ -22,6 +22,8 @@
                             <th>Nama Lengkap</th>
                             <th>Nama Club</th>
                             <th>Nomor Telpon</th>
+                            <th>Opsi</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -32,12 +34,54 @@
                                 <td>{{ $data->nama_lengkap }}</td>
                                 <td>{{ $data->nama_club }}</td>
                                 <td>{{ $data->no_telpon }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Aksi
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('member.edit', $data->id) }}">Edit</a></li>
+                                            <li><button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmdelete{{ $data->id }}">
+                                                    Hapus data
+                                                </button></li>
+
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
+
+    @foreach ($datamember as $data)
+        <!-- Modal -->
+        <div class="modal fade" id="confirmdelete{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Data akan dihapus permanen, klik lanjutkan untuk menghapus data
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('member.destroy', $data->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger">Lanjutkan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
