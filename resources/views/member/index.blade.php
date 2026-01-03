@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.mantis')
 
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-content-center">
                 <div class="card-title">
@@ -66,18 +66,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Lanjutkan penghapusan data?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         Data akan dihapus permanen, klik lanjutkan untuk menghapus data
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('member.destroy', $data->id) }}">
+                        <form action="{{ route('member.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger">Lanjutkan</button>
+                            <button type="submit" class="btn btn-danger">Lanjutkan</button>
                         </form>
                     </div>
                 </div>

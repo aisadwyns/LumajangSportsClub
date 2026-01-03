@@ -13,6 +13,7 @@ class MemberController extends Controller
         return view('member.index', compact('datamember'));
     }
 
+    public function show() {}
     public function create()
     {
         return view('member.create');
@@ -74,6 +75,12 @@ class MemberController extends Controller
         //cara ke 3
         // $member->update($request->except('nama_lengkap'));
 
-        return redirect(route('member.index'))->with('success', 'Data member berhasil diperbarui.');
+        return redirect()->route('member.index')->with('success', 'Data member berhasil diperbarui.');
+    }
+
+    public function destroy(String $id)
+    {
+        Member::destroy($id);
+        return redirect()->route('member.index')->with('success', 'Data member berhasil dihapus.');
     }
 }

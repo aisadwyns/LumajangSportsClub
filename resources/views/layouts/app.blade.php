@@ -14,7 +14,6 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.6/css/dataTables.dataTables.min.css">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -82,6 +81,15 @@
         </nav>
 
         <main class="py-4">
+
+            @if (session('success'))
+                <div class="container">
+                    <div class="alert alert-success" role="alert" id="success-alert">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
     </div>
@@ -93,6 +101,12 @@
     <script>
         $(document).ready(function() {
             let table = new DataTable('#table');
+
+
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+                $("#success-alert").slideUp(500);
+            });
+
         });
     </script>
 
