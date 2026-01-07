@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('jenis_lapangan', 50);
             $table->decimal('harga_per_jam', 10, 2);
             $table->text('fasilitas')->nullable();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

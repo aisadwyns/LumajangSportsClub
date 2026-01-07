@@ -3,21 +3,21 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Aplikasi Managemen Venue</title>
+    <title class="text-blue-700">Aplikasi Managemen Venue</title>
     <!-- [Meta] -->
     <x-meta />
 </head>
-<!-- [Head] end -->
+
 <!-- [Body] Start -->
 
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-    <!-- [ Pre-loader ] start -->
+    <!-- [ Pre-loader ] -->
     <div class="loader-bg">
         <div class="loader-track">
             <div class="loader-fill"></div>
         </div>
     </div>
-    <!-- [ Pre-loader ] End -->
+
     <!-- [ Sidebar Menu ] start -->
     <x-sidebar />
     <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
@@ -30,7 +30,7 @@
     <div class="pc-container">
         <div class="pc-content">
             <!-- [ breadcrumb ] start -->
-            <x-breadcrumbs></x-breadcrumbs>
+            <x-breadcrumbs />
             <!-- [ Main Content ] start -->
             <div class="row">
                 @if (session('success'))

@@ -10,57 +10,16 @@
         </div>
         <div class="navbar-content">
             <ul class="pc-navbar">
-                <li class="pc-item">
-                    <a href="../dashboard/index.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-                        <span class="pc-mtext">Dashboard</span>
-                    </a>
-                </li>
 
-                <li class="pc-item pc-caption">
-                    <label>UI Components</label>
-                    <i class="ti ti-dashboard"></i>
-                </li>
-                <li class="pc-item">
-                    <a href="../elements/bc_typography.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-typography"></i></span>
-                        <span class="pc-mtext">Typography</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="../elements/bc_color.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
-                        <span class="pc-mtext">Color</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="../elements/icon-tabler.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-plant-2"></i></span>
-                        <span class="pc-mtext">Icons</span>
-                    </a>
-                </li>
+                <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
 
-                <li class="pc-item pc-caption">
-                    <label>Pages</label>
-                    <i class="ti ti-news"></i>
-                </li>
-                <li class="pc-item">
-                    <a href="../pages/login.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-lock"></i></span>
-                        <span class="pc-mtext">Login</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="../pages/register.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-user-plus"></i></span>
-                        <span class="pc-mtext">Register</span>
-                    </a>
-                </li>
+                <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
+                <x-sidebar.links title='Data Member' icon='ti ti-user' route='member.index' />
+                <!-- <x-sidebar.links title='Booking' icon='ti ti-clipboard-list' route='home' />
+                -->
+                <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='lapangan.index' />
+                <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
 
-                <li class="pc-item pc-caption">
-                    <label>Other</label>
-                    <i class="ti ti-brand-chrome"></i>
-                </li>
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span
                             class="pc-mtext">Menu
@@ -100,12 +59,6 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
-                <li class="pc-item">
-                    <a href="../other/sample-page.html" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-                        <span class="pc-mtext">Sample page</span>
-                    </a>
                 </li>
             </ul>
         </div>

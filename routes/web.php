@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\Member;
+use App\Models\Lapangan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\LapanganController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -41,3 +43,4 @@ Route::get('/coba_query', function () {
 
 #######################################################################################
 Route::resource('member', MemberController::class);
+Route::resource('lapangan', LapanganController::class);
