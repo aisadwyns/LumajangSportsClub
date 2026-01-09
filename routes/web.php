@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
+use App\Models\LscTeam;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -42,6 +43,10 @@ Route::get('/coba_query', function () {
     dd($member->toArray());
 });
 
+//hapus seluruh data
+// Route::get('/truncate', function () {
+//     LscTeam::truncate();
+// });
 #######################################################################################
 Route::resource('member', MemberController::class);
 Route::resource('lapangan', LapanganController::class);
