@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama_lengkap', 100);
             $table->string('nik', 20)->unique();
-            $table->string('email')->unique();
             $table->string('nomor_hp', 20);
             $table->text('alamat');
             $table->string('jobdesk', 100);

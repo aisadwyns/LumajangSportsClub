@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\LscTeam;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -26,7 +27,7 @@ class LscTeamController extends Controller
         $request->validate([
             'nama_lengkap'        => 'required|string|max:100',
             'nik'                 => 'required|string|max:20|unique:lscteams,nik',
-            'email'               => 'required|email|unique:lscteams,email',
+            'email'               => 'required|email|unique:users,email',
             'nomor_hp'            => 'required|string|max:15',
             'alamat'              => 'required|string',
             'jobdesk'             => 'required|string',
@@ -42,11 +43,16 @@ class LscTeamController extends Controller
         $data = $request->all();
         $data['foto'] = $fileName;
 
-        LscTeam::create($data);
-
-        return redirect()
-            ->route('lscteam.index')
-            ->with('success', 'Data LSC Team berhasil disimpan.');
+        $newData = LscTeam::create($data);
+        $user = User::create([
+            'name' => $newData->nama_lengkap,
+            'email' => $request->email,
+            'password' => Hash::make('password'),
+            'lscteam_id' => $newData->id,
+        ]);
+        $newData->user_id = $user->id;
+        $newData->save();
+        return redirect()->route('lscteam.index')->with('success', 'Data LSC Team berhasil disimpan.');
     }
 
     public function edit(string $id)
@@ -60,7 +66,7 @@ class LscTeamController extends Controller
         $request->validate([
             'nama_lengkap'        => 'required|string|max:100',
             'nik'                 => 'required|string|max:20|unique:lscteams,nik,' . $lscteam->id,
-            'email'               => 'required|email|unique:lscteams,email,' . $lscteam->id,
+            'email'               => 'required|email|unique:users,email,' . $lscteam->id,
             'nomor_hp'            => 'required|string|max:15',
             'alamat'              => 'required|string',
             'jobdesk'             => 'required|string',
