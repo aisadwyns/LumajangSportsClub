@@ -57,7 +57,22 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-
+                    <div class="col-md-12 form-group my-2">
+                        <label for="bagian_id">Bagian</label>
+                        <select id="bagian_id" name="bagian_id"
+                            class="form-control @error('bagian_id') is-invalid @enderror">
+                            <option value="">-- Pilih Bagian --</option>
+                            @foreach ($bagians as $bagian)
+                                <option value="{{ $bagian->id }}"
+                                    {{ $teams->bagian_id == $bagian->id ? 'selected' : '' }}>
+                                    {{ $bagian->nama_bagian }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('bagian_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     <div class="col-md-6 form-group my-2">
                         <label>Jobdesk</label>
                         <input type="text" name="jobdesk" class="form-control @error('jobdesk') is-invalid @enderror"

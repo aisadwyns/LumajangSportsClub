@@ -10,9 +10,13 @@ class LscTeam extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $table = 'lscteams';
-public function user()
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+public function bagian()
 {
-    return $this->belongsTo(User::class, 'user_id');
+    return $this->belongsTo(Bagian::class);
 }
 
 }

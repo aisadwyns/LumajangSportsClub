@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
+use App\Http\Controllers\BagianController;
 use App\Models\LscTeam;
 
 Route::get('/', function () {
@@ -51,3 +52,4 @@ Route::get('/coba_query', function () {
 Route::resource('member', MemberController::class);
 Route::resource('lapangan', LapanganController::class);
 Route::resource('lscteam', LscTeamController::class);
+Route::resource('bagian', BagianController::class);

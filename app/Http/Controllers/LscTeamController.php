@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\LscTeam;
+use App\Models\Bagian;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,13 +20,15 @@ class LscTeamController extends Controller
     public function show() {}
     public function create()
     {
-        return view('lscteam.create');
+        $bagians = Bagian::all();
+        return view('lscteam.create', compact('bagians'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nama_lengkap'        => 'required|string|max:100',
+            'bagian_id'           => 'required|exists:bagians,id',
             'nik'                 => 'required|string|max:20|unique:lscteams,nik',
             'email'               => 'required|email|unique:users,email',
             'nomor_hp'            => 'required|string|max:15',
@@ -58,7 +61,8 @@ class LscTeamController extends Controller
     public function edit(string $id)
     {
         $teams = LscTeam::findOrFail($id);
-        return view('lscteam.edit', compact('teams'));
+        $bagians = Bagian::all();
+        return view('lscteam.edit', compact('teams', 'bagians'));
     }
 
     public function update(Request $request, LscTeam $lscteam)

@@ -5,60 +5,49 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-content-center">
                 <div class="card-title">
-                    <h4>Daftar LSC Team</h4>
+                    <h4>Daftar Lapangan</h4>
                 </div>
                 <div>
-                    <a href="{{ route('lscteam.create') }}" class="btn btn-primary">
-                        Tambah LSC Team
+                    <a href="{{ route('lapangan.create') }}" class="btn btn-primary">
+                        Tambah Lapangan
                     </a>
                 </div>
             </div>
-
             <div class="card-body">
                 <table class="table table-bordered" id="table">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID</th>
-                            <th>Nama Lengkap</th>
-                            <th>Bagian</th>
-                            <th>NIK</th>
-                            <th>Email</th>
-                            <th>No HP</th>
-                            <th>Jobdesk</th>
-                            <th>Foto</th>
+                            <th>Nama Bagian</th>
+
                             <th>Opsi</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($teams as $index => $data)
+
+
+                        @foreach ($bagian as $index => $data)
                             <tr>
+                                @csrf
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $data->id }}</td>
-                                <td>{{ $data->nama_lengkap }}</td>
-                                <td>{{ $data->bagian->nama_bagian }}</td>
-                                <td>{{ $data->nik }}</td>
-                                <td>{{ $data->user->email }}</td>
-                                <td>{{ $data->nomor_hp }}</td>
-                                <td>{{ $data->jobdesk }}</td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalFoto{{ $data->id }}"> Lihat Foto</button></td>
+                                <td>{{ $data->nama_bagian }}</td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <button class="btn dropdown-toggle" type="button"
+                                            id="dropdownMenuButton{{ $data->id }}" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
                                             Aksi
                                         </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('lscteam.edit', $data->id) }}">
-                                                    Edit
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmdelete{{ $data->id }}">
-                                                    Hapus data
-                                                </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $data->id }}">
+                                            <li><a class="dropdown-item text-primary"
+                                                    href="{{ route('bagian.show', $data->id) }}">
+                                                    Detail</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('lapangan.edit', $data->id) }}">Edit</a></li>
+                                            <li> <button type="button"
+                                                    class="dropdown-item text-danger"data-bs-toggle="modal"
+                                                    data-bs-target="#confirmdelete{{ $data->id }}">Hapus data</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -71,20 +60,24 @@
         </div>
     </div>
 
-    {{-- Modal Delete --}}
-    @foreach ($teams as $data)
-        <div class="modal fade" id="confirmdelete{{ $data->id }}" tabindex="-1">
+    @foreach ($bagian as $data)
+        <!-- Modal -->
+        <div class="modal fade" id="confirmdelete{{ $data->id }}" tabindex="-1"
+            aria-labelledby="deleteLapanganLabel{{ $data->id }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Lanjutkan penghapusan data?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <h5 class="modal-title" id="deleteLapanganLabel{{ $data->id }}">
+                            Lanjutkan penghapusan data lapangan?
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Data LSC Team akan dihapus permanen.
+                        <p>Data <strong>{{ $data->nama_lapangan }}</strong> akan dihapus permanen.
+                            Klik <b>Lanjutkan</b> untuk menghapus data.</p>
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('lscteam.destroy', $data->id) }}" method="POST">
+                        <form action="{{ route('lapangan.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -95,11 +88,12 @@
                             </button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
     @endforeach
-    @foreach ($teams as $data)
+    @foreach ($bagian as $data)
         <div class="modal fade" id="modalFoto{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -109,7 +103,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <img src="{{ asset('storage/foto_lscteam/' . $data->foto) }}" alt="{{ $data->foto }}"
+                        <img src="{{ asset('storage/foto_lapangan/' . $data->foto) }}" alt="{{ $data->foto }}"
                             class="img-fluid">
                     </div>
 
