@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\User;
 use App\Models\LscTeam;
 use App\Models\Bagian;
@@ -55,7 +56,8 @@ class LscTeamController extends Controller
         ]);
         $newData->user_id = $user->id;
         $newData->save();
-        return redirect()->route('lscteam.index')->with('success', 'Data LSC Team berhasil disimpan.');
+        Alert::success('sukses', 'data berhasil ditambahkan');
+        return redirect()->route('lscteam.index');
     }
 
     public function edit(string $id)
@@ -95,10 +97,8 @@ class LscTeamController extends Controller
         $data['foto'] = $fileName;
 
         $lscteam->update($data);
-
-        return redirect()
-            ->route('lscteam.index')
-            ->with('success', 'Data LSC Team berhasil diperbarui.');
+        Alert::success('sukses', 'data berhasil diupdate');
+        return redirect()->route('lscteam.index');
     }
 
     public function destroy(string $id)
@@ -110,9 +110,7 @@ class LscTeamController extends Controller
         }
 
         $lscteam->delete();
-
-        return redirect()
-            ->route('lscteam.index')
-            ->with('success', 'Data LSC Team berhasil dihapus.');
+        Alert::success('sukses', 'data berhasil dihapus');
+        return redirect()->route('lscteam.index');
     }
 }

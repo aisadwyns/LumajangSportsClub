@@ -36,7 +36,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $data->id }}</td>
                                 <td>{{ $data->nama_lengkap }}</td>
-                                <td>{{ $data->bagian->nama_bagian }}</td>
+                                <td>{{ $data->bagian?->nama_bagian }}</td>
                                 <td>{{ $data->nik }}</td>
                                 <td>{{ $data->user->email }}</td>
                                 <td>{{ $data->nomor_hp }}</td>

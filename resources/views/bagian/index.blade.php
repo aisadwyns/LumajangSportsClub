@@ -45,10 +45,9 @@
                                                     Detail</a></li>
                                             <li><a class="dropdown-item"
                                                     href="{{ route('lapangan.edit', $data->id) }}">Edit</a></li>
-                                            <li> <button type="button"
-                                                    class="dropdown-item text-danger"data-bs-toggle="modal"
-                                                    data-bs-target="#confirmdelete{{ $data->id }}">Hapus data</button>
-                                            </li>
+                                            <li> <a class="dropdown-item text-danger"
+                                                    href="{{ route('bagian.destroy', $data->id) }}"
+                                                    data-confirm-delete="true">Hapus</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -59,56 +58,4 @@
             </div>
         </div>
     </div>
-
-    @foreach ($bagian as $data)
-        <!-- Modal -->
-        <div class="modal fade" id="confirmdelete{{ $data->id }}" tabindex="-1"
-            aria-labelledby="deleteLapanganLabel{{ $data->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteLapanganLabel{{ $data->id }}">
-                            Lanjutkan penghapusan data lapangan?
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Data <strong>{{ $data->nama_lapangan }}</strong> akan dihapus permanen.
-                            Klik <b>Lanjutkan</b> untuk menghapus data.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('lapangan.destroy', $data->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Batal
-                            </button>
-                            <button type="submit" class="btn btn-danger">
-                                Lanjutkan
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    @endforeach
-    @foreach ($bagian as $data)
-        <div class="modal fade" id="modalFoto{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Foto Lapangan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="{{ asset('storage/foto_lapangan/' . $data->foto) }}" alt="{{ $data->foto }}"
-                            class="img-fluid">
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    @endforeach
 @endsection

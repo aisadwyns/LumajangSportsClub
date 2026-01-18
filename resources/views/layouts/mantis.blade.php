@@ -107,6 +107,7 @@
         font_change("Public-Sans");
     </script>
 
+    @include('sweetalert::alert')
 
 
 </body>
