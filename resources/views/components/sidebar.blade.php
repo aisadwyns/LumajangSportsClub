@@ -15,6 +15,7 @@
 
                 <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
                 <x-sidebar.links title='Data Team' icon='ti ti-user' route='lscteam.index' />
+                <x-sidebar.links title='Data Pengguna' icon='ti ti-users' route='users.index' />
                 <x-sidebar.links title='Data Member' icon='ti ti-user' route='member.index' />
                 <x-sidebar.links title='Bagian' icon='ti ti-clipboard-list' route='bagian.index' />
                 <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='lapangan.index' />
