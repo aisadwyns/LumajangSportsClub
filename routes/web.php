@@ -12,6 +12,7 @@ use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
+use App\Models\Role;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -51,7 +52,8 @@ Route::get('/coba_query', function () {
 // });
 #######################################################################################
 Route::resource('member', MemberController::class);
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)->middleware('isSuperadmin');
+Route::post('users.update-role', [UserController::class,'updateRole'])->name('users.update-role');
 Route::resource('lapangan', LapanganController::class);
 Route::resource('lscteam', LscTeamController::class);
 Route::resource('bagian', BagianController::class);

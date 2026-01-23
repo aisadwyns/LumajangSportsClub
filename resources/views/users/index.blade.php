@@ -28,9 +28,9 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $data->name }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td></td>
+                                <td>{{ $data->role?->role_name }}</td>
                                 <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#rolemModal{{ $data->id }}"> Lihat Foto</button></td>
+                                        data-bs-target="#roleModal{{ $data->id }}"> Ganti Role</button></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -44,11 +44,27 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Foto Lapangan</h5>
+                        <h5 class="modal-title" id="">Pilih Role</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        {{ $data->name }}
+                        <p class="my-2">Mengganti role dapat mengubah hak akses pengguna</p>
+                        <form action="{{ route('users.update-role') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $data->id }}">
+                            <div><label for="role_id">Tentukan Role</label>
+                                <select class="form-select" name="role_id" id="role_id"
+                                    aria-label="Default select example">
+                                    <option selected>Pilih Role</option>
+                                    @foreach ($roles as $role)
+                                        <<option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-100 my-3 btn btn-primary"> Ganti</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
