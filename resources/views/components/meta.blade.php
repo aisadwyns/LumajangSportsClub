@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/fontawesome.css">
     <!-- [Material Icons] https://fonts.google.com/icons -->
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/material.css">
-    <!-- [Template CSS Files] -->
+    <!-- template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style.css" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style-preset.css">
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.6/css/dataTables.dataTables.min.css">
