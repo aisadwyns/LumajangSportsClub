@@ -22,6 +22,7 @@
                 <x-sidebar.links title='Bagian' icon='ti ti-clipboard-list' route='bagian.index' />
                 <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='lapangan.index' />
                 <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
+                <x-sidebar.links title='Konten' icon='ti ti-news' route='blog.index' />
 
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span
