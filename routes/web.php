@@ -10,19 +10,19 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\BagianController;
-use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
 use App\Models\Role;
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/lsc', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+Route::get('/', [ClientController::class, 'index'])->name('client');
 
 Route::get('/events', function () {
     return view('event');
@@ -59,5 +59,5 @@ Route::post('users.update-role', [UserController::class,'updateRole'])->name('us
 Route::resource('lapangan', LapanganController::class);
 Route::resource('lscteam', LscTeamController::class);
 Route::resource('bagian', BagianController::class);
-Route::resource('client', ClientController::class);
+
 
