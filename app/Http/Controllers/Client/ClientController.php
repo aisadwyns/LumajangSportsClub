@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Blog;
 
 class ClientController extends Controller
 {
@@ -11,9 +12,17 @@ class ClientController extends Controller
     {
         return view('client.index');
     }
-    public function blog()
+
+    public function publicBlogIndex()
     {
-        return view('client.blog');
+        $blogs = Blog::with('author')
+            ->where('status', 'published')
+            ->latest()
+            ->paginate(9);
+
+        return view('client.blog', compact('blogs'));
     }
+
+
 
 }

@@ -5,13 +5,9 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-content-center">
                 <div class="card-title">
-                    <h4>Daftar Lapangan</h4>
+                    <h4>Daftar Bagian</h4>
                 </div>
-                <div>
-                    <a href="{{ route('lapangan.create') }}" class="btn btn-primary">
-                        Tambah Lapangan
-                    </a>
-                </div>
+
             </div>
             <div class="card-body">
                 <table class="table table-bordered" id="table">

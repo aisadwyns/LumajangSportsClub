@@ -9,12 +9,12 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="{{ route('client') }}" class="active">Home</a></li>
                 <li><a href="about.html">Sewa Lapangan</a></li>
                 <li><a href="departments.html">Gabung Komunitas</a></li>
                 <li><a href="services.html">Event</a></li>
                 <li><a href="doctors.html">LSC Holiday</a></li>
-                <li><a href="{{ route('blog') }}">Blog</a></li>
+                <li><a href="{{ route('blogs.public') }}">Blog</a></li>
                 <li class="dropdown"><a href="#"><span>Dropdown</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>

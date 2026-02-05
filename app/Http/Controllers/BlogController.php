@@ -106,4 +106,7 @@ class BlogController extends Controller
         return redirect()->route('blog.index');
     }
 
+
+
+
 }

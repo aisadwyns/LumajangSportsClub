@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            "cache_verify" => \App\Http\Middleware\CacheVerify::class,
+            'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
             'isSuperadmin' => \App\Http\Middleware\VerifyIsSuperadmin::class,
         ]);
     })
