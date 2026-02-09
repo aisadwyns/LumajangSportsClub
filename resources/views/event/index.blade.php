@@ -8,7 +8,7 @@
                     <h4>Daftar Event</h4>
                 </div>
                 <div>
-                    <a href="{{ route('events.create') }}" class="btn btn-primary">
+                    <a href="{{ route('event.create') }}" class="btn btn-primary">
                         Tambah Event
                     </a>
                 </div>
@@ -60,7 +60,7 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('events.edit', $data->id) }}">
+                                                <a class="dropdown-item" href="{{ route('event.edit', $data->id) }}">
                                                     Edit
                                                 </a>
                                             </li>
@@ -94,7 +94,7 @@
                         Data event akan dihapus permanen.
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('events.destroy', $data->id) }}" method="POST">
+                        <form action="{{ route('event.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

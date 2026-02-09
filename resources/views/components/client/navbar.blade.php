@@ -11,25 +11,29 @@
             <ul>
                 <li><a href="{{ route('client') }}" class="active">Home</a></li>
                 <li><a href="about.html">Sewa Lapangan</a></li>
-                <li><a href="departments.html">Gabung Komunitas</a></li>
-                <li><a href="services.html">Event</a></li>
+                <li><a href="{{ route('komunitas.public') }}"
+                        class="{{ request()->routeIs('komunitas.public') ? 'active' : '' }}">Gabung Komunitas</a></li>
+                <li><a href="{{ route('events.public') }}"
+                        class="{{ request()->routeIs('events.public') ? 'active' : '' }}">Event</a></li>
+
+                <li><a href="{{ route('blogs.public') }}"
+                        class="{{ request()->routeIs('blogs.public') ? 'active' : '' }}">Blog</a></li>
                 <li><a href="doctors.html">LSC Holiday</a></li>
-                <li><a href="{{ route('blogs.public') }}">Blog</a></li>
-                <li class="dropdown"><a href="#"><span>Dropdown</span> <i
+                <li class="dropdown"><a href="#"><span>Lainnya</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                        <li><a href="#">Dropdown 1</a></li>
-                        <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
+                        <li><a href="#">Leaderboard</a></li>
+                        <li class="dropdown"><a href="#"><span>Produk</span> <i
                                     class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
-                                <li><a href="#">Deep Dropdown 1</a></li>
-                                <li><a href="#">Deep Dropdown 2</a></li>
+                                <li><a href="#">Jersey</a></li>
+                                <li><a href="#">Merchandise</a></li>
                                 <li><a href="#">Deep Dropdown 3</a></li>
                                 <li><a href="#">Deep Dropdown 4</a></li>
                                 <li><a href="#">Deep Dropdown 5</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Dropdown 2</a></li>
+                        <li><a href="#">Challange</a></li>
                         <li><a href="#">Dropdown 3</a></li>
                         <li><a href="#">Dropdown 4</a></li>
                     </ul>

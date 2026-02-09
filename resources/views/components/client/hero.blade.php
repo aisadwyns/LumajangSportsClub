@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <div class="trust-badges mb-4" data-aos="fade-right" data-aos-delay="200">
+                    <div class="trust-badges mb-4 invisible" data-aos="fade-right" data-aos-delay="200">
                         <div class="badge-item">
                             <i class="bi bi-shield-check"></i>
                             <span>Accredited</span>
@@ -31,7 +31,7 @@
 
                     <div class="hero-stats mb-4" data-aos="fade-right" data-aos-delay="500">
                         <div class="stat-item">
-                            <h3><span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="2"
+                            <h3><span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="2"
                                     class="purecounter"></span>+</h3>
                             <p>Years Experience</p>
                         </div>
@@ -41,7 +41,7 @@
                             <p>Member</p>
                         </div>
                         <div class="stat-item">
-                            <h3><span data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="2"
+                            <h3><span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="2"
                                     class="purecounter"></span>+</h3>
                             <p>Veneu</p>
                         </div>
@@ -52,7 +52,7 @@
 
                     </div>
 
-                    <div class="emergency-contact" data-aos="fade-right" data-aos-delay="700">
+                    <div class="emergency-contact invisible" data-aos="fade-right" data-aos-delay="700">
                         <div class="emergency-icon">
                             <i class="bi bi-telephone-fill"></i>
                         </div>
@@ -67,7 +67,7 @@
             <div class="col-lg-6">
                 <div class="hero-visual" data-aos="fade-left" data-aos-delay="400">
                     <div class="main-image">
-                        <img src="{{ asset('client/dist') }}/assets/img/health/staff-10.webp"
+                        <img src="{{ asset('client/dist') }}/assets/img/health/sangkur.jpg"
                             alt="Modern Healthcare Facility" class="img-fluid">
                         <div class="floating-card appointment-card">
                             <div class="card-icon">

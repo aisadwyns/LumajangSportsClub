@@ -14,6 +14,9 @@ class Event extends Model
     {
         return $this->belongsTo(JenisKomunitas::class);
     }
+    public function author(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
 
 

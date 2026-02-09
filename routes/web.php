@@ -28,17 +28,18 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [ClientController::class, 'index'])->name('client');
-Route::get('/konten', [ClientController::class, 'blog'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
+Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
+Route::get('/komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 
-Route::get('/events', function () {
-    return view('event');
-});
+// Route::get('/events', function () {
+//     return view('event');
+// });
 
-//optional parameter
-Route::get('/events/detail/{nama?}', function (?string $nama = null) {
-    return "nama event : $nama";
-});
+// //optional parameter
+// Route::get('/events/detail/{nama?}', function (?string $nama = null) {
+//     return "nama event : $nama";
+// });
 
 Route::get('/test', function () {
     // return redirect()->to('/');
@@ -71,7 +72,7 @@ Route::middleware([ 'auth', 'preventBackHistory', 'isSuperadmin'])->group(functi
     Route::resource('lscteam', LscTeamController::class);
     Route::resource('bagian', BagianController::class);
     Route::resource('jenis-komunitas', JenisKomunitasController::class);
-    Route::resource('events', EventController::class);
+    Route::resource('event', EventController::class);
     Route::resource('blog', BlogController::class);
 
 

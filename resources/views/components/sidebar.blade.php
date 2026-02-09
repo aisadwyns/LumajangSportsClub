@@ -22,7 +22,7 @@
                 <x-sidebar.links title='Bagian' icon='ti ti-clipboard-list' route='bagian.index' />
                 <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='lapangan.index' />
                 <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
-                <x-sidebar.links title='Events' icon='ti ti-calendar' route='events.index' />
+                <x-sidebar.links title='Events' icon='ti ti-calendar' route='event.index' />
                 <x-sidebar.links title='Konten' icon='ti ti-news' route='blog.index' />
 
                 <x-sidebar.links title='Jenis Komunitas' icon='ti ti-layout-grid' route='jenis-komunitas.index' />

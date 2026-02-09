@@ -367,8 +367,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/facilities-6.webp" alt="Advanced Tech"
-                                        class="img-fluid" loading="lazy">
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/facilities-6.webp"
+                                        alt="Advanced Tech" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
                                     <h5>Advanced Technology</h5>
@@ -389,7 +389,7 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Find A Doctor</h2>
+                <h2>Temukan Partner Olahraga</h2>
                 <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
             </div><!-- End Section Title -->
 
@@ -399,15 +399,14 @@
                     <div class="col-lg-8 text-center">
                         <div class="search-section">
                             <h3 class="search-title">Find Your Perfect Healthcare Provider</h3>
-                            <p class="search-subtitle">Search through our comprehensive directory of experienced
-                                medical professionals
+                            <p class="search-subtitle">Cari komunitas pilihanmu!
                             </p>
                             <form class="search-form" action="#!" method="#">
                                 <div class="search-input-group">
                                     <div class="input-wrapper">
                                         <i class="bi bi-person"></i>
                                         <input type="text" class="form-control" name="doctor_name"
-                                            placeholder="Enter doctor name">
+                                            placeholder="Masukkan nama komunitas">
                                     </div>
                                     <div class="select-wrapper">
                                         <i class="bi bi-heart-pulse"></i>
@@ -423,7 +422,7 @@
                                     </div>
                                     <button type="submit" class="search-btn">
                                         <i class="bi bi-search"></i>
-                                        Find Doctors
+                                        Temukan Komunitas
                                     </button>
                                 </div>
                             </form>
@@ -468,7 +467,8 @@
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="200">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-6.webp" alt="Dr. Marcus Johnson" class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-6.webp"
+                                    alt="Dr. Marcus Johnson" class="img-fluid">
                                 <div class="status-indicator busy"></div>
                             </div>
                             <div class="doctor-details">

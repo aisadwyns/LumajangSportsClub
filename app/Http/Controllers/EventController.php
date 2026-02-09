@@ -53,7 +53,7 @@ class EventController extends Controller
         Event::create($data);
 
         Alert::success('sukses', 'data event berhasil ditambahkan');
-        return redirect()->route('events.index');
+        return redirect()->route('event.index');
     }
 
     public function edit(string $id)
@@ -98,7 +98,7 @@ class EventController extends Controller
         $event->update($data);
 
         Alert::success('sukses', 'data event berhasil diupdate');
-        return redirect()->route('events.index');
+        return redirect()->route('event.index');
     }
 
     public function destroy(string $id)
@@ -112,6 +112,6 @@ class EventController extends Controller
         $event->delete();
 
         Alert::success('sukses', 'data event berhasil dihapus');
-        return redirect()->route('events.index');
+        return redirect()->route('event.index');
     }
 }
