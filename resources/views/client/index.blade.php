@@ -24,40 +24,40 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
                         <div class="about-content">
-                            <h2 class="section-heading">Compassionate Care, Advanced Medicine</h2>
-                            <p class="lead-text">For over two decades, we've been dedicated to providing exceptional
-                                healthcare that
-                                combines cutting-edge medical technology with the personal touch our patients deserve.
+                            <h2 class="section-heading">Lumajang Sports Club — Temukan Partner &amp; Booking Lapangan
+                            </h2>
+                            <p class="lead-text">
+                                Lumajang Sports Club (LSC) adalah platform buat kamu yang mau cari partner olahraga,
+                                gabung komunitas, dan booking lapangan dalam satu tempat.
                             </p>
 
-                            <p>Our multidisciplinary team of specialists works collaboratively to ensure every patient
-                                receives
-                                comprehensive care tailored to their unique needs. From preventive services to complex
-                                procedures, we
-                                maintain the highest standards of medical excellence while fostering an environment of
-                                trust and
-                                healing.</p>
+                            <p>
+                                Di LSC, kamu bisa ketemu teman main yang selevel, ikut open match, dan atur jadwal main
+                                lebih gampang. Mulai dari badminton, futsal, basket, voli, sampai lari bareng—semua jadi
+                                lebih seru karena kamu nggak main sendirian. Aktivitas kamu juga tercatat untuk sistem
+                                poin &amp; leaderboard.
+                            </p>
 
                             <div class="stats-grid">
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
                                         data-purecounter-end="15000" data-purecounter-duration="1"></div>
-                                    <div class="stat-label">Patients Served</div>
+                                    <div class="stat-label">Members Bergabung</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
                                         data-purecounter-end="25" data-purecounter-duration="1"></div>
-                                    <div class="stat-label">Years of Excellence</div>
+                                    <div class="stat-label">Komunitas Aktif</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
                                         data-purecounter-end="50" data-purecounter-duration="1"></div>
-                                    <div class="stat-label">Medical Specialists</div>
+                                    <div class="stat-label">Venue &amp; Lapangan Partner</div>
                                 </div>
                             </div>
 
                             <div class="cta-section">
-                                <a href="about.html" class="btn-primary">Learn More About Us</a>
+                                <a href="about-lsc.html" class="btn-primary">Kenal Lumajang Sports Club</a>
                             </div>
                         </div>
                     </div>
@@ -65,24 +65,24 @@
                     <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                         <div class="about-visual">
                             <div class="main-image">
-                                <img src="assets/img/health/facilities-9.webp" alt="Modern medical facility"
+                                <img src="assets/img/health/facilities-9.webp" alt="Lumajang Sports Club"
                                     class="img-fluid">
                             </div>
                             <div class="floating-card">
                                 <div class="card-content">
                                     <div class="icon">
-                                        <i class="bi bi-heart-pulse"></i>
+                                        <i class="bi bi-people"></i>
                                     </div>
                                     <div class="card-text">
-                                        <h4>24/7 Emergency Care</h4>
-                                        <p>Always here when you need us most</p>
+                                        <h4>Cari Partner Cepat</h4>
+                                        <p>Match sesuai jadwal &amp; level permainan</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="experience-badge">
                                 <div class="badge-content">
                                     <span class="years">25+</span>
-                                    <span class="text">Years of Trusted Care</span>
+                                    <span class="text">Komunitas &amp; Venue Terhubung</span>
                                 </div>
                             </div>
                         </div>
@@ -98,8 +98,8 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Featured Departments</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <h2>Fitur Unggulan</h2>
+                <p>Temukan partner, gabung komunitas, booking venue, dan raih peringkat di leaderboard.</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -110,25 +110,27 @@
                         <div class="specialty-card">
                             <div class="specialty-content">
                                 <div class="specialty-meta">
-                                    <span class="specialty-label">Specialized Care</span>
+                                    <span class="specialty-label">Matchmaking</span>
                                 </div>
-                                <h3>Cardiovascular Medicine</h3>
-                                <p>Advanced diagnostic imaging and interventional procedures for comprehensive heart
-                                    health management
-                                    with personalized treatment protocols.</p>
+                                <h3>Cari Partner Olahraga</h3>
+                                <p>
+                                    Temukan partner berdasarkan cabang olahraga, lokasi, jadwal kosong, dan level
+                                    permainan.
+                                    Cocok untuk latihan rutin, sparring, atau open match.
+                                </p>
                                 <div class="specialty-features">
-                                    <span><i class="bi bi-check-circle-fill"></i>24/7 Emergency Cardiac Care</span>
-                                    <span><i class="bi bi-check-circle-fill"></i>Minimally Invasive Procedures</span>
+                                    <span><i class="bi bi-check-circle-fill"></i>Match sesuai jadwal</span>
+                                    <span><i class="bi bi-check-circle-fill"></i>Filter level &amp; lokasi</span>
                                 </div>
-                                <a href="department-details.html" class="specialty-link">
-                                    Explore Cardiology <i class="bi bi-arrow-right"></i>
+                                <a href="partners.html" class="specialty-link">
+                                    Mulai Cari Partner <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
                             <div class="specialty-visual">
-                                <img src="assets/img/health/cardiology-1.webp" alt="Cardiovascular Medicine"
+                                <img src="assets/img/health/cardiology-1.webp" alt="Cari Partner Olahraga"
                                     class="img-fluid">
                                 <div class="visual-overlay">
-                                    <i class="bi bi-heart-pulse"></i>
+                                    <i class="bi bi-people"></i>
                                 </div>
                             </div>
                         </div>
@@ -138,25 +140,25 @@
                         <div class="specialty-card">
                             <div class="specialty-content">
                                 <div class="specialty-meta">
-                                    <span class="specialty-label">Expert Care</span>
+                                    <span class="specialty-label">Booking</span>
                                 </div>
-                                <h3>Neurological Sciences</h3>
-                                <p>Cutting-edge neuroimaging and neurosurgical expertise for complex brain and spinal
-                                    cord conditions
-                                    with innovative treatment approaches.</p>
+                                <h3>Booking Lapangan &amp; Venue</h3>
+                                <p>
+                                    Cek ketersediaan, booking instan, dan kelola jadwal main bareng komunitas.
+                                    Semua slot rapi, transparan, dan mudah dipantau.
+                                </p>
                                 <div class="specialty-features">
-                                    <span><i class="bi bi-check-circle-fill"></i>Advanced Brain Imaging</span>
-                                    <span><i class="bi bi-check-circle-fill"></i>Robotic Surgery</span>
+                                    <span><i class="bi bi-check-circle-fill"></i>Ketersediaan real-time</span>
+                                    <span><i class="bi bi-check-circle-fill"></i>Booking &amp; pengingat otomatis</span>
                                 </div>
-                                <a href="department-details.html" class="specialty-link">
-                                    Explore Neurology <i class="bi bi-arrow-right"></i>
+                                <a href="venues.html" class="specialty-link">
+                                    Lihat Venue <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
                             <div class="specialty-visual">
-                                <img src="assets/img/health/neurology-4.webp" alt="Neurological Sciences"
-                                    class="img-fluid">
+                                <img src="assets/img/health/neurology-4.webp" alt="Booking Lapangan" class="img-fluid">
                                 <div class="visual-overlay">
-                                    <i class="bi bi-cpu"></i>
+                                    <i class="bi bi-calendar-check"></i>
                                 </div>
                             </div>
                         </div>
@@ -165,54 +167,57 @@
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="department-highlight">
                             <div class="highlight-icon">
-                                <i class="bi bi-shield-plus"></i>
+                                <i class="bi bi-trophy"></i>
                             </div>
-                            <h4>Orthopedic Surgery</h4>
-                            <p>Comprehensive musculoskeletal care utilizing advanced arthroscopic techniques and joint
-                                replacement
-                                procedures.</p>
+                            <h4>Event &amp; Open Match</h4>
+                            <p>
+                                Ikut game yang lagi cari pemain, bikin jadwal bareng, atau gabung turnamen mini
+                                komunitas.
+                            </p>
                             <ul class="highlight-list">
-                                <li>Sports Medicine</li>
-                                <li>Joint Replacement</li>
-                                <li>Spine Surgery</li>
+                                <li>Open Match</li>
+                                <li>Friendly Match</li>
+                                <li>Turnamen Mini</li>
                             </ul>
-                            <a href="department-details.html" class="highlight-cta">Learn More</a>
+                            <a href="events.html" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="department-highlight">
                             <div class="highlight-icon">
-                                <i class="bi bi-people"></i>
+                                <i class="bi bi-chat-dots"></i>
                             </div>
-                            <h4>Pediatric Care</h4>
-                            <p>Child-centered healthcare services from newborn to adolescence with family-focused
-                                treatment
-                                approaches.</p>
+                            <h4>Komunitas &amp; Grup</h4>
+                            <p>
+                                Gabung grup berdasarkan cabang olahraga dan area. Koordinasi makin gampang, vibes makin
+                                dapet.
+                            </p>
                             <ul class="highlight-list">
-                                <li>Neonatal Intensive Care</li>
-                                <li>Developmental Pediatrics</li>
-                                <li>Pediatric Surgery</li>
+                                <li>Grup Cabang Olahraga</li>
+                                <li>Chat Koordinasi</li>
+                                <li>Rekrut Member</li>
                             </ul>
-                            <a href="department-details.html" class="highlight-cta">Learn More</a>
+                            <a href="communities.html" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="department-highlight">
                             <div class="highlight-icon">
-                                <i class="bi bi-activity"></i>
+                                <i class="bi bi-bar-chart-line"></i>
                             </div>
-                            <h4>Cancer Treatment</h4>
-                            <p>Multidisciplinary oncology program offering personalized cancer care with latest
-                                therapeutic
-                                innovations.</p>
+                            <h4>Leaderboard</h4>
+                            <p>
+                                Naik peringkat dari aktivitas olahraga kamu. Kumpulin poin, badge, dan jadi top player
+                                komunitas.
+                            </p>
                             <ul class="highlight-list">
-                                <li>Precision Medicine</li>
-                                <li>Immunotherapy</li>
-                                <li>Radiation Oncology</li>
+                                <li>Peringkat Mingguan</li>
+                                <li>Poin Aktivitas</li>
+                                <li>Badge &amp; Reward</li>
                             </ul>
-                            <a href="department-details.html" class="highlight-cta">Learn More</a>
+                            <a href="leaderboard.html" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
@@ -222,16 +227,16 @@
                     <div class="row align-items-center">
                         <div class="col-lg-8">
                             <div class="emergency-content">
-                                <h3>Emergency Services Available 24/7</h3>
-                                <p>Our emergency department is equipped with state-of-the-art technology and staffed by
-                                    board-certified
-                                    emergency physicians ready to provide immediate care.</p>
+                                <h3>Ayo Main Minggu Ini!</h3>
+                                <p>
+                                    Buat jadwal, ajak partner, dan booking lapangan langsung dari Lumajang Sports Club.
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-4 text-lg-end">
-                            <a href="tel:+15551234567" class="emergency-btn">
-                                <i class="bi bi-telephone-fill"></i>
-                                Call Emergency: (555) 123-4567
+                            <a href="booking.html" class="emergency-btn">
+                                <i class="bi bi-calendar-check-fill"></i>
+                                Buat Jadwal Sekarang
                             </a>
                         </div>
                     </div>
@@ -246,8 +251,8 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Featured Services</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <h2>Cara Kerja Lumajang Sports Club</h2>
+                <p>Dari cari partner sampai main bareng—semua lebih simpel dalam satu platform.</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -258,20 +263,21 @@
                         <div class="featured-service-main">
                             <div class="service-image-wrapper">
                                 <img src="{{ asset('client/dist') }}/assets/img/health/consultation-4.webp"
-                                    alt="Premier Healthcare Services" class="img-fluid" loading="lazy">
+                                    alt="Lumajang Sports Club" class="img-fluid" loading="lazy">
                                 <div class="service-overlay">
                                     <div class="service-badge">
-                                        <i class="bi bi-heart-pulse"></i>
-                                        <span>Emergency Care</span>
+                                        <i class="bi bi-people"></i>
+                                        <span>Engagement Hub</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="service-details">
-                                <h2>Comprehensive Healthcare Excellence</h2>
-                                <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum
-                                    primis in faucibus
-                                    orci luctus et ultrices posuere cubilia curae donec velit neque.</p>
-                                <a href="#!" class="main-cta">Explore Our Services</a>
+                                <h2>Satu Platform untuk Semua Aktivitas Olahraga</h2>
+                                <p>
+                                    Jelajahi komunitas, temukan partner selevel, lalu booking venue tanpa ribet.
+                                    Aktivitasmu tercatat dan bisa masuk ke sistem poin &amp; leaderboard.
+                                </p>
+                                <a href="features.html" class="main-cta">Explore Fitur LSC</a>
                             </div>
                         </div>
                     </div>
@@ -281,39 +287,43 @@
 
                             <div class="service-item" data-aos="fade-up" data-aos-delay="400">
                                 <div class="service-icon-wrapper">
-                                    <i class="bi bi-capsule"></i>
+                                    <i class="bi bi-people-fill"></i>
                                 </div>
                                 <div class="service-info">
-                                    <h4>Dermatology Clinic</h4>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                                        turpis egestas.</p>
-                                    <a href="#!" class="service-link">Learn More</a>
+                                    <h4>Temukan Komunitas</h4>
+                                    <p>
+                                        Pilih cabang olahraga &amp; area, lalu join komunitas terdekat untuk mulai
+                                        aktif.
+                                    </p>
+                                    <a href="communities.html" class="service-link">Learn More</a>
                                 </div>
                             </div>
 
                             <div class="service-item" data-aos="fade-up" data-aos-delay="500">
                                 <div class="service-icon-wrapper">
-                                    <i class="bi bi-bandaid"></i>
+                                    <i class="bi bi-person-plus"></i>
                                 </div>
                                 <div class="service-info">
-                                    <h4>Surgery Center</h4>
-                                    <p>Donec rutrum congue leo eget malesuada curabitur arcu erat accumsan id imperdiet
-                                        et porttitor at
-                                        sem.</p>
-                                    <a href="#!" class="service-link">Learn More</a>
+                                    <h4>Cari Partner</h4>
+                                    <p>
+                                        Match berdasarkan jadwal, level, dan preferensi main biar nggak susah cari
+                                        teman.
+                                    </p>
+                                    <a href="partners.html" class="service-link">Learn More</a>
                                 </div>
                             </div>
 
                             <div class="service-item" data-aos="fade-up" data-aos-delay="600">
                                 <div class="service-icon-wrapper">
-                                    <i class="bi bi-activity"></i>
+                                    <i class="bi bi-calendar-check"></i>
                                 </div>
                                 <div class="service-info">
-                                    <h4>Diagnostics Lab</h4>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui cras
-                                        ultricies ligula sed
-                                        magna.</p>
-                                    <a href="#!" class="service-link">Learn More</a>
+                                    <h4>Booking Venue</h4>
+                                    <p>
+                                        Lihat slot kosong dan booking lapangan langsung, lengkap dengan pengingat
+                                        jadwal.
+                                    </p>
+                                    <a href="booking.html" class="service-link">Learn More</a>
                                 </div>
                             </div>
 
@@ -328,12 +338,12 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/maternal-2.webp" alt="Maternal Care"
-                                        class="img-fluid" loading="lazy">
+                                    <img src="assets/img/health/maternal-2.webp" alt="Komunitas" class="img-fluid"
+                                        loading="lazy">
                                 </div>
                                 <div class="specialty-content">
-                                    <h5>Maternal Care</h5>
-                                    <span>Expert pregnancy &amp; delivery support</span>
+                                    <h5>Komunitas</h5>
+                                    <span>Join grup &amp; circle main</span>
                                 </div>
                             </div>
                         </div>
@@ -341,12 +351,12 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/vaccination-3.webp" alt="Vaccination"
+                                    <img src="assets/img/health/vaccination-3.webp" alt="Open Match"
                                         class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
-                                    <h5>Vaccination</h5>
-                                    <span>Complete immunization programs</span>
+                                    <h5>Open Match</h5>
+                                    <span>Gabung game yang butuh pemain</span>
                                 </div>
                             </div>
                         </div>
@@ -354,12 +364,12 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/emergency-1.webp" alt="Emergency Care"
+                                    <img src="assets/img/health/emergency-1.webp" alt="Booking Lapangan"
                                         class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
-                                    <h5>Emergency Care</h5>
-                                    <span>24/7 critical care services</span>
+                                    <h5>Booking Lapangan</h5>
+                                    <span>Jadwal main makin rapi</span>
                                 </div>
                             </div>
                         </div>
@@ -368,11 +378,11 @@
                             <div class="specialty-card">
                                 <div class="specialty-image">
                                     <img src="{{ asset('client/dist') }}/assets/img/health/facilities-6.webp"
-                                        alt="Advanced Tech" class="img-fluid" loading="lazy">
+                                        alt="Leaderboard" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
-                                    <h5>Advanced Technology</h5>
-                                    <span>State-of-the-art medical equipment</span>
+                                    <h5>Leaderboard</h5>
+                                    <span>Naik peringkat &amp; kumpulin badge</span>
                                 </div>
                             </div>
                         </div>
@@ -390,7 +400,7 @@
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Temukan Partner Olahraga</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <p>Cari komunitas, open match, atau partner sesuai jadwal dan level permainanmu.</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -398,31 +408,33 @@
                 <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-8 text-center">
                         <div class="search-section">
-                            <h3 class="search-title">Find Your Perfect Healthcare Provider</h3>
-                            <p class="search-subtitle">Cari komunitas pilihanmu!
+                            <h3 class="search-title">Cari Komunitas / Partner yang Pas</h3>
+                            <p class="search-subtitle">Masukkan nama komunitas / partner, lalu pilih cabang olahraga.
                             </p>
                             <form class="search-form" action="#!" method="#">
                                 <div class="search-input-group">
                                     <div class="input-wrapper">
                                         <i class="bi bi-person"></i>
                                         <input type="text" class="form-control" name="doctor_name"
-                                            placeholder="Masukkan nama komunitas">
+                                            placeholder="Masukkan nama komunitas / partner">
                                     </div>
                                     <div class="select-wrapper">
-                                        <i class="bi bi-heart-pulse"></i>
+                                        <i class="bi bi-activity"></i>
                                         <select class="form-select" name="specialty">
-                                            <option value="">All Specialties</option>
-                                            <option value="cardiology">Cardiology</option>
-                                            <option value="neurology">Neurology</option>
-                                            <option value="orthopedics">Orthopedics</option>
-                                            <option value="pediatrics">Pediatrics</option>
-                                            <option value="dermatology">Dermatology</option>
-                                            <option value="oncology">Oncology</option>
+                                            <option value="">Semua Olahraga</option>
+                                            <option value="badminton">Badminton</option>
+                                            <option value="futsal">Futsal</option>
+                                            <option value="basket">Basket</option>
+                                            <option value="voli">Voli</option>
+                                            <option value="lari">Lari</option>
+                                            <option value="tenis-meja">Tenis Meja</option>
+                                            <option value="sepeda">Sepeda</option>
+                                            <option value="gym">Gym</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="search-btn">
                                         <i class="bi bi-search"></i>
-                                        Temukan Komunitas
+                                        Temukan Partner
                                     </button>
                                 </div>
                             </form>
@@ -431,19 +443,21 @@
                 </div>
 
                 <div class="doctors-grid" data-aos="fade-up" data-aos-delay="300">
+
+                    <!-- Kamu bisa ganti konten card-card ini jadi "Komunitas" atau "Partner Profile" -->
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="100">
                         <div class="profile-header">
                             <div class="doctor-avatar">
                                 <img src="{{ asset('client/dist') }}/assets/img/health/staff-2.webp"
-                                    alt="Dr. Amanda Foster" class="img-fluid">
+                                    alt="Komunitas Badminton Lumajang" class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. Amanda Foster</h4>
-                                <span class="specialty-tag">Cardiology Specialist</span>
+                                <h4>Komunitas Badminton Lumajang</h4>
+                                <span class="specialty-tag">Badminton • Intermediate</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>14 years experience</span>
+                                    <span>Aktif 4x/minggu</span>
                                 </div>
                             </div>
                         </div>
@@ -456,27 +470,27 @@
                                 <i class="bi bi-star-fill"></i>
                             </div>
                             <span class="rating-score">4.9</span>
-                            <span class="review-count">(127 reviews)</span>
+                            <span class="review-count">(127 anggota)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Book Now</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Gabung / Jadwalkan</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="200">
                         <div class="profile-header">
                             <div class="doctor-avatar">
                                 <img src="{{ asset('client/dist') }}/assets/img/health/staff-6.webp"
-                                    alt="Dr. Marcus Johnson" class="img-fluid">
+                                    alt="Open Match Futsal Weekend" class="img-fluid">
                                 <div class="status-indicator busy"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. Marcus Johnson</h4>
-                                <span class="specialty-tag">Neurology Expert</span>
+                                <h4>Open Match Futsal Weekend</h4>
+                                <span class="specialty-tag">Futsal • Beginner–Intermediate</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>16 years experience</span>
+                                    <span>Butuh 2 pemain</span>
                                 </div>
                             </div>
                         </div>
@@ -489,27 +503,27 @@
                                 <i class="bi bi-star-half"></i>
                             </div>
                             <span class="rating-score">4.8</span>
-                            <span class="review-count">(89 reviews)</span>
+                            <span class="review-count">(89 peserta)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Schedule</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Ikut Match</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="300">
                         <div class="profile-header">
                             <div class="doctor-avatar">
                                 <img src="{{ asset('client/dist') }}/assets/img/health/staff-4.webp"
-                                    alt="Dr. Rachel Williams" class="img-fluid">
+                                    alt="Komunitas Lari Pagi Lumajang" class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. Rachel Williams</h4>
-                                <span class="specialty-tag">Pediatrics Care</span>
+                                <h4>Komunitas Lari Pagi Lumajang</h4>
+                                <span class="specialty-tag">Lari • All Level</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>11 years experience</span>
+                                    <span>Meetup tiap Minggu</span>
                                 </div>
                             </div>
                         </div>
@@ -522,26 +536,27 @@
                                 <i class="bi bi-star-fill"></i>
                             </div>
                             <span class="rating-score">5.0</span>
-                            <span class="review-count">(203 reviews)</span>
+                            <span class="review-count">(203 anggota)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Book Now</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Gabung</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="400">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-8.webp" alt="Dr. David Chen" class="img-fluid">
+                                <img src="assets/img/health/staff-8.webp" alt="Sparring Basket Malam"
+                                    class="img-fluid">
                                 <div class="status-indicator offline"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. David Chen</h4>
-                                <span class="specialty-tag">Orthopedic Surgery</span>
+                                <h4>Sparring Basket Malam</h4>
+                                <span class="specialty-tag">Basket • Intermediate</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>22 years experience</span>
+                                    <span>Jadwal belum ditentukan</span>
                                 </div>
                             </div>
                         </div>
@@ -554,27 +569,27 @@
                                 <i class="bi bi-star-half"></i>
                             </div>
                             <span class="rating-score">4.7</span>
-                            <span class="review-count">(156 reviews)</span>
+                            <span class="review-count">(156 peserta)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Schedule</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Buat Jadwal</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="500">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-11.webp" alt="Dr. Victoria Torres"
+                                <img src="assets/img/health/staff-11.webp" alt="Komunitas Voli Lumajang"
                                     class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. Victoria Torres</h4>
-                                <span class="specialty-tag">Dermatology Care</span>
+                                <h4>Komunitas Voli Lumajang</h4>
+                                <span class="specialty-tag">Voli • Beginner</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>9 years experience</span>
+                                    <span>Latihan 2x/minggu</span>
                                 </div>
                             </div>
                         </div>
@@ -587,26 +602,27 @@
                                 <i class="bi bi-star"></i>
                             </div>
                             <span class="rating-score">4.5</span>
-                            <span class="review-count">(74 reviews)</span>
+                            <span class="review-count">(74 anggota)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Book Now</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Gabung</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="600">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-14.webp" alt="Dr. Benjamin Lee" class="img-fluid">
+                                <img src="assets/img/health/staff-14.webp" alt="Venue Badminton Indoor"
+                                    class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
-                                <h4>Dr. Benjamin Lee</h4>
-                                <span class="specialty-tag">Oncology Treatment</span>
+                                <h4>Venue Badminton Indoor</h4>
+                                <span class="specialty-tag">Venue • Booking Available</span>
                                 <div class="experience-info">
                                     <i class="bi bi-award"></i>
-                                    <span>19 years experience</span>
+                                    <span>Slot tersedia hari ini</span>
                                 </div>
                             </div>
                         </div>
@@ -619,19 +635,19 @@
                                 <i class="bi bi-star-fill"></i>
                             </div>
                             <span class="rating-score">4.9</span>
-                            <span class="review-count">(194 reviews)</span>
+                            <span class="review-count">(194 booking)</span>
                         </div>
                         <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">View Details</a>
-                            <a href="#!" class="btn-primary">Schedule</a>
+                            <a href="#!" class="btn-secondary">Lihat Detail</a>
+                            <a href="#!" class="btn-primary">Booking</a>
                         </div>
-                    </div><!-- End Doctor Profile -->
+                    </div>
 
                 </div>
 
                 <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
-                    <a href="doctors.html" class="btn-view-all">
-                        View All Doctors
+                    <a href="communities.html" class="btn-view-all">
+                        Lihat Semua Komunitas
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
@@ -650,18 +666,19 @@
 
                         <div class="col-lg-6">
                             <div class="content-wrapper" data-aos="fade-up" data-aos-delay="200">
-                                <h1>Excellence in Medical Care, Every Day</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                                    incididunt ut labore
-                                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                <h1>Olahraga Jadi Lebih Seru Kalau Ada Partner</h1>
+                                <p>
+                                    Atur jadwal main, cari partner selevel, dan booking lapangan tanpa ribet.
+                                    Bangun aktivitas rutin bareng komunitas di Lumajang Sports Club.
+                                </p>
 
                                 <div class="cta-wrapper">
-                                    <a href="appointment.html" class="primary-cta">
-                                        <span>Schedule Consultation</span>
+                                    <a href="partners.html" class="primary-cta">
+                                        <span>Mulai Cari Partner</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
-                                    <a href="services.html" class="secondary-cta">
-                                        <span>Explore Services</span>
+                                    <a href="booking.html" class="secondary-cta">
+                                        <span>Booking Lapangan</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
                                 </div>
@@ -670,7 +687,7 @@
 
                         <div class="col-lg-6">
                             <div class="image-container" data-aos="fade-left" data-aos-delay="300">
-                                <img src="assets/img/health/facilities-9.webp" alt="Medical Excellence"
+                                <img src="assets/img/health/facilities-9.webp" alt="Lumajang Sports Club"
                                     class="img-fluid">
                             </div>
                         </div>
@@ -685,36 +702,30 @@
                         <div class="col-lg-4">
                             <div class="feature-block" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-icon">
-                                    <i class="bi bi-shield-check"></i>
+                                    <i class="bi bi-funnel"></i>
                                 </div>
-                                <h3>Advanced Technology</h3>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit anim id est
-                                    laborum.</p>
+                                <h3>Match Sesuai Level</h3>
+                                <p>Filter berdasarkan level, lokasi, dan jadwal supaya ketemu partner yang pas.</p>
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="feature-block" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-icon">
-                                    <i class="bi bi-clock"></i>
+                                    <i class="bi bi-calendar2-check"></i>
                                 </div>
-                                <h3>24/7 Availability</h3>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                    fugiat nulla pariatur
-                                    excepteur.</p>
+                                <h3>Booking Cepat</h3>
+                                <p>Cek slot kosong, booking dalam hitungan detik, dan dapat pengingat otomatis.</p>
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="feature-block" data-aos="fade-up" data-aos-delay="400">
                                 <div class="feature-icon">
-                                    <i class="bi bi-people"></i>
+                                    <i class="bi bi-trophy"></i>
                                 </div>
-                                <h3>Expert Team</h3>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                    laudantium
-                                    totam rem.</p>
+                                <h3>Leaderboard &amp; Badge</h3>
+                                <p>Kumpulin poin dari aktivitas dan naik peringkat jadi top player komunitas.</p>
                             </div>
                         </div>
 
@@ -727,10 +738,10 @@
 
                         <div class="col-lg-8">
                             <div class="contact-content" data-aos="fade-up" data-aos-delay="200">
-                                <h2>Need Immediate Medical Assistance?</h2>
-                                <p>Our emergency response team is available around the clock to provide immediate
-                                    medical support when
-                                    you need it most.</p>
+                                <h2>Punya Venue atau Komunitas?</h2>
+                                <p>Daftarkan venue kamu atau buat komunitas resmi di Lumajang Sports Club untuk
+                                    menjangkau lebih
+                                    banyak pemain.</p>
                             </div>
                         </div>
 
@@ -738,9 +749,9 @@
                             <div class="contact-actions" data-aos="fade-up" data-aos-delay="300">
                                 <a href="tel:5551234567" class="emergency-call">
                                     <i class="bi bi-telephone"></i>
-                                    <span>(555) 123-4567</span>
+                                    <span>Hubungi Admin</span>
                                 </a>
-                                <a href="contact.html" class="contact-link">Find Location</a>
+                                <a href="partner-with-us.html" class="contact-link">Daftarkan Venue</a>
                             </div>
                         </div>
 

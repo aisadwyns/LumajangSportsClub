@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jenis_komunitas_id')->constrained('jenis_komunitas')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('nama_komunitas');
+            $table->string('slug')->unique();
             $table->text('deskripsi')->nullable();
             $table->string('logo')->nullable();
             $table->string('lokasi')->nullable();

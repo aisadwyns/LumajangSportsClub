@@ -3,19 +3,13 @@
 @section('content')
     <main class="main">
 
-        <!-- Page Title -->
         <div class="page-title">
             <div class="heading">
                 <div class="container">
                     <div class="row d-flex justify-content-center text-center">
-                        <div class="col-lg-6">
-                            <h1 class="heading-title">Doctors</h1>
-                            <p class="mb-0">
-                                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                                ipsum dolorem.
-                            </p>
+                        <div class="col-lg-8">
+                            <h1 class="heading-title">Komunitas</h1>
+                            <p class="mb-0">Pilih komunitas berdasarkan jenis, waktu, lokasi, dan harga per sesi.</p>
                         </div>
                     </div>
                 </div>
@@ -23,286 +17,63 @@
             <nav class="breadcrumbs">
                 <div class="container">
                     <ol>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="current">Doctors</li>
+                        <li><a href="{{ route('client') }}">Home</a></li>
+                        <li class="current">Komunitas</li>
                     </ol>
                 </div>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
-        <!-- Doctors Section -->
         <section id="doctors" class="doctors section">
-
-            <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row gy-4">
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-1.webp" alt="Dr. Marcus Johnson" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Marcus Johnson</h4>
-                                <span class="specialty">Cardiologist</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                                    ut labore
-                                    et dolore magna aliqua.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>15+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Cardiology Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
+                    @foreach ($komunitas as $i => $data)
+                        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ 100 + ($i % 4) * 100 }}">
+                            <div class="doctor-card text-center">
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-2.webp" alt="Dr. Sarah Williams" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
+                                <div class="doctor-image d-flex justify-content-center">
+                                    <img src="{{ $data->logo ? asset('storage/logo_komunitas/' . $data->logo) : asset('assets/img/health/staff-1.webp') }}"
+                                        alt="{{ $data->nama_komunitas }}" class="img-fluid rounded-circle"
+                                        style="width: 140px; height: 140px; object-fit: cover;">
                                 </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Sarah Williams</h4>
-                                <span class="specialty">Neurologist</span>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                    consequat.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>12+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Neurology Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-3.webp" alt="Dr. Michael Chen" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Michael Chen</h4>
-                                <span class="specialty">Orthopedic Surgeon</span>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                    nulla
-                                    pariatur.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>18+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Orthopedics Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
+                                <div class="doctor-content">
+                                    <h4 class="mt-3">{{ $data->nama_komunitas }}</h4>
+                                    <span class="specialty d-block mb-3">
+                                        {{ $data->jenis?->nama ?? ($data->jenis?->nama_jenis ?? '-') }}
+                                    </span>
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-4.webp" alt="Dr. Emily Rodriguez" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Emily Rodriguez</h4>
-                                <span class="specialty">Pediatrician</span>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                                    anim id est
-                                    laborum.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>10+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Pediatrics Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
+                                    <div class="doctor-meta d-flex flex-column gap-2 align-items-center">
+                                        <div class="experience d-flex align-items-center gap-2">
+                                            <i class="bi bi-clock"></i>
+                                            <span>{{ $data->waktu ? substr($data->waktu, 0, 5) : '-' }}</span>
+                                        </div>
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-5.webp" alt="Dr. David Thompson" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. David Thompson</h4>
-                                <span class="specialty">Dermatologist</span>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                    laudantium.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>14+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Dermatology Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
+                                        <div class="department d-flex align-items-center gap-2">
+                                            <i class="bi bi-geo-alt"></i>
+                                            <span>{{ $data->lokasi ?? '-' }}</span>
+                                        </div>
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-6.webp" alt="Dr. Lisa Anderson" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
+                                        <div class="department d-flex align-items-center gap-2">
+                                            <i class="bi bi-cash-coin"></i>
+                                            <span>Rp{{ number_format($data->harga_per_sesi ?? 0, 0, ',', '.') }}/sesi</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Lisa Anderson</h4>
-                                <span class="specialty">Oncologist</span>
-                                <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
-                                    vitae dicta
-                                    sunt.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>16+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Oncology Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-7.webp" alt="Dr. Robert Martinez" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
+                                    <a href="{{ $data->link_wa ?: '#!' }}" class="btn-appointment mt-4"
+                                        {{ $data->link_wa ? 'target=_blank' : '' }}>
+                                        {{ $data->link_wa ? 'Hubungi WhatsApp' : 'Lihat Detail' }}
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Robert Martinez</h4>
-                                <span class="specialty">Emergency Medicine</span>
-                                <p>Explicabo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>11+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Emergency Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
-                            </div>
-                        </div>
-                    </div><!-- End Doctor Card -->
 
-                    <div class="col-lg-3 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                <img src="assets/img/health/staff-8.webp" alt="Dr. Jennifer Lee" class="img-fluid">
-                                <div class="doctor-overlay">
-                                    <div class="social-links">
-                                        <a href="#!"><i class="bi bi-linkedin"></i></a>
-                                        <a href="#!"><i class="bi bi-envelope"></i></a>
-                                        <a href="#!"><i class="bi bi-phone"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="doctor-content">
-                                <h4>Dr. Jennifer Lee</h4>
-                                <span class="specialty">Radiologist</span>
-                                <p>Magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est qui
-                                    dolorem.</p>
-                                <div class="doctor-meta">
-                                    <div class="experience">
-                                        <i class="bi bi-award"></i>
-                                        <span>13+ Years Experience</span>
-                                    </div>
-                                    <div class="department">
-                                        <i class="bi bi-building"></i>
-                                        <span>Radiology Dept.</span>
-                                    </div>
-                                </div>
-                                <a href="appointment.html" class="btn-appointment">Book Appointment</a>
                             </div>
                         </div>
-                    </div><!-- End Doctor Card -->
+                    @endforeach
 
                 </div>
-
             </div>
-
-        </section><!-- /Doctors Section -->
+        </section>
 
     </main>
 @endsection

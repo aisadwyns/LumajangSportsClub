@@ -13,4 +13,8 @@ class JenisKomunitas extends Model
     public function event(){
         return $this->hasMany(Event::class);
     }
+
+    public function komunitas(){
+        return $this->hasMany(Komunitas::class);
+    }
 }

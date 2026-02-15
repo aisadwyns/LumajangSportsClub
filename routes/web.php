@@ -4,13 +4,12 @@ use App\Models\Member;
 use App\Models\Lapangan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\JenisKomunitasController;
+use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\EventController;
@@ -30,7 +29,7 @@ Auth::routes();
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
-Route::get('/komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
+Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 
 // Route::get('/events', function () {
 //     return view('event');
@@ -72,6 +71,7 @@ Route::middleware([ 'auth', 'preventBackHistory', 'isSuperadmin'])->group(functi
     Route::resource('lscteam', LscTeamController::class);
     Route::resource('bagian', BagianController::class);
     Route::resource('jenis-komunitas', JenisKomunitasController::class);
+    Route::resource('komunitas', KomunitasController::class);
     Route::resource('event', EventController::class);
     Route::resource('blog', BlogController::class);
 
