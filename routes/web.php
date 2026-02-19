@@ -23,7 +23,8 @@ Route::get('/login', function () {
 
 
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [ClientController::class, 'index'])->name('client');
@@ -60,9 +61,13 @@ Route::get('/coba_query', function () {
 //     LscTeam::truncate();
 // });
 #######################################################################################
-
-Route::middleware([ 'auth', 'preventBackHistory', 'isSuperadmin'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//routes superadmin
+Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+        ->middleware('verified')
+        ->name('home');
+    // Route khusus Superadmin saja
+    Route::middleware(['isSuperadmin'])->group(function () {
     Route::resource('member', MemberController::class);
     //Route::resource('users', UserController::class)->middleware('isSuperadmin');
     Route::resource('users', UserController::class);
@@ -74,8 +79,7 @@ Route::middleware([ 'auth', 'preventBackHistory', 'isSuperadmin'])->group(functi
     Route::resource('komunitas', KomunitasController::class);
     Route::resource('event', EventController::class);
     Route::resource('blog', BlogController::class);
-
-
+    });
 });
 Route::fallback(function () {
     return view('404');
