@@ -22,4 +22,12 @@ class Komunitas extends Model
     {
         return $this->belongsTo(JenisKomunitas::class, 'jenis_komunitas_id');
     }
+
+public function users()
+{
+    return $this->belongsToMany(\App\Models\User::class, 'join_komunitas', 'komunitas_id', 'user_id')
+        ->withTimestamps();
+}
+
+
 }

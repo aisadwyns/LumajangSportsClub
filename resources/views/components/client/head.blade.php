@@ -5,7 +5,7 @@
 <meta name="keywords" content="">
 
 <!-- Favicons -->
-<link href="{{ asset('client/dist') }}/assets/img/favicon.png" rel="icon">
+<link href="{{ asset('client/dist') }}/assets/img/lsc.png" rel="icon">
 <link href="{{ asset('client/dist') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Fonts -->

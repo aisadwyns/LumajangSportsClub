@@ -61,10 +61,32 @@
                                         </div>
                                     </div>
 
-                                    <a href="{{ $data->link_wa ?: '#!' }}" class="btn-appointment mt-4"
-                                        {{ $data->link_wa ? 'target=_blank' : '' }}>
-                                        {{ $data->link_wa ? 'Hubungi WhatsApp' : 'Lihat Detail' }}
-                                    </a>
+                                    <div class="d-flex gap-2 justify-content-center mt-4">
+                                        <a href="{{ route('komunitas.show', $data->id) }}" class="btn-appointment">
+                                            Lihat Detail
+                                        </a>
+
+                                        @auth
+                                            @if (auth()->user()->komunitas->contains($data->id))
+                                                <form action="{{ route('komunitas.leave', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn-appointment"
+                                                        style="background-color: #dc3545;">
+                                                        Keluar
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('komunitas.join', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn-appointment">
+                                                        Join
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            <a href="{{ route('login') }}" class="btn-appointment">Join</a>
+                                        @endauth
+                                    </div>
                                 </div>
 
                             </div>

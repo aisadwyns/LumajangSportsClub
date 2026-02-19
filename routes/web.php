@@ -12,6 +12,7 @@ use App\Http\Controllers\JenisKomunitasController;
 use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
@@ -31,6 +32,8 @@ Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
 Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
+Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');
+Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave')->middleware('auth');
 
 // Route::get('/events', function () {
 //     return view('event');

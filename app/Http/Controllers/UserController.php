@@ -30,7 +30,6 @@ class UserController extends Controller
 
         Alert::success('sukses', 'data berhasil dirubah');
         return redirect()->route('users.index');
-
-
     }
+
 }

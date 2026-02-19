@@ -50,4 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role() {
         return $this->belongsTo(Role::class);
     }
+    public function komunitas()
+    {
+        return $this->belongsToMany(\App\Models\Komunitas::class, 'join_komunitas', 'user_id', 'komunitas_id')
+            ->withTimestamps();
+    }
+
 }
