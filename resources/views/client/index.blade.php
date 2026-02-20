@@ -9,16 +9,66 @@
     <header id="header" class="header fixed-top">
         <x-client.header />
         <x-client.navbar />
-        </div>
     </header>
 
     <main class="main">
         <!-- Hero Section -->
         <x-client.hero />
         <!-- /Hero Section -->
-        <!-- Home About Section -->
-        <section id="home-about" class="home-about section">
 
+
+        <section id="about" class="about section">
+            <div class="certifications-section aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h3>Accreditations &amp; Certifications</h3>
+                        <p class="section-description">Recognized by leading healthcare organizations for our commitment
+                            to
+                            quality care</p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 aos-init aos-animate" data-aos="zoom-in"
+                        data-aos-delay="100">
+                        <div class="certification-item">
+                            <img src="{{ asset('client/dist') }}/assets/img/clients/clients-1.webp" class="img-fluid"
+                                alt="Healthcare certification">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 aos-init aos-animate" data-aos="zoom-in"
+                        data-aos-delay="200">
+                        <div class="certification-item">
+                            <img src="{{ asset('client/dist') }}/assets/img/clients/clients-2.webp" class="img-fluid"
+                                alt="Medical accreditation">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 aos-init aos-animate" data-aos="zoom-in"
+                        data-aos-delay="300">
+                        <div class="certification-item">
+                            <img src="{{ asset('client/dist') }}/assets/img/clients/clients-3.webp" class="img-fluid"
+                                alt="Healthcare certification">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 aos-init aos-animate" data-aos="zoom-in"
+                        data-aos-delay="400">
+                        <div class="certification-item">
+                            <img src="{{ asset('client/dist') }}/assets/img/clients/clients-4.webp" class="img-fluid"
+                                alt="Medical certification">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 aos-init aos-animate" data-aos="zoom-in"
+                        data-aos-delay="500">
+                        <div class="certification-item">
+                            <img src="{{ asset('client/dist') }}/assets/img/clients/clients-5.webp" class="img-fluid"
+                                alt="Healthcare accreditation">
+                        </div>
+                    </div>
+                </div><!-- End Certifications Row -->
+            </div>
+        </section>
+
+        <section id="home-about" class="home-about section">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row align-items-center">
@@ -149,14 +199,16 @@
                                 </p>
                                 <div class="specialty-features">
                                     <span><i class="bi bi-check-circle-fill"></i>Ketersediaan real-time</span>
-                                    <span><i class="bi bi-check-circle-fill"></i>Booking &amp; pengingat otomatis</span>
+                                    <span><i class="bi bi-check-circle-fill"></i>Booking &amp; pengingat
+                                        otomatis</span>
                                 </div>
                                 <a href="venues.html" class="specialty-link">
                                     Lihat Venue <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
                             <div class="specialty-visual">
-                                <img src="assets/img/health/neurology-4.webp" alt="Booking Lapangan" class="img-fluid">
+                                <img src="assets/img/health/neurology-4.webp" alt="Booking Lapangan"
+                                    class="img-fluid">
                                 <div class="visual-overlay">
                                     <i class="bi bi-calendar-check"></i>
                                 </div>
@@ -351,8 +403,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/vaccination-3.webp" alt="Open Match"
-                                        class="img-fluid" loading="lazy">
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/vaccination-3.webp"
+                                        alt="Open Match" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
                                     <h5>Open Match</h5>
@@ -364,8 +416,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/emergency-1.webp" alt="Booking Lapangan"
-                                        class="img-fluid" loading="lazy">
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/emergency-1.webp"
+                                        alt="Booking Lapangan" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
                                     <h5>Booking Lapangan</h5>

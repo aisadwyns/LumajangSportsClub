@@ -20,6 +20,11 @@ class ClientController extends Controller
         $blogs = Blog::with('author')->where('status', 'published')->latest()->paginate(9);
         return view('client.blog', compact('blogs'));
     }
+    public function publicBlogShow($slug)
+    {
+        $blog = Blog::with('author')->where('slug', $slug)->where('status', 'published')->firstOrFail();
+        return view('client.detailblog', compact('blog'));
+    }
 
     public function publicEventIndex(){
         $events = Event::with('author')->where('status', 'published')->latest()->paginate(9);
@@ -27,8 +32,13 @@ class ClientController extends Controller
     }
 
     public function publicKomunitasIndex(){
-       $komunitas = Komunitas::with('jenis')->latest()->get();
+        $komunitas = Komunitas::with('jenis')->latest()->get();
         return view('client.komunitas', compact('komunitas'));
+    }
+    public function publicKomunitasShow($id)
+    {
+        $komunitas = Komunitas::with('jenis')->findOrFail($id);
+        return view('client.detailkomunitas', compact('komunitas'));
     }
 
 

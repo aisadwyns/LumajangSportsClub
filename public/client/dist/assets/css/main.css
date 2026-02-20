@@ -6217,3 +6217,96 @@ section,
   padding-bottom: 60px;
   /* Add your styles here */
 }
+
+/*--------------------------------------------------------------
+# Tambahan
+--------------------------------------------------------------*/
+.bagian-detail-komunitas {
+        padding: 60px 0;
+        background-color: #ffffff;
+    }
+
+    /* Styling label beginner/pemula */
+    .label-level {
+        background-color: #f0f3fd;
+        color: #145eb8;
+        border: 1px solid #99adf6;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+
+    /* Membuat panel kanan tetap terlihat saat scroll */
+    .panel-samping-lengket {
+        position: sticky;
+        top: 100px;
+        z-index: 10;
+    }
+
+    /* Styling kartu join */
+    .kartu-aksi-join {
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+    }
+
+    .wadah-gambar-sampul {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .gambar-sampul {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Styling Tombol-tombol */
+    .tombol-aksi {
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .tombol-gabung {
+        background-color: #004AAC;
+        color: white;
+    }
+
+    .tombol-gabung:hover {
+        background-color: #004AAC;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .tombol-keluar {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+
+    .tombol-keluar:hover {
+        background-color: #fecaca;
+    }
+
+    /* List manfaat */
+    .daftar-manfaat li {
+        font-size: 0.9rem;
+        color: #4b5563;
+    }
+
+    .teks-isi-deskripsi {
+        line-height: 1.8;
+        color: #374151;
+    }
+
+    /* Responsif untuk mobile */
+    @media (max-width: 991px) {
+        .panel-samping-lengket {
+            position: relative;
+            top: 0;
+            margin-top: 30px;
+        }
+    }
