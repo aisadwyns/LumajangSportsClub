@@ -4,6 +4,7 @@ use App\Models\Member;
 use App\Models\Lapangan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
+use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
@@ -38,9 +40,10 @@ Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'
 Route::get('/gabung-komunitas/{id}', [ClientController::class, 'publicKomunitasShow'])->name('komunitas.show');
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');
-
     Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join');
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
+    Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
+    Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 });
 // Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');
 // Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave')->middleware('auth');
@@ -77,9 +80,7 @@ Route::get('/coba_query', function () {
 #######################################################################################
 //routes superadmin
 Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-        ->middleware('verified')
-        ->name('home');
+    Route::get('/home', [HomeController::class, 'index']) ->middleware('verified')->name('home');
     // Route khusus Superadmin saja
     Route::middleware(['isSuperadmin'])->group(function () {
     Route::resource('member', MemberController::class);

@@ -40,7 +40,7 @@
                             <div class="anggota-join d-flex align-items-center mb-4">
                                 <div class="avatar-group d-flex me-2">
                                     @foreach ($komunitas->users->take(5) as $user)
-                                        <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/default-avatar.png') }}"
+                                        <img src="{{ $user->profile?->avatar ? asset('storage/avatar_user/' . $user->profile->avatar) : asset('assets/img/default-avatar.png') }}"
                                             class="avatar-stack" alt="{{ $user->name }}" title="{{ $user->name }}">
                                     @endforeach
 

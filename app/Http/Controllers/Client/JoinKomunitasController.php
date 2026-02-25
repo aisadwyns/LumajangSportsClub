@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Komunitas;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,7 +18,8 @@ class JoinKomunitasController extends Controller {
 
     public function join($id)
     {
-        $user = auth()->user();
+        $userId = Auth::id();
+        $user = User::findOrFail($userId);
 
         // Pengecekan agar tidak duplikat
         if (!$user->komunitas()->where('komunitas_id', $id)->exists()) {
@@ -32,7 +34,8 @@ class JoinKomunitasController extends Controller {
 
     public function joinbayarsekarang(Request $request, $id)
     {
-        $user = auth()->user();
+         $userId = Auth::id();
+        $user = User::findOrFail($userId);
         $komunitas = Komunitas::findOrFail($id);
 
         // join dulu (biar tercatat)
@@ -75,7 +78,8 @@ class JoinKomunitasController extends Controller {
 
     public function leave($id)
     {
-        $user = auth()->user();
+         $userId = Auth::id();
+        $user = User::findOrFail($userId);
         $user->komunitas()->detach($id); // Menghapus baris di tabel pivot
 
         Alert::success('Sukses', 'Berhasil keluar dari komunitas');

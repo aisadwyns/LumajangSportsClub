@@ -43,7 +43,7 @@
                     {{-- Tampilan saat User SUDAH Login --}}
                     <li class="dropdown">
                         <a href="#" class="profile-nav d-flex align-items-center">
-                            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/img/default-avatar.png') }}"
+                            <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('assets/img/default-avatar.png') }}"
                                 alt="Profile" class="rounded-circle me-1"
                                 style="width: 30px; height: 30px; object-fit: cover;">
                             <i class="bi bi-chevron-down toggle-dropdown"></i>
@@ -53,8 +53,8 @@
                                 <span class="d-block fw-bold small text-dark">{{ auth()->user()->name }}</span>
                                 <span class="text-muted small" style="font-size: 11px;">{{ auth()->user()->email }}</span>
                             </li>
-                            <li><a href="#">Profil Saya</a></li>
-                            <li><a href="{{ route('komunitas.index') }}">Komunitas Saya</a></li>
+                            <li><a href="{{ route('profil.edit', 'me') }}">Profil Saya</a></li>
+                            <li><a href="{{ route('komunitas.index') }}">Riwayat</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                     @csrf
