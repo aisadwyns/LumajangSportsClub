@@ -38,12 +38,44 @@
                         <li><a href="#">Dropdown 4</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route('login') }}" class="btn btn-primary">Sign In</a>
-                </li>
-                <li>
-                    <a href="{{ route('register') }}" class="btn btn-primary">Sign Up</a>
-                </li>
+                {{-- LOGIKA AUTHENTICATION --}}
+                @auth
+                    {{-- Tampilan saat User SUDAH Login --}}
+                    <li class="dropdown">
+                        <a href="#" class="profile-nav d-flex align-items-center">
+                            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/img/default-avatar.png') }}"
+                                alt="Profile" class="rounded-circle me-1"
+                                style="width: 30px; height: 30px; object-fit: cover;">
+                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                        </a>
+                        <ul>
+                            <li class="px-3 py-2 border-bottom">
+                                <span class="d-block fw-bold small text-dark">{{ auth()->user()->name }}</span>
+                                <span class="text-muted small" style="font-size: 11px;">{{ auth()->user()->email }}</span>
+                            </li>
+                            <li><a href="#">Profil Saya</a></li>
+                            <li><a href="{{ route('komunitas.index') }}">Komunitas Saya</a></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit"
+                                        class="dropdown-item text-danger border-0 bg-transparent ps-3">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    {{-- Tampilan saat User BELUM Login (Guest) --}}
+                    <li>
+                        <a href="{{ route('login') }}" class="btn btn-primary text-white px-4 ms-2"
+                            style="border-radius: 20px;">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="btn btn-outline-primary px-4 ms-2"
+                            style="border-radius: 20px;">Sign Up</a>
+                    </li>
+                @endauth
+
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

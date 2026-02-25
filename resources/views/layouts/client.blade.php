@@ -29,7 +29,7 @@
     <div id="preloader"></div>
 
     <x-client.script />
-
+    @yield('script')
 </body>
 
 </html>
