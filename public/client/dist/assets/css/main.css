@@ -6359,6 +6359,53 @@ section,
         border: 1px solid #eee;
     }
 
+    /* leaderboard */
+    .text-lsc-blue { color: #004AAC !important; }
+    .bg-lsc-blue { background-color: #004AAC !important; }
+    .btn-lsc {
+        background-color: #004AAC;
+        color: white;
+        border-radius: 50px;
+        transition: 0.3s;
+    }
+    .btn-lsc:hover {
+        background-color: #003685;
+        color: white;
+        transform: scale(1.05);
+    }
+
+    .champion-card {
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 74, 172, 0.1);
+        overflow: hidden;
+    }
+    .champion-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0, 74, 172, 0.15); }
+
+    /* Rank Styling */
+    .rank-1 { background: linear-gradient(135deg, #ffffff 0%, #fff9e6 100%); border-top: 5px solid #ffc107; }
+    .rank-2 { background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%); border-top: 5px solid #94a3b8; }
+    .rank-3 { background: linear-gradient(135deg, #ffffff 0%, #fff5f0 100%); border-top: 5px solid #f97316; }
+
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        padding: 4px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #004AAC, #00C9FF); /* Gradasi Biru LSC */
+    }
+    .badge-rank { font-weight: 800; font-size: 1.1rem; }
+
+    .achievement-chip {
+        background: white;
+        border-radius: 50px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #eee;
+    }
+
+
 
     /* Responsif untuk mobile */
     @media (max-width: 991px) {

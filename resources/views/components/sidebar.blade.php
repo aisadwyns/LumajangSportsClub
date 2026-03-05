@@ -22,6 +22,7 @@
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Data Team' icon='ti ti-user' route='lscteam.index' />
                     <x-sidebar.links title='Data Pengguna' icon='ti ti-users' route='users.index' />
+                    <x-sidebar.links title='Data Venue' icon='ti ti-users' route='users.index' />
 
 
                     <x-sidebar.links title='Data Member' icon='ti ti-user' route='member.index' />
@@ -36,10 +37,11 @@
 
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span
-                                class="pc-mtext">Menu
-                                levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                                class="pc-mtext">Pemeliharaan</span><span class="pc-arrow"><i
+                                    data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
+                            <li class="pc-item"><a class="pc-link" href="#!">Blog</a></li>
+                            <li class="pc-item"><a class="pc-link" href="#!">Galeri</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i
                                             data-feather="chevron-right"></i></span></a>

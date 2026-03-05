@@ -40,6 +40,10 @@ class ClientController extends Controller
         $komunitas = Komunitas::with('jenis')->findOrFail($id);
         return view('client.detailkomunitas', compact('komunitas'));
     }
+     public function publicLeaderboard()
+    {
+        return view('client.leaderboard');
+    }
 
 
 }

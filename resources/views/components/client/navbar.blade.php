@@ -22,7 +22,7 @@
                 <li class="dropdown"><a href="#"><span>Lainnya</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                        <li><a href="#">Leaderboard</a></li>
+                        <li><a href="{{ route('leaderboard.public') }}">Leaderboard</a></li>
                         <li class="dropdown"><a href="#"><span>Produk</span> <i
                                     class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
@@ -70,10 +70,10 @@
                         <a href="{{ route('login') }}" class="btn btn-primary text-white px-4 ms-2"
                             style="border-radius: 20px;">Sign In</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('register') }}" class="btn btn-outline-primary px-4 ms-2"
                             style="border-radius: 20px;">Sign Up</a>
-                    </li>
+                    </li> --}}
                 @endauth
 
             </ul>

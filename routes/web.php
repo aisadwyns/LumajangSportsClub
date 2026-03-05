@@ -24,8 +24,6 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-
-
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
@@ -33,9 +31,7 @@ Auth::routes(['verify' => true]);
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
 Route::get('/blogs/{slug}', [ClientController::class, 'publicBlogShow'])->name('blog.show');
-
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
-
 Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 Route::get('/gabung-komunitas/{id}', [ClientController::class, 'publicKomunitasShow'])->name('komunitas.show');
 Route::middleware(['auth','preventBackHistory'])->group(function () {
@@ -45,6 +41,7 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 });
+Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 // Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');
 // Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave')->middleware('auth');
 // Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinBayarSekarang');
