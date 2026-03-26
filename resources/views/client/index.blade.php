@@ -16,7 +16,7 @@
         <x-client.hero />
         <!-- /Hero Section -->
 
-
+        {{-- Certifications --}}
         <section id="about" class="about section">
             <div class="certifications-section aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
                 <div class="row">

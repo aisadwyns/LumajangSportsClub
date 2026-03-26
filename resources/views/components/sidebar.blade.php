@@ -13,6 +13,7 @@
                 @if (Auth::user()->role->role_name == 'user')
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
+                    <x-sidebar.links title='Profile' icon='ti ti-user' route='home' />
                     <x-sidebar.links title='Riwayat Booking' icon='ti ti-user' route='home' />
                     <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='home' />
                 @endif

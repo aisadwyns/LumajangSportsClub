@@ -54,6 +54,9 @@
   --contrast-color: #ffffff;
 }
 
+.lsc-background {
+--representative-lsc: #004AAC;
+}
 /* Smooth scroll */
 :root {
   scroll-behavior: smooth;
@@ -3110,6 +3113,7 @@ section,
 .about .certifications-section {
   margin-top: 80px;
   padding: 4rem 0;
+  /* background-color: #004AAC; */
   background: color-mix(in srgb, var(--accent-color), transparent 98%);
   border-radius: 16px;
 }
