@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class RiwayatKomunitasController extends Controller
+class RiwayatController extends Controller
 {
     public function index()
     {
@@ -17,6 +17,6 @@ class RiwayatKomunitasController extends Controller
         ->latest()
         ->get();
 
-        return view('client.riwayatkomunitas.index', compact('riwayat'));
+        return view('client.riwayat.komunitas', compact('riwayat'));
     }
 }

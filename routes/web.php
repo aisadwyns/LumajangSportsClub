@@ -14,6 +14,7 @@ use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
+use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
@@ -34,12 +35,16 @@ Route::get('/blogs/{slug}', [ClientController::class, 'publicBlogShow'])->name('
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
 Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 Route::get('/gabung-komunitas/{id}', [ClientController::class, 'publicKomunitasShow'])->name('komunitas.show');
+
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');
     Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join');
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
     Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
+
+    Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'index'])->name('riwayat.komunitas');
+    Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
 });
 Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 // Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');

@@ -33,9 +33,23 @@
                             <span class="text-dark fw-medium">{{ $data->waktu ? substr($data->waktu, 0, 5) : '-' }}
                                 WIB</span>
                         </div>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mb-2">
                             <span>Bergabung Pada</span>
-                            <span class="text-dark fw-medium">{{ $data->pivot->created_at->format('d M Y') }}</span>
+                            {{-- <span class="text-dark fw-medium">{{ $data->pivot->created_at->format('d M Y') }}</span> --}}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Metode Pembayaran</span>
+                            <span class="text-primary fw-bold text-uppercase" style="font-size: 0.75rem;">
+                                {{-- @if ($method == 'midtrans')
+                                    <span class="text-primary fw-bold text-uppercase" style="font-size: 0.75rem;">
+                                        <i class="bi bi-credit-card me-1"></i> ONLINE (MIDTRANS)
+                                    </span>
+                                @else
+                                    <span class="text-primary fw-bold text-uppercase" style="font-size: 0.75rem;">
+                                        <i class="bi bi-credit-card me-1"></i> Bayar DI Tempat
+                                    </span>
+                                @endif --}}
+                            </span>
                         </div>
                     </div>
                 </div>

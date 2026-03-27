@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId);
         $profile = $user->profile()->firstOrCreate(['user_id' => $user->id]);
 
-        return view('client.profile.edit', compact('user', 'profile'));
+        return view('client.profile.index', compact('user', 'profile'));
     }
 
     public function update(Request $request, $id)

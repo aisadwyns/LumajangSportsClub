@@ -1,11 +1,11 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="../dashboard/index.html" class="b-brand text-primary">
+            <a href="/" class="b-brand text-primary">
                 <!-- ========   Change your logo from here
                     <img src="{{ asset('template/dist') }}/assets/images/logo-dark.svg" class="img-fluid logo-lg"
                         alt="logo"> ============ -->
-                <p>Aplikasi Managemen Venue</p>
+                <p>Lumajang Sports Club</p>
             </a>
         </div>
         <div class="navbar-content">
@@ -13,9 +13,9 @@
                 @if (Auth::user()->role->role_name == 'user')
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
-                    <x-sidebar.links title='Profile' icon='ti ti-user' route='home' />
+                    <x-sidebar.links title='Profile' icon='ti ti-user' route='profil.index' />
                     <x-sidebar.links title='Riwayat Booking' icon='ti ti-user' route='home' />
-                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='home' />
+                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
                 @endif
 
                 @if (Auth::user()->role->role_name == 'superadmin')
