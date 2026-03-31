@@ -58,8 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function komunitas()
     {
-        return $this->belongsToMany(\App\Models\Komunitas::class, 'join_komunitas', 'user_id', 'komunitas_id')
-            ->withTimestamps();
+        return $this->belongsToMany(Komunitas::class, 'join_komunitas', 'id_user', 'id_komunitas')
+                    ->withPivot('order_id', 'status_pembayaran', 'metode_pembayaran')
+                    ->withTimestamps();
     }
 
 
