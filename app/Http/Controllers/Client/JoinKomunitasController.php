@@ -21,11 +21,12 @@ class JoinKomunitasController extends Controller {
         $userId = Auth::id();
         $user = User::findOrFail($userId);
 
-        if (!$user->komunitas()->where('id_komunitas', $id)->exists()) {
+        if (!$user->komunitas()->where('komunitas_id', $id)->exists()) {
         $user->komunitas()->attach($id, [
-            'status_pembayaran' => 'cod', // Langsung COD
+            'status_pembayaran' => 'cod',
             'metode_pembayaran' => 'cod'
         ]);
+
         Alert::success('Sukses', 'Berhasil bergabung! Silakan lakukan pembayaran di lokasi.');
         } else {
             Alert::info('Info', 'Kamu sudah bergabung di komunitas ini.');
@@ -40,14 +41,9 @@ class JoinKomunitasController extends Controller {
         $user = User::findOrFail($userId);
         $komunitas = Komunitas::findOrFail($id);
 
-        // join dulu (biar tercatat)
-        if (!$user->komunitas()->where('komunitas_id', $id)->exists()) $user->komunitas()->attach($id);
-
-        // generate order id unik
         $orderId = 'JOIN-' . $user->id . '-' . Str::upper(Str::random(8));
 
-        // Simpan ke pivot dengan status PENDING
-        if (!$user->komunitas()->where('id_komunitas', $id)->exists()) {
+        if (!$user->komunitas()->where('komunitas_id', $id)->exists()) {
             $user->komunitas()->attach($id, [
                 'order_id' => $orderId,
                 'status_pembayaran' => 'pending',
@@ -55,7 +51,8 @@ class JoinKomunitasController extends Controller {
             ]);
         }
 
-        // --- Konfigurasi Midtrans ---
+
+        // Konfigurasi Midtrans
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
         \Midtrans\Config::$isSanitized = true;

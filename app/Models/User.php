@@ -57,11 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
     public function komunitas()
-    {
-        return $this->belongsToMany(Komunitas::class, 'join_komunitas', 'id_user', 'id_komunitas')
-                    ->withPivot('order_id', 'status_pembayaran', 'metode_pembayaran')
-                    ->withTimestamps();
-    }
+{
+    return $this->belongsToMany(Komunitas::class, 'join_komunitas', 'user_id', 'komunitas_id')
+                ->withPivot('order_id', 'status_pembayaran', 'metode_pembayaran')
+                ->withTimestamps();
+}
 
 
 }

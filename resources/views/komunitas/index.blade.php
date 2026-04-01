@@ -58,7 +58,7 @@
                                             data-bs-toggle="dropdown">Aksi</button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item"
-                                                    href="{{ route('komunitas.edit', $data->id) }}">Detail</a></li>
+                                                    href="{{ route('komunitas.show', $data->id) }}">Detail</a></li>
                                             <li>
                                             <li><a class="dropdown-item"
                                                     href="{{ route('komunitas.edit', $data->id) }}">Edit</a></li>

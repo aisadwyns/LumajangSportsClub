@@ -32,7 +32,7 @@
                     <x-sidebar.links title='Komunitas' icon='ti ti-layout-grid' route='komunitas.index' />
                     <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
                     <x-sidebar.links title='Events' icon='ti ti-calendar' route='event.index' />
-                    <x-sidebar.links title='Konten' icon='ti ti-news' route='blog.index' />
+                    <x-sidebar.links title='Challenge' icon='ti ti-clipboard-list' route='blog.index' />
 
                     <x-sidebar.links title='Jenis Komunitas' icon='ti ti-layout-grid' route='jenis-komunitas.index' />
 
@@ -41,7 +41,8 @@
                                 class="pc-mtext">Pemeliharaan</span><span class="pc-arrow"><i
                                     data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#!">Blog</a></li>
+                            {{-- <li class="pc-item"><a class="pc-link" href="#!">Blog</a></li> --}}
+                            <x-sidebar.links title='Konten' icon='ti ti-news' route='blog.index' />
                             <li class="pc-item"><a class="pc-link" href="#!">Galeri</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i

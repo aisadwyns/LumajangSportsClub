@@ -25,7 +25,7 @@ class Komunitas extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'join_komunitas', 'id_komunitas', 'id_user')
+        return $this->belongsToMany(User::class, 'join_komunitas', 'komunitas_id', 'user_id')
                     ->withPivot('order_id', 'status_pembayaran', 'metode_pembayaran')
                     ->withTimestamps();
     }

@@ -30,7 +30,8 @@
 
                     @foreach ($komunitas as $i => $data)
                         <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ 100 + ($i % 4) * 100 }}">
-                            <a href="{{ route('komunitas.show', $data->id) }}" class="text-decoration-none text-reset">
+                            <a href="{{ route('client.komunitas.show', $data->id) }}"
+                                class="text-decoration-none text-reset">
                                 <div class="doctor-card text-center h-100">
 
                                     <div class="doctor-image d-flex justify-content-center">

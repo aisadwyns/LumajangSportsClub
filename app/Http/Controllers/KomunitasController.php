@@ -16,7 +16,10 @@ class KomunitasController extends Controller
         return view('komunitas.index', compact('komunitas'));
     }
 
-    public function show() {}
+    public function show($id) {
+        $komunitas = Komunitas::with('users')->findOrFail($id);
+        return view('komunitas.detail', compact('komunitas'));
+    }
 
     public function create()
     {
