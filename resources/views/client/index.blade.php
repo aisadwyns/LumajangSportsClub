@@ -91,17 +91,17 @@
                             <div class="stats-grid">
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="15000" data-purecounter-duration="1"></div>
+                                        data-purecounter-end="5000" data-purecounter-duration="1"></div>
                                     <div class="stat-label">Members Bergabung</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="25" data-purecounter-duration="1"></div>
+                                        data-purecounter-end="15" data-purecounter-duration="1"></div>
                                     <div class="stat-label">Komunitas Aktif</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="50" data-purecounter-duration="1"></div>
+                                        data-purecounter-end="20" data-purecounter-duration="1"></div>
                                     <div class="stat-label">Venue &amp; Lapangan Partner</div>
                                 </div>
                             </div>
@@ -115,8 +115,8 @@
                     <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                         <div class="about-visual">
                             <div class="main-image">
-                                <img src="assets/img/health/facilities-9.webp" alt="Lumajang Sports Club"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/landing-3.jpg"
+                                    alt="Lumajang Sports Club" class="img-fluid">
                             </div>
                             <div class="floating-card">
                                 <div class="card-content">
@@ -131,7 +131,7 @@
                             </div>
                             <div class="experience-badge">
                                 <div class="badge-content">
-                                    <span class="years">25+</span>
+                                    <span class="years">5+</span>
                                     <span class="text">Komunitas &amp; Venue Terhubung</span>
                                 </div>
                             </div>
@@ -177,8 +177,8 @@
                                 </a>
                             </div>
                             <div class="specialty-visual">
-                                <img src="assets/img/health/cardiology-1.webp" alt="Cari Partner Olahraga"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/landing-7.jpg"
+                                    alt="Cari Partner Olahraga" class="img-fluid">
                                 <div class="visual-overlay">
                                     <i class="bi bi-people"></i>
                                 </div>
@@ -207,8 +207,8 @@
                                 </a>
                             </div>
                             <div class="specialty-visual">
-                                <img src="assets/img/health/neurology-4.webp" alt="Booking Lapangan"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/landing-6.jpg"
+                                    alt="Booking Lapangan" class="img-fluid">
                                 <div class="visual-overlay">
                                     <i class="bi bi-calendar-check"></i>
                                 </div>
@@ -314,7 +314,7 @@
                     <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
                         <div class="featured-service-main">
                             <div class="service-image-wrapper">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/consultation-4.webp"
+                                <img src="{{ asset('client/dist') }}/assets/img/health/landing-5.jpg"
                                     alt="Lumajang Sports Club" class="img-fluid" loading="lazy">
                                 <div class="service-overlay">
                                     <div class="service-badge">
@@ -390,8 +390,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="assets/img/health/maternal-2.webp" alt="Komunitas" class="img-fluid"
-                                        loading="lazy">
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/maternal-2.webp"
+                                        alt="Komunitas" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
                                     <h5>Komunitas</h5>
@@ -599,8 +599,8 @@
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="400">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-8.webp" alt="Sparring Basket Malam"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-8.webp"
+                                    alt="Sparring Basket Malam" class="img-fluid">
                                 <div class="status-indicator offline"></div>
                             </div>
                             <div class="doctor-details">
@@ -632,8 +632,8 @@
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="500">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-11.webp" alt="Komunitas Voli Lumajang"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-11.webp"
+                                    alt="Komunitas Voli Lumajang" class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
@@ -665,8 +665,8 @@
                     <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="600">
                         <div class="profile-header">
                             <div class="doctor-avatar">
-                                <img src="assets/img/health/staff-14.webp" alt="Venue Badminton Indoor"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-14.webp"
+                                    alt="Venue Badminton Indoor" class="img-fluid">
                                 <div class="status-indicator available"></div>
                             </div>
                             <div class="doctor-details">
@@ -739,8 +739,8 @@
 
                         <div class="col-lg-6">
                             <div class="image-container" data-aos="fade-left" data-aos-delay="300">
-                                <img src="assets/img/health/facilities-9.webp" alt="Lumajang Sports Club"
-                                    class="img-fluid">
+                                <img src="{{ asset('client/dist') }}/assets/img/health/landing-2.jpg"
+                                    alt="Lumajang Sports Club" class="img-fluid">
                             </div>
                         </div>
 

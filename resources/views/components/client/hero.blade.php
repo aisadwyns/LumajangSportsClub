@@ -76,7 +76,7 @@
                             <div class="card-content">
                                 <h6>Next Available</h6>
                                 <p>Today 2:30 PM</p>
-                                <small>Dr. Sarah Johnson</small>
+                                <small>LSC Badminton</small>
                             </div>
                         </div>
                         <div class="floating-card rating-card">
