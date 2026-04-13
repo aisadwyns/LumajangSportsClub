@@ -21,6 +21,9 @@ use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
 use App\Models\Role;
 
+use App\Http\Controllers\Venue\VenueController;
+
+
 Route::get('/login', function () {
     return view('auth.login');
 });
@@ -79,6 +82,13 @@ Route::get('/coba_query', function () {
 // Route::get('/truncate', function () {
 //     LscTeam::truncate();
 // });
+#######################################################################################
+//route super admin
+Route::middleware('auth')->group(function () {
+    Route::get('/venue/register', [VenueController::class, 'create'])->name('venue.create');
+    Route::post('/venue/register', [VenueController::class, 'store'])->name('venue.store');
+});
+
 #######################################################################################
 //routes superadmin
 Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {

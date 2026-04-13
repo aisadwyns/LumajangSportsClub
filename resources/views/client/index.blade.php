@@ -803,7 +803,7 @@
                                     <i class="bi bi-telephone"></i>
                                     <span>Hubungi Admin</span>
                                 </a>
-                                <a href="partner-with-us.html" class="contact-link">Daftarkan Venue</a>
+                                <a href="{{ route('venue.create') }}" class="contact-link">Daftarkan Venue</a>
                             </div>
                         </div>
 

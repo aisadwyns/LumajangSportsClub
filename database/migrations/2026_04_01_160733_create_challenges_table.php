@@ -13,6 +13,22 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
+            $table->string('challenge_name');
+            $table->text('description');
+
+            $table->integer('points_reward');
+
+            $table->date('start_date');
+            $table->date('end_date');
+
+            $table->string('badge')->nullable(); // bisa berupa path gambar
+
+            $table->enum('status', [
+                'draft',     // belum dipublish
+                'active',    // sedang berjalan
+                'completed', // selesai
+                'inactive'   // nonaktif
+            ])->default('draft');
             $table->timestamps();
         });
     }
