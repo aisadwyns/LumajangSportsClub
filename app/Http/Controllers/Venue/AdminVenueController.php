@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;  // Add this import
 
-class VenueController extends Controller
+class AdminVenueController extends Controller
 {
     public function create()
     {

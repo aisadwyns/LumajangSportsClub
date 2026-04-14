@@ -12,6 +12,8 @@ use App\Http\Controllers\BagianController;
 use App\Http\Controllers\JenisKomunitasController;
 use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\VenueController;
+
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\Client\RiwayatController;
@@ -21,7 +23,7 @@ use App\Http\Controllers\UserController;
 use App\Models\LscTeam;
 use App\Models\Role;
 
-use App\Http\Controllers\Venue\VenueController;
+use App\Http\Controllers\Venue\AdminVenueController;
 
 
 Route::get('/login', function () {
@@ -85,8 +87,8 @@ Route::get('/coba_query', function () {
 #######################################################################################
 //route super admin
 Route::middleware('auth')->group(function () {
-    Route::get('/venue/register', [VenueController::class, 'create'])->name('venue.create');
-    Route::post('/venue/register', [VenueController::class, 'store'])->name('venue.store');
+    Route::get('/venue/register', [AdminVenueController::class, 'create'])->name('venue.create');
+    Route::post('/venue/register', [AdminVenueController::class, 'store'])->name('venue.store');
 });
 
 #######################################################################################
@@ -106,6 +108,10 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
     Route::resource('komunitas', KomunitasController::class);
     Route::resource('event', EventController::class);
     Route::resource('blog', BlogController::class);
+
+    Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
+    Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');
+    Route::post('/admin/venues/{id}/reject', [VenueController::class, 'reject'])->name('admin.venues.reject');
     });
 });
 Route::fallback(function () {

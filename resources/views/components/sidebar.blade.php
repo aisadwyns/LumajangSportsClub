@@ -18,12 +18,24 @@
                     <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
                 @endif
 
+                @if (Auth::user()->role->role_name == 'venue')
+                    <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
+                    <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
+                    <x-sidebar.links title='Profile' icon='ti ti-user' route='profil.index' />
+                    <x-sidebar.links title='Riwayat Booking' icon='ti ti-user' route='home' />
+                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
+                    <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
+                    <x-sidebar.links title='Jadwal' icon='ti ti-calendar' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Member' icon='ti ti-clipboard-list' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='riwayat.komunitas' />
+                @endif
+
                 @if (Auth::user()->role->role_name == 'superadmin')
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Data Team' icon='ti ti-user' route='lscteam.index' />
                     <x-sidebar.links title='Data Pengguna' icon='ti ti-users' route='users.index' />
-                    <x-sidebar.links title='Data Venue' icon='ti ti-users' route='users.index' />
+                    <x-sidebar.links title='Data Venue' icon='ti ti-users' route='admin.venues' />
 
 
                     <x-sidebar.links title='Data Member' icon='ti ti-user' route='member.index' />

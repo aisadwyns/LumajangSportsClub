@@ -122,8 +122,8 @@
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
-                        <img src="{{ asset('template/dist') }}/assets/images/user/avatar-2.jpg" alt="user-image"
-                            class="user-avtar">
+                        <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('assets/img/default-avatar.png') }}"
+                            alt="user-image" class="user-avtar">
                         <span>{{ auth()->user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
