@@ -109,7 +109,7 @@
 
     @include('sweetalert::alert')
 
-
+    @stack('scripts')
 </body>
 <!-- [Body] end -->
 

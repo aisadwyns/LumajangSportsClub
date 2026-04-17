@@ -13,13 +13,16 @@ use App\Http\Controllers\JenisKomunitasController;
 use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VenueController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\Venue\CourtController;
+
 use App\Models\LscTeam;
 use App\Models\Role;
 
@@ -89,6 +92,11 @@ Route::get('/coba_query', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/venue/register', [AdminVenueController::class, 'create'])->name('venue.create');
     Route::post('/venue/register', [AdminVenueController::class, 'store'])->name('venue.store');
+
+    Route::prefix('venue')->name('venue.')->group(function () {
+        Route::resource('court', CourtController::class);
+    });
+
 });
 
 #######################################################################################

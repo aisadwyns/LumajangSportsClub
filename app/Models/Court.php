@@ -3,8 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Court extends Model
 {
-    //
+    use HasFactory;
+    protected $guarded = ['id'];
+    protected $table = 'courts';
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    public function jenis() {
+        return $this->belongsTo(JenisKomunitas::class, 'jenis_komunitas_id');
+    }
+    public function images() {
+        return $this->hasMany(CourtImage::class);
+    }
 }

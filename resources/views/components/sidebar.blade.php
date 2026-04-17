@@ -22,12 +22,12 @@
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Profile' icon='ti ti-user' route='profil.index' />
-                    <x-sidebar.links title='Riwayat Booking' icon='ti ti-user' route='home' />
+
                     <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
                     <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
                     <x-sidebar.links title='Jadwal' icon='ti ti-calendar' route='riwayat.komunitas' />
                     <x-sidebar.links title='Member' icon='ti ti-clipboard-list' route='riwayat.komunitas' />
-                    <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='venue.court.index' />
                 @endif
 
                 @if (Auth::user()->role->role_name == 'superadmin')
