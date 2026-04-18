@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Venue;
 
+use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,13 @@ class MemberController extends Controller
     public function index()
     {
         $datamember = Member::all();
-        return view('member.index', compact('datamember'));
+        return view('venue.member.index', compact('datamember'));
     }
 
     public function show() {}
     public function create()
     {
-        return view('member.create');
+        return view('venue.member.create');
     }
 
     public function store(Request $request)
@@ -41,13 +42,13 @@ class MemberController extends Controller
         //cara yang lebih simpel
         Member::create($request->all());
 
-        return redirect(route('member.index'))->with('success', 'Data member berhasil disimpan.');
+        return redirect(route('venue.member.index'))->with('success', 'Data member berhasil disimpan.');
     }
 
     public function edit(String $id)
     {
         $datamember = Member::find($id);
-        return view('member.edit', compact('datamember'));
+        return view('venue.member.edit', compact('datamember'));
     }
 
     public function update(Request $request, Member $member)
@@ -75,12 +76,12 @@ class MemberController extends Controller
         //cara ke 3
         // $member->update($request->except('nama_lengkap'));
 
-        return redirect()->route('member.index')->with('success', 'Data member berhasil diperbarui.');
+        return redirect()->route('venue.member.index')->with('success', 'Data member berhasil diperbarui.');
     }
 
     public function destroy(String $id)
     {
         Member::destroy($id);
-        return redirect()->route('member.index')->with('success', 'Data member berhasil dihapus.');
+        return redirect()->route('venue.member.index')->with('success', 'Data member berhasil dihapus.');
     }
 }

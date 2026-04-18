@@ -5,7 +5,6 @@ use App\Models\Lapangan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LscTeamController;
 use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\BagianController;
@@ -22,6 +21,7 @@ use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
 
 use App\Http\Controllers\Venue\CourtController;
+use App\Http\Controllers\Venue\MemberController;
 
 use App\Models\LscTeam;
 use App\Models\Role;
@@ -95,6 +95,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('venue')->name('venue.')->group(function () {
         Route::resource('court', CourtController::class);
+        Route::resource('member', MemberController::class);
     });
 
 });
@@ -105,7 +106,7 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
     Route::get('/home', [HomeController::class, 'index']) ->middleware('verified')->name('home');
     // Route khusus Superadmin saja
     Route::middleware(['isSuperadmin'])->group(function () {
-    Route::resource('member', MemberController::class);
+
     //Route::resource('users', UserController::class)->middleware('isSuperadmin');
     Route::resource('users', UserController::class);
     Route::post('users.update-role', [UserController::class,'updateRole'])->name('users.update-role');

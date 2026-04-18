@@ -40,7 +40,7 @@
                                 <td>{{ $court->court_type ?? '-' }}</td>
                                 <td>Rp {{ number_format($court->price_per_hour, 0, ',', '.') }}</td>
                                 <td>
-                                    {{ $court->open_time ?? '-' }} - {{ $court->close_time ?? '-' }}
+                                    {{ $court->open_time_format }} - {{ $court->close_time_format }}
                                 </td>
                                 <td>
                                     <span

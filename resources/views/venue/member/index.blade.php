@@ -8,7 +8,7 @@
                     <h4>Daftar Member</h4>
                 </div>
                 <div>
-                    <a href="{{ route('member.create') }}" class="btn btn-primary">
+                    <a href="{{ route('venue.member.create') }}" class="btn btn-primary">
                         Tambah Member
                     </a>
                 </div>
@@ -42,7 +42,7 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             <li><a class="dropdown-item"
-                                                    href="{{ route('member.edit', $data->id) }}">Edit</a></li>
+                                                    href="{{ route('venue.member.edit', $data->id) }}">Edit</a></li>
                                             <li><button type="button" class="btn text-danger" data-bs-toggle="modal"
                                                     data-bs-target="#confirmdelete{{ $data->id }}">
                                                     Hapus data
@@ -73,7 +73,7 @@
                         Data akan dihapus permanen, klik lanjutkan untuk menghapus data
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('member.destroy', $data->id) }}" method="POST">
+                        <form action="{{ route('venue.member.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

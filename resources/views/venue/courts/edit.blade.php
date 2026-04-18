@@ -98,17 +98,20 @@
 
                     {{-- Gambar --}}
                     <div class="form-group my-2">
-                        <label>Gambar</label><br>
+                        <label>Gambar Lama</label>
 
-                        @if ($court->image)
-                            <img src="{{ asset('storage/court/' . $court->image) }}" width="120" class="mb-2">
-                        @endif
+                        <div class="d-flex gap-2 flex-wrap mb-2">
+                            @foreach ($court->images as $img)
+                                <img src="{{ asset('storage/courts/' . $img->image) }}" width="100"
+                                    style="border-radius:8px; border:1px solid #ddd;">
+                            @endforeach
+                        </div>
 
-                        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                        <label>Tambah Gambar Baru (Max 5)</label>
 
-                        @error('image')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
+                        <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
+
+                        <div id="previewContainer" class="d-flex gap-2 flex-wrap mt-2"></div>
                     </div>
 
                     {{-- Jam --}}
@@ -145,4 +148,41 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.getElementById('images').addEventListener('change', function(event) {
+                const files = event.target.files;
+                const container = document.getElementById('previewContainer');
+
+                container.innerHTML = '';
+
+                if (files.length > 5) {
+                    alert('Maksimal 5 gambar!');
+                    event.target.value = '';
+                    return;
+                }
+
+                Array.from(files).forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '100px';
+                        img.style.height = '100px';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '8px';
+                        img.style.border = '1px solid #ddd';
+
+                        container.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            });
+        </script>
+    @endpush
 @endsection
