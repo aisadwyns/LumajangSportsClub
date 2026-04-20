@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('court_id')->constrained('courts')->onDelete('cascade');
+            $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+
+            $table->date('schedule_date'); // Tanggal spesifik (misal: 2026-04-20)
+            $table->time('start_time');
+            $table->time('end_time');
+
+            // Penanda agar kita tahu ini jadwal rutin atau sekali main
+            $table->enum('type', ['routine', 'once'])->default('once');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

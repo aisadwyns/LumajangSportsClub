@@ -20,7 +20,10 @@ class Court extends Model
     public function images() {
         return $this->hasMany(CourtImage::class);
     }
-
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
     public function getOpenTimeFormatAttribute(){
         return $this->open_time
             ? \Carbon\Carbon::parse($this->open_time)->format('H:i')
@@ -31,5 +34,10 @@ class Court extends Model
         return $this->close_time
             ? \Carbon\Carbon::parse($this->close_time)->format('H:i')
             : null;
+    }
+
+    public function venueAdmin()
+    {
+        return $this->belongsTo(VenueAdmin::class, 'venue_id');
     }
 }

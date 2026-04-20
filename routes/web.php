@@ -22,6 +22,7 @@ use App\Http\Controllers\Client\ProfileController;
 
 use App\Http\Controllers\Venue\CourtController;
 use App\Http\Controllers\Venue\MemberController;
+use App\Http\Controllers\Venue\ScheduleController;
 
 use App\Models\LscTeam;
 use App\Models\Role;
@@ -96,7 +97,13 @@ Route::middleware('auth')->group(function () {
     Route::prefix('venue')->name('venue.')->group(function () {
         Route::resource('court', CourtController::class);
         Route::resource('member', MemberController::class);
+        Route::resource('/venue/schedule', ScheduleController::class);
     });
+
+    Route::get('/venue/schedule/json', [ScheduleController::class, 'getSchedulesJson'])
+    ->name('venue.schedule.json');
+
+
 
 });
 

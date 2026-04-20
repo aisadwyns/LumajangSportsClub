@@ -28,14 +28,11 @@
                             <ul>
                                 <li><a href="#">Jersey</a></li>
                                 <li><a href="#">Merchandise</a></li>
-                                <li><a href="#">Deep Dropdown 3</a></li>
-                                <li><a href="#">Deep Dropdown 4</a></li>
-                                <li><a href="#">Deep Dropdown 5</a></li>
+
                             </ul>
                         </li>
                         <li><a href="#">Challange</a></li>
-                        <li><a href="#">Dropdown 3</a></li>
-                        <li><a href="#">Dropdown 4</a></li>
+                        <li><a href="#">Review</a></li>
                     </ul>
                 </li>
                 {{-- LOGIKA AUTHENTICATION --}}

@@ -25,7 +25,7 @@
 
                     <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
                     <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
-                    <x-sidebar.links title='Jadwal' icon='ti ti-calendar' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Jadwal' icon='ti ti-calendar' route='venue.schedule.index' />
 
                     <x-sidebar.links title='Lapangan' icon='ti ti-layout-grid' route='venue.court.index' />
                     <x-sidebar.links title='Member' icon='ti ti-user' route='venue.member.index' />

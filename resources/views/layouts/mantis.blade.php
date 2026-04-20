@@ -6,6 +6,7 @@
     <title class="text-blue-700">Aplikasi Managemen Venue</title>
     <!-- [Meta] -->
     <x-meta />
+    @stack('css')
 </head>
 
 <!-- [Body] Start -->
