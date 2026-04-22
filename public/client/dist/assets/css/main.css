@@ -1989,6 +1989,8 @@ section,
     padding: 14px 25px;
     font-size: 15px;
   }
+
+
 }
 
 /*--------------------------------------------------------------
@@ -3437,6 +3439,8 @@ section,
   transform: translateY(0);
 }
 
+
+
 /*--------------------------------------------------------------
 # Departments Section
 --------------------------------------------------------------*/
@@ -3473,6 +3477,8 @@ section,
 .departments .department-card:hover .learn-more i {
   transform: translateX(5px);
 }
+
+
 
 .departments .department-icon {
   position: absolute;
@@ -6411,6 +6417,8 @@ section,
 
 
 
+
+
     /* Responsif untuk mobile */
     @media (max-width: 991px) {
         .panel-samping-lengket {
@@ -6419,3 +6427,92 @@ section,
             margin-top: 30px;
         }
     }
+
+
+/*--------------------------------------------------------------
+# Departments Section
+--------------------------------------------------------------*/
+
+
+/* COURT SECTION */
+.court-section {
+    padding: 60px 0;
+}
+
+/* CARD */
+.court-card {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.court-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.court-image {
+    height: 220px;
+    overflow: hidden;
+}
+
+.court-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.court-card:hover .court-image img {
+    transform: scale(1.05);
+}
+
+/* CONTENT */
+.court-content {
+    padding: 20px;
+}
+
+.court-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* INFO */
+.court-info {
+    margin-top: 10px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.info-item i {
+    color: #004AAC;
+    width: 16px;
+}
+
+/* BUTTON */
+.court-btn {
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #004AAC;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.court-btn:hover {
+    color: #002f6c;
+}

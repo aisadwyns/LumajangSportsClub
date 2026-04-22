@@ -1,7 +1,7 @@
 <div class="branding d-flex align-items-cente">
 
     <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="{{ route('client') }}" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.webp" alt=""> -->
             <h1 class="sitename">Lumajang Sports Club</h1>
@@ -10,7 +10,8 @@
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="{{ route('client') }}" class="active">Home</a></li>
-                <li><a href="about.html">Sewa Lapangan</a></li>
+                <li><a href="{{ route('lapangan.public') }}"
+                        class="{{ request()->routeIs('lapangan.public') ? 'active' : '' }}">SewaLapangan</a></li>
                 <li><a href="{{ route('komunitas.public') }}"
                         class="{{ request()->routeIs('komunitas.public') ? 'active' : '' }}">Gabung Komunitas</a></li>
                 <li><a href="{{ route('events.public') }}"
@@ -32,7 +33,7 @@
                             </ul>
                         </li>
                         <li><a href="#">Challange</a></li>
-                        <li><a href="#">Review</a></li>
+                        <li><a href="{{ route('reviews.public') }}">Review</a></li>
                     </ul>
                 </li>
                 {{-- LOGIKA AUTHENTICATION --}}

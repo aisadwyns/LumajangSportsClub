@@ -21,9 +21,9 @@
 
             <div class="card-header d-flex justify-content-between">
                 <h5>Kalender Jadwal Member</h5>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addScheduleModal">
-                    + Tambah Jadwal Rutin
-                </button>
+                <a href="{{ route('venue.schedule.create') }}" class="btn btn-primary">
+                    + Tambah Jadwal
+                </a>
             </div>
             <div class="card-body">
                 {{-- Elemen Kalender --}}

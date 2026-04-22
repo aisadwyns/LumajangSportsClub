@@ -40,7 +40,7 @@
                                                     href="{{ route('bagian.show', $data->id) }}">
                                                     Detail</a></li>
                                             <li><a class="dropdown-item"
-                                                    href="{{ route('lapangan.edit', $data->id) }}">Edit</a></li>
+                                                    href="{{ route('bagian.edit', $data->id) }}">Edit</a></li>
                                             <li> <a class="dropdown-item text-danger"
                                                     href="{{ route('bagian.destroy', $data->id) }}"
                                                     data-confirm-delete="true">Hapus</a></li>

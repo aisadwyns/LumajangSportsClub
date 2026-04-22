@@ -29,11 +29,13 @@
 @section('content')
     <div class="row mt-4">
         @php
-            $superAdminId = \App\Models\Role::where('role_name', 'superadmin')->value('id');
+            $role = auth()->user()->role->role_name;
         @endphp
-        {{-- Cek Role User yang sedang Login --}}
-        @if (auth()->user()->role_id == $superAdminId)
+
+        @if ($role == 'superadmin')
             @include('superadmindashboard')
+        @elseif ($role == 'venue')
+            @include('adminvenuedashboard')
         @else
             @include('userdashboard')
         @endif

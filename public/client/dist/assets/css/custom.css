@@ -1,0 +1,90 @@
+.court-info {
+    margin: 10px 0 15px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .info-item i {
+        color: #004AAC;
+        width: 16px;
+    }
+
+.area-galeri-lapangan {
+        width: 100%;
+        margin-bottom: 30px;
+        display: block;
+        clear: both; /* Memastikan tidak ada elemen yang meluap ke atas */
+    }
+
+    /* Grid utama: Foto besar di kiri, 4 foto kecil di kanan */
+    .bingkai-galeri {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr; /* Foto utama sedikit lebih lebar */
+        gap: 12px;
+        height: 480px; /* Tinggi permanen agar tidak terpengaruh ukuran asli foto */
+        width: 100%;
+    }
+
+    /* Pengaturan gambar agar tidak gepeng atau meluap */
+    .foto-kotak {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover; /* INI KUNCINYA: Foto akan terpotong rapi mengikuti kotak */
+        border-radius: 12px;
+        display: block;
+    }
+
+    .wadah-foto-utama {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Grid untuk 4 foto di samping */
+    .grup-foto-samping {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 12px;
+        height: 100%;
+    }
+
+    .wadah-foto-kecil {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    /* Placeholder jika foto tidak ada */
+    .kotak-kosong {
+        width: 100%;
+        height: 100%;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        .bingkai-galeri {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+        .wadah-foto-utama {
+            height: 300px;
+        }
+        .grup-foto-samping {
+            height: 250px;
+        }
+    }

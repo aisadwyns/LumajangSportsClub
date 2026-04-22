@@ -25,6 +25,7 @@
 
 <!-- Main CSS File -->
 <link href="{{ asset('client/dist') }}/assets/css/main.css" rel="stylesheet">
+<link href="{{ asset('client/dist') }}/assets/css/custom.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: Clinic

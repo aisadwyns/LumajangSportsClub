@@ -21,7 +21,7 @@
                 @if (Auth::user()->role->role_name == 'venue')
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
-                    <x-sidebar.links title='Profile' icon='ti ti-user' route='profil.index' />
+                    <x-sidebar.links title='Booking' icon='ti ti-clipboard' route='profil.index' />
 
                     <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
                     <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>

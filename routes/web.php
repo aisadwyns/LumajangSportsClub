@@ -44,6 +44,10 @@ Route::get('/blogs/{slug}', [ClientController::class, 'publicBlogShow'])->name('
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
 Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 Route::get('/gabung-komunitas/{id}', [ClientController::class, 'publicKomunitasShow'])->name('client.komunitas.show');
+Route::get('/lapangan', [ClientController::class, 'publicLapanganIndex'])->name('lapangan.public');
+Route::get('/lihat-lapangan/{id}', [ClientController::class, 'publicLapanganShow'])->name('lapangan.show');
+Route::get('/reviews', [ClientController::class, 'publicReview'])->name('reviews.public');
+Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');
@@ -55,7 +59,7 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'index'])->name('riwayat.komunitas');
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
 });
-Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
+
 // Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');
 // Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave')->middleware('auth');
 // Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinBayarSekarang');
@@ -97,14 +101,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('venue')->name('venue.')->group(function () {
         Route::resource('court', CourtController::class);
         Route::resource('member', MemberController::class);
-        Route::resource('/venue/schedule', ScheduleController::class);
+        Route::get('schedule/json', [ScheduleController::class, 'getSchedulesJson'])->name('schedule.json');
+        Route::resource('schedule', ScheduleController::class);
     });
-
-    Route::get('/venue/schedule/json', [ScheduleController::class, 'getSchedulesJson'])
-    ->name('venue.schedule.json');
-
-
-
 });
 
 #######################################################################################
@@ -113,21 +112,19 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
     Route::get('/home', [HomeController::class, 'index']) ->middleware('verified')->name('home');
     // Route khusus Superadmin saja
     Route::middleware(['isSuperadmin'])->group(function () {
+        //Route::resource('users', UserController::class)->middleware('isSuperadmin');
+        Route::resource('users', UserController::class);
+        Route::post('users.update-role', [UserController::class,'updateRole'])->name('users.update-role');
+        Route::resource('lscteam', LscTeamController::class);
+        Route::resource('bagian', BagianController::class);
+        Route::resource('jenis-komunitas', JenisKomunitasController::class);
+        Route::resource('komunitas', KomunitasController::class);
+        Route::resource('event', EventController::class);
+        Route::resource('blog', BlogController::class);
 
-    //Route::resource('users', UserController::class)->middleware('isSuperadmin');
-    Route::resource('users', UserController::class);
-    Route::post('users.update-role', [UserController::class,'updateRole'])->name('users.update-role');
-    Route::resource('lapangan', LapanganController::class);
-    Route::resource('lscteam', LscTeamController::class);
-    Route::resource('bagian', BagianController::class);
-    Route::resource('jenis-komunitas', JenisKomunitasController::class);
-    Route::resource('komunitas', KomunitasController::class);
-    Route::resource('event', EventController::class);
-    Route::resource('blog', BlogController::class);
-
-    Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
-    Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');
-    Route::post('/admin/venues/{id}/reject', [VenueController::class, 'reject'])->name('admin.venues.reject');
+        Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
+        Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');
+        Route::post('/admin/venues/{id}/reject', [VenueController::class, 'reject'])->name('admin.venues.reject');
     });
 });
 Route::fallback(function () {

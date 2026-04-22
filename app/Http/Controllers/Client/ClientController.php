@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Event;
 use App\Models\Komunitas;
+use App\Models\Court;
+use App\Models\Schedule;
 
 
 class ClientController extends Controller
@@ -43,6 +45,24 @@ class ClientController extends Controller
      public function publicLeaderboard()
     {
         return view('client.leaderboard');
+    }
+    public function publicReview(){
+        return view('client.testimoni');
+    }
+    public function publicLapanganIndex(){
+        $courts = Court::where('status', 'active')->get();
+        return view('client.lapangan', compact('courts'));
+    }
+
+    public function publicLapanganShow($id)
+    {
+        $court = Court::findOrFail($id);
+
+        $schedules = Schedule::where('court_id', $id)
+            ->orderBy('start_time')
+            ->get();
+
+        return view('client.detaillapangan', compact('court','schedules'));
     }
 
 
