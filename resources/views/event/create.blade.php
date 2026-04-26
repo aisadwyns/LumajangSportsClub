@@ -5,11 +5,11 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Form Tambah Event</h4>
-                <a href="{{ route('events.index') }}">Kembali</a>
+                <a href="{{ route('event.index') }}">Kembali</a>
             </div>
 
             <div class="card-body">
-                <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Judul --}}

@@ -3,15 +3,13 @@
         <div class="me-auto pc-mob-drp">
             <ul class="list-unstyled">
                 <!-- ======= Menu collapse Icon ===== -->
-
-
                 <li class="pc-h-item pc-sidebar-collapse">
                     <a href="#" class="pc-head-link" data-pc-toggle="sidebar" data-pc-target=".pc-sidebar"
                         id="sidebar-hide">
                         <i class="ti ti-menu-2"></i>
                     </a>
                 </li>
-                <li class="pc-h-item pc-sidebar-popup">
+                {{-- <li class="pc-h-item pc-sidebar-popup">
                     <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
                         <i class="ti ti-menu-2"></i>
                     </a>
@@ -36,7 +34,7 @@
                         <i data-feather="search" class="icon-search"></i>
                         <input type="search" class="form-control" placeholder="Search here. . .">
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <!-- [Mobile Media Block end] -->
@@ -59,55 +57,15 @@
                             <div class="list-group list-group-flush w-100">
                                 <a class="list-group-item list-group-item-action">
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <img src="{{ asset('template/dist') }}/assets/images/user/avatar-2.jpg"
                                                 alt="user-image" class="user-avtar">
-                                        </div>
+                                        </div> --}}
                                         <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">3:00 AM</span>
-                                            <p class="text-body mb-1">It's <b>Cristina danny's</b> birthday today.
+                                            <span class="float-end text-muted">Fitur tidak tersedia</span>
+                                            {{-- <p class="text-body mb-1">It's <b>Cristina danny's</b> birthday today.
                                             </p>
-                                            <span class="text-muted">2 min ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="{{ asset('template/dist') }}/assets/images/user/avatar-1.jpg"
-                                                alt="user-image" class="user-avtar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">6:00 PM</span>
-                                            <p class="text-body mb-1"><b>Aida Burg</b> commented your post.</p>
-                                            <span class="text-muted">5 August</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="{{ asset('template/dist') }}/assets/images/user/avatar-3.jpg"
-                                                alt="user-image" class="user-avtar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">2:45 PM</span>
-                                            <p class="text-body mb-1"><b>There was a failure to your setup.</b></p>
-                                            <span class="text-muted">7 hours ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="{{ asset('template/dist') }}/assets/images/user/avatar-4.jpg"
-                                                alt="user-image" class="user-avtar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">9:10 PM</span>
-                                            <p class="text-body mb-1"><b>Cristina Danny </b> invited to join <b>
-                                                    Meeting.</b></p>
-                                            <span class="text-muted">Daily scrum meeting time</span>
+                                            <span class="text-muted">2 min ago</span> --}}
                                         </div>
                                     </div>
                                 </a>
@@ -135,23 +93,22 @@
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">{{ auth()->user()->name }}</h6>
-                                    <span>UI/UX Designer</span>
+                                    <span class="text-muted">-</span>
                                 </div>
-                                <a href="#!" class="pc-head-link bg-transparent"><i
-                                        class="ti ti-power text-danger"></i></a>
+                                <a href="#!" class="pc-head-link bg-transparent"><i class="text-danger"></i></a>
                             </div>
                         </div>
                         <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="drp-t1" data-bs-toggle="tab"
-                                    data-bs-target="#drp-tab-1" type="button" role="tab"
-                                    aria-controls="drp-tab-1" aria-selected="true"><i class="ti ti-user"></i>
+                                    data-bs-target="#drp-tab-1" type="button" role="tab" aria-controls="drp-tab-1"
+                                    aria-selected="true"><i class="ti ti-user"></i>
                                     Profile</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="drp-t2" data-bs-toggle="tab"
-                                    data-bs-target="#drp-tab-2" type="button" role="tab"
-                                    aria-controls="drp-tab-2" aria-selected="false"><i class="ti ti-settings"></i>
+                                <button class="nav-link" id="drp-t2" data-bs-toggle="tab" data-bs-target="#drp-tab-2"
+                                    type="button" role="tab" aria-controls="drp-tab-2" aria-selected="false"><i
+                                        class="ti ti-settings"></i>
                                     Setting</button>
                             </li>
                         </ul>
@@ -162,18 +119,7 @@
                                     <i class="ti ti-edit-circle"></i>
                                     <span>Edit Profile</span>
                                 </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-user"></i>
-                                    <span>View Profile</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-clipboard-list"></i>
-                                    <span>Social Profile</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-wallet"></i>
-                                    <span>Billing</span>
-                                </a>
+
                                 <a href="#!" class="dropdown-item">
                                     <i class="ti ti-power text-danger"></i>
                                     <form action="{{ route('logout') }}" method="post">

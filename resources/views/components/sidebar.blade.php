@@ -57,6 +57,7 @@
                             <x-sidebar.links title='Jenis Komunitas' icon='ti ti-layout-grid'
                                 route='jenis-komunitas.index' />
                             <li class="pc-item"><a class="pc-link" href="#!">Galeri</a></li>
+                            <x-sidebar.links title='Jersey' icon='ti ti-clipboard-list' route='jersey.index' />
                             <li class="pc-item pc-hasmenu">
                                 <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i
                                             data-feather="chevron-right"></i></span></a>

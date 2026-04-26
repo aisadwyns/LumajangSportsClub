@@ -13,6 +13,7 @@ use App\Http\Controllers\KomunitasController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\JerseyController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Client\ClientController;
@@ -42,6 +43,8 @@ Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
 Route::get('/blogs/{slug}', [ClientController::class, 'publicBlogShow'])->name('blog.show');
 Route::get('/events', [ClientController::class, 'publicEventIndex'])->name('events.public');
+Route::get('/katalog-jersey', [ClientController::class, 'publicJersey'])->name('jerseys.index');
+
 Route::get('/gabung-komunitas', [ClientController::class, 'publicKomunitasIndex'])->name('komunitas.public');
 Route::get('/gabung-komunitas/{id}', [ClientController::class, 'publicKomunitasShow'])->name('client.komunitas.show');
 Route::get('/lapangan', [ClientController::class, 'publicLapanganIndex'])->name('lapangan.public');
@@ -121,6 +124,7 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
         Route::resource('komunitas', KomunitasController::class);
         Route::resource('event', EventController::class);
         Route::resource('blog', BlogController::class);
+        Route::resource('jersey', JerseyController::class);
 
         Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
         Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');

@@ -44,7 +44,8 @@
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
                     <button class="btn btn-outline-primary me-2 px-4">Enquire</button>
-                    <button class="btn btn-primary px-4" style="background-color: #004AAC;">Book now</button>
+                    <button class="btn btn-primary px-4" style="background-color: #004AAC;" onclick="tampilkanJadwal()">Book
+                        now</button>
                 </div>
             </div>
 
@@ -88,4 +89,107 @@
 
         </div>
     </main>
+
+
+    <div id="area-booking-jadwal" class="container" style="display:none; margin-bottom: 100px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold"><i class="fas fa-calendar-alt text-primary me-2"></i> Pilih Jadwal Tersedia</h4>
+        </div>
+
+        <div class="grid-slot-waktu"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px;">
+
+            {{-- Logic PHP untuk generate jam berdasarkan open_time dan close_time --}}
+            @php
+                $startHour = (int) substr($court->open_time, 0, 2);
+                $endHour = (int) substr($court->close_time, 0, 2);
+
+                // Dummy data booked (Nanti ini harus dikirim dari Controller)
+                // Misal jam 08:00 dan 10:00 sudah dipesan
+                $jamSudahDipesan = ['08:00', '10:00', '19:00'];
+            @endphp
+
+            @for ($i = $startHour; $i < $endHour; $i++)
+                @php
+                    $formatJam = sprintf('%02d:00', $i);
+                    $isBooked = in_array($formatJam, $jamSudahDipesan);
+                @endphp
+
+                <div class="slot-item {{ $isBooked ? 'booked' : '' }}"
+                    onclick="pilihJam(this, '{{ $formatJam }}', {{ $court->price_per_hour }})">
+
+                    @if ($isBooked)
+                        <span class="badge-sold">Full</span>
+                    @endif
+
+                    <p class="text-muted small mb-1">60 Menit</p>
+                    <strong class="d-block mb-1 text-dark">{{ $formatJam }} - {{ sprintf('%02d:00', $i + 1) }}</strong>
+
+                    @if (!$isBooked)
+                        <span
+                            class="fw-bold text-primary">Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}</span>
+                    @else
+                        <span class="small text-muted">Tidak Tersedia</span>
+                    @endif
+                </div>
+            @endfor
+        </div>
+    </div>
+
+    <div id="checkout-bar" class="d-none animate__animated animate__slideInUp">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <span class="text-muted small">Total Pembayaran</span>
+                <h4 class="fw-bold text-primary mb-0" id="display-total">Rp0</h4>
+            </div>
+            <button class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;" onclick="bukaModalCheckout()">
+                Lanjut ke Checkout
+            </button>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        let jamTerpilih = null;
+        let hargaTerpilih = 0;
+
+        function tampilkanJadwal() {
+            const area = document.getElementById('area-booking-jadwal');
+            area.style.display = 'block';
+            area.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function pilihJam(elemen, jam, harga) {
+            // Jika jadwal sudah dibooked (punya class booked), jangan lakukan apa-apa
+            if (elemen.classList.contains('booked')) return;
+
+            // Reset semua pilihan sebelumnya
+            document.querySelectorAll('.slot-item').forEach(item => {
+                item.classList.remove('terpilih');
+            });
+
+            // Tandai yang baru diklik
+            elemen.classList.add('terpilih');
+
+            jamTerpilih = jam;
+            hargaTerpilih = harga;
+
+            // Tampilkan checkout bar dan update harganya
+            document.getElementById('display-total').innerText = "Rp " + harga.toLocaleString('id-ID');
+            document.getElementById('checkout-bar').classList.remove('d-none');
+        }
+
+        function bukaModalCheckout() {
+            if (!jamTerpilih) return alert('Silakan pilih jam main dulu!');
+
+            document.getElementById('detail-pesanan-jam').innerText = "Jadwal: Jam " + jamTerpilih;
+            document.getElementById('harga-final').innerText = "Rp" + hargaTerpilih.toLocaleString('id-ID');
+            document.getElementById('total-final').innerText = "Rp" + hargaTerpilih.toLocaleString('id-ID');
+
+            var myModal = new bootstrap.Modal(document.getElementById('modalCheckout'));
+            myModal.show();
+        }
+    </script>
 @endsection

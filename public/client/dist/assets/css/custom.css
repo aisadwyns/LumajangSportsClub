@@ -88,3 +88,67 @@
             height: 250px;
         }
     }
+
+    .slot-item {
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Hover untuk yang tersedia */
+    .slot-item:hover:not(.booked) {
+        border-color: #004AAC;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Style untuk Jadwal yang TERPILIH */
+    .slot-item.terpilih {
+        background-color: #004AAC !important;
+        border-color: #004AAC !important;
+        color: white !important;
+    }
+    .slot-item.terpilih p, .slot-item.terpilih strong, .slot-item.terpilih span {
+        color: white !important;
+    }
+
+    /* Style untuk Jadwal yang SOLD OUT (Abu-abu & Transparan) */
+    .slot-item.booked {
+        background-color: #f8f9fa !important;
+        border-color: #dee2e6 !important;
+        opacity: 0.6;
+        cursor: not-allowed; /* Kursor dilarang */
+        pointer-events: none; /* Tidak bisa diklik */
+    }
+    .slot-item.booked strong, .slot-item.booked span {
+        color: #adb5bd !important;
+        text-decoration: line-through; /* Coret tanda sudah laku */
+    }
+    .badge-sold {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 10px;
+        background: #6c757d;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    /* Bar Bawah (Checkout) */
+    #checkout-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }

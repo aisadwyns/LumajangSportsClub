@@ -53,7 +53,7 @@ class CourtController extends Controller
             'price_per_hour' => 'required|numeric',
             'description' => 'nullable|string',
             'facilities' => 'nullable|string',
-            'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'images.*' => 'image|mimes:jpg,jpeg,png|max:10000',
             'open_time' => 'nullable',
             'close_time' => 'nullable',
             'status' => 'required|in:active,inactive'

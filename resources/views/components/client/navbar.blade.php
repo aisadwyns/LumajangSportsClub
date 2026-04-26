@@ -20,14 +20,14 @@
                 <li><a href="{{ route('blogs.public') }}"
                         class="{{ request()->routeIs('blogs.public') ? 'active' : '' }}">Blog</a></li>
                 <li><a href="doctors.html">LSC Holiday</a></li>
-                <li class="dropdown"><a href="#"><span>Lainnya</span> <i
+                {{-- <li class="dropdown"><a href="#"><span>Lainnya</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="{{ route('leaderboard.public') }}">Leaderboard</a></li>
                         <li class="dropdown"><a href="#"><span>Produk</span> <i
                                     class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
-                                <li><a href="#">Jersey</a></li>
+                                <li><a href="{{ route('jerseys.index') }}">Jersey</a></li>
                                 <li><a href="#">Merchandise</a></li>
 
                             </ul>
@@ -35,7 +35,41 @@
                         <li><a href="#">Challange</a></li>
                         <li><a href="{{ route('reviews.public') }}">Review</a></li>
                     </ul>
+                </li> --}}
+                <li class="dropdown">
+                    <a href="#"
+                        class="{{ request()->routeIs(['leaderboard.public', 'jerseys.index', 'reviews.public']) ? 'active' : '' }}">
+                        <span>Lainnya</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('leaderboard.public') }}"
+                                class="{{ request()->routeIs('leaderboard.public') ? 'active' : '' }}">Leaderboard</a>
+                        </li>
+
+                        {{-- Sub-Dropdown Produk: Aktif jika Jersey sedang dibuka --}}
+                        <li class="dropdown">
+                            <a href="#" class="{{ request()->routeIs('jerseys.index') ? 'active' : '' }}">
+                                <span>Produk</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('jerseys.index') }}"
+                                        class="{{ request()->routeIs('jerseys.index') ? 'active' : '' }}">Jersey</a>
+                                </li>
+                                <li><a href="#">Merchandise</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#">Challange</a></li>
+
+                        <li>
+                            <a href="{{ route('reviews.public') }}"
+                                class="{{ request()->routeIs('reviews.public') ? 'active' : '' }}">Review</a>
+                        </li>
+                    </ul>
                 </li>
+
                 {{-- LOGIKA AUTHENTICATION --}}
                 @auth
                     {{-- Tampilan saat User SUDAH Login --}}

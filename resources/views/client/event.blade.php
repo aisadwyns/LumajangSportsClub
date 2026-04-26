@@ -8,7 +8,13 @@
             <div class="row gy-4">
 
                 @forelse ($events as $event)
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    @php
+                        // Cek apakah tanggal event sudah lebih kecil dari hari ini
+                        $sudahLewat = \Carbon\Carbon::parse($event->event_date)->isPast();
+                    @endphp
+
+                    <div class="col-lg-4 col-md-6 {{ $sudahLewat ? 'event-tutup' : '' }}" data-aos="fade-up"
+                        data-aos-delay="200">
                         <div class="service-item">
 
                             {{-- Thumbnail --}}
@@ -22,6 +28,8 @@
 
                             {{-- Content --}}
                             <div class="service-content">
+
+
                                 <h3>{{ $event->title }}</h3>
 
                                 <p>
@@ -43,17 +51,20 @@
                                     @endif
                                 </div>
 
-                                {{-- Button Detail --}}
-                                <a href="{{ $event->registration_link }}" target="_blank" class="service-btn">
-                                    <span>Daftar Sekarang</span>
-                                    <i class="fas fa-arrow-right"></i>
+                                <a href="{{ $sudahLewat ? '#' : $event->registration_link }}"
+                                    {{ $sudahLewat ? '' : 'target="_blank"' }} class="service-btn">
+                                    <span>{{ $sudahLewat ? 'Sudah Berakhir' : 'Daftar Sekarang' }}</span>
+
+                                    {{-- Tanda panah hanya muncul jika event BELUM lewat --}}
+                                    @if (!$sudahLewat)
+                                        <i class="fas fa-arrow-right"></i>
+                                    @endif
                                 </a>
                             </div>
 
                         </div>
                     </div>
                 @empty
-
                     <div class="col-12 text-center">
                         <p>Tidak ada event tersedia.</p>
                     </div>

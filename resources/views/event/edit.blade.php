@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Form Edit Event</h4>
-                <a href="{{ route('events.index') }}">Kembali</a>
+                <a href="{{ route('event.index') }}">Kembali</a>
             </div>
 
             <div class="card-body">
@@ -20,7 +20,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('event.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

@@ -29,7 +29,7 @@ class EventController extends Controller
             'jenis_komunitas_id' => 'required|exists:jenis_komunitas,id',
             'title'              => 'required|string|max:255',
             'description'        => 'nullable|string',
-            'thumbnail'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'thumbnail'          => 'nullable|image|mimes:jpg,jpeg,png|max:7000',
             'event_date'         => 'required|date',
             'start_time'         => 'nullable',
             'end_time'           => 'nullable',
