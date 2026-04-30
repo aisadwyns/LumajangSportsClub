@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Jersey;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JerseyController extends Controller
 {
@@ -15,59 +16,62 @@ class JerseyController extends Controller
         return view('jersey.index', compact('jerseys'));
     }
 
-    // Tampilan Dashboard Admin untuk Kelola Jersey
-    public function manage()
+    public function show()
     {
         $jerseys = Jersey::latest()->get();
-        return view('jerseys.manage', compact('jerseys'));
+    
+    // Siapkan konfirmasi hapus untuk SweetAlert
+    confirmDelete('Hapus Jersey!', 'Apakah kamu yakin?');
+
+    return view('jersey.show', compact('jerseys'));
+    }
+
+    public function create()
+    {
+        return view('jersey.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'name'  => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $file = $request->file('image');
-        $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('public/jerseys', $fileName);
+        // Proses File Gambar
+        $image = $request->file('image');
+        $fileName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        Storage::disk('public')->putFileAs('jerseys', $image, $fileName);
 
-        Jersey::create([
-            'name' => $request->name,
-            'image' => $fileName,
-        ]);
+        // Simpan Data
+        $data = $request->all();
+        $data['image'] = $fileName;
 
-        return back()->with('success', 'Jersey berhasil ditambahkan!');
+        Jersey::create($data);
+
+        Alert::success('sukses', 'Jersey berhasil ditambahkan');
+        return redirect()->route('jersey.index');
     }
 
-    public function update(Request $request, Jersey $jersey)
+    public function edit(string $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $jersey = Jersey::findOrFail($id);
+        return view('jersey.edit', compact('jersey'));
+    }
 
-        if ($request->hasFile('image')) {
-            // Hapus gambar lama
-            Storage::delete('public/jerseys/' . $jersey->image);
-            
-            $file = $request->file('image');
-            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/jerseys', $fileName);
-            $jersey->image = $fileName;
+
+    public function destroy(string $id)
+    {
+        $jersey = Jersey::findOrFail($id);
+
+        // Hapus file gambar dari disk
+        if ($jersey->image) {
+            Storage::disk('public')->delete('jerseys/' . $jersey->image);
         }
 
-        $jersey->name = $request->name;
-        $jersey->save();
-
-        return back()->with('success', 'Jersey berhasil diupdate!');
-    }
-
-    public function destroy(Jersey $jersey)
-    {
-        Storage::delete('public/jerseys/' . $jersey->image);
         $jersey->delete();
-        return back()->with('success', 'Jersey berhasil dihapus!');
+        
+        Alert::success('sukses', 'Jersey berhasil dihapus');
+        return redirect()->route('jersey.index');
     }
 }

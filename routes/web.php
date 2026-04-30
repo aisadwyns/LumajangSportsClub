@@ -20,6 +20,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\BookingController;
 
 use App\Http\Controllers\Venue\CourtController;
 use App\Http\Controllers\Venue\MemberController;
@@ -52,20 +53,20 @@ Route::get('/lihat-lapangan/{id}', [ClientController::class, 'publicLapanganShow
 Route::get('/reviews', [ClientController::class, 'publicReview'])->name('reviews.public');
 Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 
+Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
+
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');
     Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join');
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
+    Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
+
     Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 
     Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'index'])->name('riwayat.komunitas');
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
 });
-
-// Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join')->middleware('auth');
-// Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave')->middleware('auth');
-// Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinBayarSekarang');
 
 // Route::get('/events', function () {
 //     return view('event');

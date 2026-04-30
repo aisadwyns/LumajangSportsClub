@@ -32,13 +32,24 @@
                 </div>
             </section>
 
+            {{-- ✅ FIX: Status buka/tutup tidak lagi hardcoded --}}
+            @php
+                $jamSekarang = \Carbon\Carbon::now()->format('H:i');
+                $jamBuka = substr($court->open_time, 0, 5);
+                $jamTutup = substr($court->close_time, 0, 5);
+                $isOpen = $jamSekarang >= $jamBuka && $jamSekarang < $jamTutup;
+            @endphp
+
             <div class="row align-items-center mb-4">
                 <div class="col-md-8">
                     <h1 class="fw-bold text-dark">{{ $court->name }}</h1>
                     <p class="text-muted small mb-0">
                         <span class="text-warning"><i class="fas fa-star"></i> 5.0</span>
                         (196 Reviews) •
-                        <span class="text-success">Open Now</span> •
+                        {{-- ✅ FIX: Status dinamis berdasarkan jam operasional --}}
+                        <span class="{{ $isOpen ? 'text-success' : 'text-danger' }}">
+                            {{ $isOpen ? 'Open Now' : 'Closed' }}
+                        </span> •
                         {{ ucfirst($court->sport_type) }}, {{ $court->venueAdmin->city ?? 'Lumajang' }}
                     </p>
                 </div>
@@ -70,8 +81,7 @@
                         <div>
                             <h6 class="fw-bold mb-1">Jam Operasional</h6>
                             <p class="text-muted small mb-0">Mon: <span class="text-danger">Closed</span></p>
-                            <p class="text-muted small mb-0">Tue - Sun: {{ substr($court->open_time, 0, 5) }} -
-                                {{ substr($court->close_time, 0, 5) }}</p>
+                            <p class="text-muted small mb-0">Tue - Sun: {{ $jamBuka }} - {{ $jamTutup }}</p>
                         </div>
                     </div>
                 </div>
@@ -96,45 +106,54 @@
             <h4 class="fw-bold"><i class="fas fa-calendar-alt text-primary me-2"></i> Pilih Jadwal Tersedia</h4>
         </div>
 
-        <div class="grid-slot-waktu"
-            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px;">
+        {{-- PILIH TANGGAL --}}
+        <div class="mb-4">
+            <label class="fw-bold">Pilih Tanggal</label>
+            <input type="date" id="tanggalBooking" class="form-control mt-2" value="{{ $tanggal }}">
+        </div>
 
-            {{-- Logic PHP untuk generate jam berdasarkan open_time dan close_time --}}
+        {{-- SLOT --}}
+        <div class="grid-slot-waktu"
+            style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px;">
+
             @php
                 $startHour = (int) substr($court->open_time, 0, 2);
                 $endHour = (int) substr($court->close_time, 0, 2);
-
-                // Dummy data booked (Nanti ini harus dikirim dari Controller)
-                // Misal jam 08:00 dan 10:00 sudah dipesan
-                $jamSudahDipesan = ['08:00', '10:00', '19:00'];
             @endphp
 
             @for ($i = $startHour; $i < $endHour; $i++)
                 @php
-                    $formatJam = sprintf('%02d:00', $i);
-                    $isBooked = in_array($formatJam, $jamSudahDipesan);
+                    $jam = sprintf('%02d:00', $i);
+                    // ✅ FIX: bookedSlots sekarang sudah mencakup schedules DAN bookings
+                    $isBooked = in_array($jam, $bookedSlots);
                 @endphp
 
                 <div class="slot-item {{ $isBooked ? 'booked' : '' }}"
-                    onclick="pilihJam(this, '{{ $formatJam }}', {{ $court->price_per_hour }})">
+                    onclick="pilihJam(this, '{{ $jam }}', {{ $court->price_per_hour }})">
 
                     @if ($isBooked)
                         <span class="badge-sold">Full</span>
                     @endif
 
-                    <p class="text-muted small mb-1">60 Menit</p>
-                    <strong class="d-block mb-1 text-dark">{{ $formatJam }} - {{ sprintf('%02d:00', $i + 1) }}</strong>
+                    <p class="small">60 Menit</p>
+
+                    <strong>{{ $jam }} - {{ sprintf('%02d:00', $i + 1) }}</strong>
 
                     @if (!$isBooked)
-                        <span
-                            class="fw-bold text-primary">Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}</span>
+                        <span class="text-primary fw-bold">
+                            Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}
+                        </span>
                     @else
-                        <span class="small text-muted">Tidak Tersedia</span>
+                        <span class="text-muted small">Tidak tersedia</span>
                     @endif
+
                 </div>
             @endfor
+
         </div>
     </div>
+
+    {{-- ✅ FIX: Hapus </div> ekstra yang tidak punya pasangan --}}
 
     <div id="checkout-bar" class="d-none animate__animated animate__slideInUp">
         <div class="container d-flex justify-content-between align-items-center">
@@ -142,54 +161,192 @@
                 <span class="text-muted small">Total Pembayaran</span>
                 <h4 class="fw-bold text-primary mb-0" id="display-total">Rp0</h4>
             </div>
-            <button class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;" onclick="bukaModalCheckout()">
-                Lanjut ke Checkout
-            </button>
+            <button class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;" data-bs-toggle="modal"
+                data-bs-target="#modalBookingCourt"> Lanjut ke Checkout </button>
+
+        </div>
+    </div>
+
+    {{-- MODAL BOOKING COURT --}}
+    <div class="modal fade" id="modalBookingCourt" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Konfirmasi Booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <p class="text-muted mb-3">
+                        Booking <strong>{{ $court->name }}</strong>
+                    </p>
+
+                    <h5 id="infoBooking"></h5>
+
+                    <p class="mt-3">
+                        Total:
+                        <strong class="text-primary">
+                            Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}
+                        </strong>
+                    </p>
+
+                    <div class="alert alert-info small">
+                        Pembayaran menggunakan Midtrans (Gopay, VA, Transfer Bank)
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <!-- Ubah ID dan tambahkan event onclick -->
+                    <button type="button" class="btn btn-primary" id="btnProsesBooking"
+                        onclick="bayarCourt()">Lanjutkan Pembayaran</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalMidtrans" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Pembayaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-info mb-2">
+                        Klik <b>Lanjutkan Pembayaran</b>
+                    </div>
+                    <div id="midtransStatus" class="small text-muted"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary" id="btnPayMidtrans">Lanjutkan Pembayaran</button>
+                </div>
+
+            </div>
         </div>
     </div>
 @endsection
+
 @section('script')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
+    </script>
     <script>
         let jamTerpilih = null;
         let hargaTerpilih = 0;
 
+
         function tampilkanJadwal() {
-            const area = document.getElementById('area-booking-jadwal');
+            let area = document.getElementById('area-booking-jadwal');
             area.style.display = 'block';
             area.scrollIntoView({
                 behavior: 'smooth'
             });
         }
 
-        function pilihJam(elemen, jam, harga) {
-            // Jika jadwal sudah dibooked (punya class booked), jangan lakukan apa-apa
-            if (elemen.classList.contains('booked')) return;
+        // Ganti tanggal → reload dengan query param
+        document.getElementById('tanggalBooking').addEventListener('change', function() {
+            let tanggal = this.value;
+            let url = new URL(window.location.href);
+            url.searchParams.set('tanggal', tanggal);
+            window.location.href = url;
+        });
 
-            // Reset semua pilihan sebelumnya
-            document.querySelectorAll('.slot-item').forEach(item => {
-                item.classList.remove('terpilih');
-            });
+        function pilihJam(el, jam, harga) {
 
-            // Tandai yang baru diklik
-            elemen.classList.add('terpilih');
+            if (el.classList.contains('booked')) return;
 
-            jamTerpilih = jam;
-            hargaTerpilih = harga;
+            // highlight
+            document.querySelectorAll('.slot-item').forEach(e => e.classList.remove('terpilih'));
+            el.classList.add('terpilih');
 
-            // Tampilkan checkout bar dan update harganya
-            document.getElementById('display-total').innerText = "Rp " + harga.toLocaleString('id-ID');
+            let tanggal = document.getElementById('tanggalBooking').value;
+
+            // simpan data
+            selectedDate = tanggal;
+            selectedTime = jam;
+
+            // tampilkan info
+            document.getElementById('infoBooking').innerText =
+                tanggal + ' | ' + jam;
+
+            // update total
+            document.getElementById('display-total').innerText =
+                'Rp ' + harga.toLocaleString('id-ID');
+
+            // tampilkan checkout bar (INI YANG HILANG TADI)
             document.getElementById('checkout-bar').classList.remove('d-none');
         }
 
-        function bukaModalCheckout() {
-            if (!jamTerpilih) return alert('Silakan pilih jam main dulu!');
+        let snapToken = null;
+        let selectedDate = document.getElementById('tanggalBooking') ? document.getElementById('tanggalBooking').value : '';
+        let selectedTime = ''; // Pastikan variabel ini terisi saat user milih jam
 
-            document.getElementById('detail-pesanan-jam').innerText = "Jadwal: Jam " + jamTerpilih;
-            document.getElementById('harga-final').innerText = "Rp" + hargaTerpilih.toLocaleString('id-ID');
-            document.getElementById('total-final').innerText = "Rp" + hargaTerpilih.toLocaleString('id-ID');
+        function bayarCourt() {
+            // Nutup modal pertama biar gak numpuk
+            const modalBookingEl = document.getElementById('modalBookingCourt');
+            const modalBooking = bootstrap.Modal.getInstance(modalBookingEl);
+            if (modalBooking) modalBooking.hide();
 
-            var myModal = new bootstrap.Modal(document.getElementById('modalCheckout'));
-            myModal.show();
+            // Buka modal Midtrans
+            const modalMidtransEl = document.getElementById('modalMidtrans');
+            const modalMidtrans = new bootstrap.Modal(modalMidtransEl);
+
+            document.getElementById('midtransStatus').innerText = 'Menyiapkan pembayaran...';
+            document.getElementById('btnPayMidtrans').disabled = true;
+            modalMidtrans.show();
+
+            fetch("{{ route('booking.pay') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        court_id: "{{ $court->id ?? '' }}",
+                        booking_date: selectedDate,
+                        start_time: selectedTime
+                    })
+                })
+                .then(r => r.json())
+                .then(res => {
+                    if (!res.success) throw new Error(res.error || 'Gagal membuat transaksi.');
+
+                    snapToken = res.snap_token;
+                    document.getElementById('midtransStatus').innerText = 'Siap. Klik "Lanjutkan Pembayaran".';
+                    document.getElementById('btnPayMidtrans').disabled = false;
+                })
+                .catch(err => {
+                    document.getElementById('midtransStatus').innerText = err.message;
+                    document.getElementById('btnPayMidtrans').disabled = true;
+                });
         }
+
+        // Eksekusi Snap Midtrans
+        document.getElementById('btnPayMidtrans')?.addEventListener('click', function() {
+            if (!snapToken) return;
+
+            window.snap.pay(snapToken, {
+                onSuccess: function(result) {
+                    location.reload();
+                },
+                onPending: function(result) {
+                    location.reload();
+                },
+                onError: function(result) {
+                    alert('Pembayaran gagal. Coba lagi.');
+                },
+                onClose: function() {
+                    // Biarin kosong kalau user cuma nutup popup
+                }
+            });
+        });
     </script>
 @endsection

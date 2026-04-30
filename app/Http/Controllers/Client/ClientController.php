@@ -10,7 +10,7 @@ use App\Models\Komunitas;
 use App\Models\Court;
 use App\Models\Schedule;
 use App\Models\Jersey;
-
+use App\Models\Booking;
 
 class ClientController extends Controller
 {
@@ -55,22 +55,35 @@ class ClientController extends Controller
         return view('client.lapangan', compact('courts'));
     }
 
-    public function publicLapanganShow($id)
-    {
-        $court = Court::findOrFail($id);
+    public function publicLapanganShow($id, Request $request) {
+        $court = Court::with('images','venueAdmin')->findOrFail($id);
+
+        $tanggal = $request->tanggal ?? now()->toDateString();
 
         $schedules = Schedule::where('court_id', $id)
-            ->orderBy('start_time')
+            ->where('schedule_date', $tanggal)
             ->get();
 
-        $bookedSlots = Schedule::where('court_id', $id)
-                ->where('schedule_date', date('Y-m-d'))
-                ->pluck('start_time') // Ambil kolom start_time saja
-                ->map(function($time) {
-                    return substr($time, 0, 5); // Ubah 08:00:00 jadi 08:00
-                })->toArray();
+        $bookings = Booking::where('court_id', $id)
+            ->whereDate('booking_date', $tanggal)
+            ->get();
 
-        return view('client.detaillapangan', compact('court','schedules', 'bookedSlots'));
+
+        $bookedSlots = collect()
+            ->merge($schedules->pluck('start_time'))
+            ->merge($bookings->pluck('start_time'))
+            ->map(fn($time) => substr($time, 0, 5))
+            ->unique()
+            ->toArray();
+
+        // $isMember = $schedules->pluck('start_time')->contains($jam);
+        // $isUserBooking = $bookings->pluck('start_time')->contains($jam);
+        return view('client.detaillapangan', compact(
+            'court',
+            'schedules',
+            'bookedSlots',
+            'tanggal'
+        ));
     }
 
     public function publicJersey() {

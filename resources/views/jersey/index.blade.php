@@ -38,14 +38,13 @@
                                             Aksi
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $data->id }}">
-                                            <li><a class="dropdown-item text-primary"
-                                                    href="{{ route('jersey.show', $data->id) }}">
-                                                    Detail</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="{{ route('jersey.edit', $data->id) }}">Lihat Gambar</a></li>
-                                            <li> <a class="dropdown-item text-danger"
-                                                    href="{{ route('jersey.destroy', $data->id) }}"
-                                                    data-confirm-delete="true">Hapus</a></li>
+                                            <li> <form action="{{ route('jersey.destroy', $data->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="dropdown-item text-danger" data-confirm-delete="true">
+        Hapus
+    </button>
+</form></li>
                                         </ul>
                                     </div>
                                 </td>
