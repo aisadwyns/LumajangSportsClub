@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="hero-actions" data-aos="fade-right" data-aos-delay="600">
-                        <a href="appointment.html" class="btn btn-primary">Cari Partner Sekarang</a>
+                        <a href="{{ route('komunitas.public') }}" class="btn btn-primary">Cari Partner Sekarang</a>
 
                     </div>
 

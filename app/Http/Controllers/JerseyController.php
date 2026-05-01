@@ -11,15 +11,21 @@ use RealRashid\SweetAlert\Facades\Alert;
 class JerseyController extends Controller
 {
     public function index()
-    {
-        $jerseys = Jersey::latest()->paginate(9);
-        return view('jersey.index', compact('jerseys'));
-    }
+{
+    $jerseys = Jersey::latest()->paginate(9);
+
+    // Pindahkan ke sini agar SweetAlert me-load script-nya di halaman index
+    $title = 'Hapus Jersey!';
+    $text = "Apakah kamu yakin?";
+    confirmDelete($title, $text);
+
+    return view('jersey.index', compact('jerseys'));
+}
 
     public function show()
     {
         $jerseys = Jersey::latest()->get();
-    
+
     // Siapkan konfirmasi hapus untuk SweetAlert
     confirmDelete('Hapus Jersey!', 'Apakah kamu yakin?');
 
@@ -35,7 +41,7 @@ class JerseyController extends Controller
     {
         $request->validate([
             'name'  => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:7048',
         ]);
 
         // Proses File Gambar
@@ -70,7 +76,7 @@ class JerseyController extends Controller
         }
 
         $jersey->delete();
-        
+
         Alert::success('sukses', 'Jersey berhasil dihapus');
         return redirect()->route('jersey.index');
     }

@@ -26,6 +26,15 @@ class Booking extends Model
 
     public function court()
     {
-        return $this->belongsTo(Lapangan::class, 'court_id');
+        return $this->belongsTo(Court::class, 'court_id');
+    }
+
+    public function getKodeBookingAttribute()
+    {
+        $tanggal = $this->created_at ? $this->created_at->format('Ymd') : date('Ymd');
+        // Contoh: ID 1 menjadi 0001, ID 12 menjadi 0012
+        $urutan = str_pad($this->id, 4, '0', STR_PAD_LEFT);
+
+        return 'BK-' . $tanggal . '-' . $urutan;
     }
 }

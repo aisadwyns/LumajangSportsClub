@@ -11,7 +11,7 @@
             <ul>
                 <li><a href="{{ route('client') }}" class="active">Home</a></li>
                 <li><a href="{{ route('lapangan.public') }}"
-                        class="{{ request()->routeIs('lapangan.public') ? 'active' : '' }}">SewaLapangan</a></li>
+                        class="{{ request()->routeIs('lapangan.public') ? 'active' : '' }}">Sewa Lapangan</a></li>
                 <li><a href="{{ route('komunitas.public') }}"
                         class="{{ request()->routeIs('komunitas.public') ? 'active' : '' }}">Gabung Komunitas</a></li>
                 <li><a href="{{ route('events.public') }}"

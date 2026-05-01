@@ -64,7 +64,8 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 
-    Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'index'])->name('riwayat.komunitas');
+    Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'indexKomunitas'])->name('riwayat.komunitas');
+    Route::get('/dashboard/riwayat-booking', [RiwayatController::class, 'indexBooking'])->name('riwayat.booking');
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
 });
 
@@ -107,6 +108,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('member', MemberController::class);
         Route::get('schedule/json', [ScheduleController::class, 'getSchedulesJson'])->name('schedule.json');
         Route::resource('schedule', ScheduleController::class);
+        Route::get('booking', [AdminVenueController::class, 'BookingIndex'])->name('booking.index');
     });
 });
 

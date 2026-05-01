@@ -51,7 +51,7 @@ public function pay(Request $request)
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
 
-        $orderId = 'BOOK-' . $booking->id . '-' . \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(5));
+        $orderId = $booking->kode_booking . '-' . \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(3));
 
         $params = [
             'transaction_details' => [

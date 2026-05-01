@@ -91,5 +91,7 @@ class ClientController extends Controller
         return view('client.jersey', compact('jerseys'));
     }
 
+    public function publicMeschandise() {}
+
 
 }

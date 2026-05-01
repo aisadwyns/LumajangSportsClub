@@ -88,8 +88,10 @@
                         <div class="dropdown-header">
                             <div class="d-flex mb-1">
                                 <div class="flex-shrink-0">
-                                    <img src="{{ asset('template/dist') }}/assets/images/user/avatar-2.jpg"
-                                        alt="user-image" class="user-avtar wid-35">
+                                    {{-- <img src="{{ asset('template/dist') }}/assets/images/user/avatar-2.jpg"
+                                        alt="user-image" class="user-avtar wid-35"> --}}
+                                    <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('assets/img/default-avatar.png') }}"
+                                        alt="user-image" class="user-avtar">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">{{ auth()->user()->name }}</h6>

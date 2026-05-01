@@ -38,13 +38,13 @@
                                             Aksi
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $data->id }}">
-                                            <li> <form action="{{ route('jersey.destroy', $data->id) }}" method="POST" style="display:inline;">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="dropdown-item text-danger" data-confirm-delete="true">
-        Hapus
-    </button>
-</form></li>
+                                            <li>
+                                                {{-- Cukup gunakan tag <a> dengan href dan atribut data-confirm-delete --}}
+                                                <a href="{{ route('jersey.destroy', $data->id) }}"
+                                                    class="dropdown-item text-danger" data-confirm-delete="true">
+                                                    Hapus
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>

@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Komunitas;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class RiwayatController extends Controller
 {
-    public function index()
+    public function indexKomunitas()
     {
         $riwayat = Komunitas::with(['jenis'])
         ->whereRelation('users', 'users.id', Auth::id())
@@ -18,5 +19,10 @@ class RiwayatController extends Controller
         ->get();
 
         return view('client.riwayat.komunitas', compact('riwayat'));
+    }
+
+    public function indexBooking()
+    {
+        return view('client.riwayat.booking');
     }
 }

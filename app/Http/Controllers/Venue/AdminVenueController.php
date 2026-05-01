@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Venue;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;  // Add this import
+use Illuminate\Support\Facades\Auth;
 
 class AdminVenueController extends Controller
 {
@@ -37,5 +38,20 @@ class AdminVenueController extends Controller
         $venueAdmin->save();
 
         return redirect()->route('home')->with('success', 'Pendaftaran venue berhasil, menunggu persetujuan admin.');
+    }
+    public function BookingIndex()
+{
+    // Ambil semua data booking beserta relasinya, urutkan dari yang terbaru
+    $books = \App\Models\Booking::with(['user', 'court'])->latest()->get();
+
+    // Arahkan ke file view tabel index yang sudah kita buat sebelumnya
+    return view('venue.booking.index', compact('books'));
+}
+    public function BookingShow($id) {
+        $books = Booking::with(['user', 'court'])->findOrFail($id);
+
+        // Arahkan ke file view (sesuaikan struktur folder kakak)
+        // Misalnya view berada di: resources/views/venue/booking/index.blade.php
+        return view('venue.booking.index', compact('book'));
     }
 }
