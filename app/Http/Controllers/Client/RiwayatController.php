@@ -23,6 +23,12 @@ class RiwayatController extends Controller
 
     public function indexBooking()
     {
-        return view('client.riwayat.booking');
+        $userId = Auth::id();
+        $books = Booking::with('court')
+            ->where('user_id', $userId)
+            ->latest()
+            ->get();
+
+        return view('client.riwayat.booking', compact('books'));
     }
 }

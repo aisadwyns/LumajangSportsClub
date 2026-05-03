@@ -53,11 +53,12 @@
                         <select name="court_type" class="form-control @error('court_type') is-invalid @enderror">
                             <option value="">-- Pilih Tipe Court --</option>
 
-                            <option value="indoor" {{ old('court_type') == 'indoor' ? 'selected' : '' }}>
+                            <option value="indoor"
+                                {{ old('court_type', $court->court_type) == 'indoor' ? 'selected' : '' }}>
                                 Indoor
                             </option>
-
-                            <option value="outdoor" {{ old('court_type') == 'outdoor' ? 'selected' : '' }}>
+                            <option value="outdoor"
+                                {{ old('court_type', $court->court_type) == 'outdoor' ? 'selected' : '' }}>
                                 Outdoor
                             </option>
                         </select>
@@ -102,12 +103,12 @@
 
                         <div class="d-flex gap-2 flex-wrap mb-2">
                             @foreach ($court->images as $img)
-                                <img src="{{ asset('storage/courts/' . $img->image) }}" width="100"
-                                    style="border-radius:8px; border:1px solid #ddd;">
+                                <img src="{{ asset('storage/courts/' . $img->image) }}"
+                                    style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
                             @endforeach
                         </div>
 
-                        <label>Tambah Gambar Baru (Max 5)</label>
+                        <label>Tambah Gambar Baru (Max 5, gunakan gambar landscape)</label>
 
                         <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
 
@@ -125,7 +126,30 @@
                                 value="{{ old('close_time', $court->close_time) }}">
                         </div>
                     </div>
+                    <div class="form-group my-3">
+                        <label class="fw-bold mb-2">Hari Operasional</label>
+                        <div class="d-flex gap-3 flex-wrap">
+                            @php
+                                $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                                // Ambil array dari inputan lama (jika error validasi), atau dari database
+                                $checkedDays = old('operational_days', $court->operational_days ?? []);
+                            @endphp
 
+                            @foreach ($days as $day)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="operational_days[]"
+                                        value="{{ $day }}" id="day_{{ $day }}"
+                                        {{ is_array($checkedDays) && in_array($day, $checkedDays) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="day_{{ $day }}">
+                                        {{ $day }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('operational_days')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
+                    </div>
                     {{-- Status --}}
                     <div class="form-group my-2">
                         <label>Status</label>

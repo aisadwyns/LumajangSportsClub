@@ -54,9 +54,10 @@
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                    <button class="btn btn-outline-primary me-2 px-4">Enquire</button>
-                    <button class="btn btn-primary px-4" style="background-color: #004AAC;" onclick="tampilkanJadwal()">Book
-                        now</button>
+                    {{-- <button class="btn btn-outline-primary me-2 px-4">Enquire</button> --}}
+                    <button class="btn btn-primary px-4" style="background-color: #004AAC;" onclick="tampilkanJadwal()">Cek
+                        Ketersediaan
+                    </button>
                 </div>
             </div>
 
@@ -68,9 +69,17 @@
                         <div class="text-primary me-3"><i class="fas fa-map-marker-alt fa-lg"></i></div>
                         <div>
                             <h6 class="fw-bold mb-1">Alamat</h6>
-                            <p class="text-muted small mb-1">{{ $court->venueAdmin->address ?? 'Alamat tidak tersedia' }}
+                            <p class="text-muted small mb-1">
+                                {{ $court->venueAdmin?->address ?? 'Alamat tidak tersedia' }}
                             </p>
-                            <a href="#" class="small text-decoration-none fw-bold">Get directions</a>
+
+                            {{-- Sembunyikan tombol jika alamat benar-benar kosong --}}
+                            @if ($court->venueAdmin?->address)
+                                <a href="https://www.google.com/maps/dir/?api=1&destination={{ urlencode($court->venueAdmin->address . ', ' . ($court->venueAdmin->city ?? 'Lumajang')) }}"
+                                    target="_blank" rel="noopener noreferrer" class="small text-decoration-none fw-bold">
+                                    <i class="bi bi-geo-alt-fill me-1"></i> Get directions
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -80,8 +89,36 @@
                         <div class="text-primary me-3 ms-md-3"><i class="fas fa-clock fa-lg"></i></div>
                         <div>
                             <h6 class="fw-bold mb-1">Jam Operasional</h6>
-                            <p class="text-muted small mb-0">Mon: <span class="text-danger">Closed</span></p>
-                            <p class="text-muted small mb-0">Tue - Sun: {{ $jamBuka }} - {{ $jamTutup }}</p>
+                            @php
+                                // 1. Definisikan semua hari dalam seminggu
+                                $semuaHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+
+                                // 2. Ambil data hari operasional (yang dicentang) dari database
+                                $hariBuka = is_array($court->operational_days) ? $court->operational_days : [];
+
+                                // 3. Cari selisihnya: Hari apa saja yang tidak dicentang (berarti Tutup/Libur)
+                                $hariLibur = array_diff($semuaHari, $hariBuka);
+
+                                // 4. Format jam agar rapi
+                                $jamBukaFormat = $court->open_time
+                                    ? \Carbon\Carbon::parse($court->open_time)->format('H:i')
+                                    : '-';
+                                $jamTutupFormat = $court->close_time
+                                    ? \Carbon\Carbon::parse($court->close_time)->format('H:i')
+                                    : '-';
+                            @endphp
+
+                            @if (count($hariLibur) > 0)
+                                {{-- Jika terdapat hari libur, gabungkan dengan koma --}}
+                                <p class="text-muted small mb-0">Tutup: <span
+                                        class="text-danger fw-bold">{{ implode(', ', $hariLibur) }}</span></p>
+                                <p class="text-muted small mb-0">Hari Lainnya Buka: {{ $jamBukaFormat }} -
+                                    {{ $jamTutupFormat }}</p>
+                            @else
+                                {{-- Jika buka 7 hari full (array_diff kosong) --}}
+                                <p class="text-muted small mb-0">Buka Setiap Hari: {{ $jamBukaFormat }} -
+                                    {{ $jamTutupFormat }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -161,8 +198,19 @@
                 <span class="text-muted small">Total Pembayaran</span>
                 <h4 class="fw-bold text-primary mb-0" id="display-total">Rp0</h4>
             </div>
-            <button class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;" data-bs-toggle="modal"
-                data-bs-target="#modalBookingCourt"> Lanjut ke Checkout </button>
+
+            @auth
+                {{-- Tombol jika user sudah login --}}
+                <button class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;" data-bs-toggle="modal"
+                    data-bs-target="#modalBookingCourt">
+                    Lanjut ke Checkout
+                </button>
+            @else
+                {{-- Tombol jika user belum login --}}
+                <a href="{{ route('login') }}" class="btn btn-primary px-5 fw-bold" style="background-color: #004AAC;">
+                    Login untuk lanjut ke checkout
+                </a>
+            @endauth
 
         </div>
     </div>

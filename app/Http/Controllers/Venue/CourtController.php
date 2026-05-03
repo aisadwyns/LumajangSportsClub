@@ -56,6 +56,8 @@ class CourtController extends Controller
             'images.*' => 'image|mimes:jpg,jpeg,png|max:10000',
             'open_time' => 'nullable',
             'close_time' => 'nullable',
+            'operational_days' => 'required|array', // Pastikan formatnya array
+            'operational_days.*' => 'in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'status' => 'required|in:active,inactive'
         ]);
 
@@ -122,17 +124,25 @@ class CourtController extends Controller
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
             'open_time' => 'nullable',
             'close_time' => 'nullable',
+            'operational_days' => 'required|array',
+            'operational_days.*' => 'in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'status' => 'required|in:active,inactive'
         ]);
 
         $court->update($request->all());
 
-        // 🔥 TAMBAH GAMBAR BARU (tidak hapus lama)
+        // 🔥 LOGIKA UPDATE GAMBAR (Hapus yang lama, simpan yang baru)
         if ($request->hasFile('images')) {
+
+            // 1. Hapus semua gambar lama milik court ini dari storage & database
+            foreach ($court->images as $img) {
+                Storage::disk('public')->delete('courts/' . $img->image);
+                $img->delete();
+            }
+
+            // 2. Looping dan simpan gambar-gambar yang baru diupload
             foreach ($request->file('images') as $file) {
-
                 $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-
                 Storage::disk('public')->putFileAs('courts', $file, $fileName);
 
                 CourtImage::create([

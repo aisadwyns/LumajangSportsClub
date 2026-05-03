@@ -53,7 +53,7 @@ Route::get('/lihat-lapangan/{id}', [ClientController::class, 'publicLapanganShow
 Route::get('/reviews', [ClientController::class, 'publicReview'])->name('reviews.public');
 Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 
-Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
+//Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
 
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');

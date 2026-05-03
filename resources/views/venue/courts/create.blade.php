@@ -99,7 +99,7 @@
 
                     {{-- Gambar --}}
                     <div class="form-group my-2">
-                        <label>Upload Gambar (Max 5)</label>
+                        <label>Upload Gambar (Max 5, gunakan gambar landscape)</label>
 
                         <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
 
@@ -121,6 +121,31 @@
                                 class="form-control @error('close_time') is-invalid @enderror"
                                 value="{{ old('close_time') }}">
                         </div>
+                    </div>
+
+                    {{-- Hari Operasional --}}
+                    <div class="form-group my-3">
+                        <label class="fw-bold mb-2">Hari Operasional</label>
+                        <div class="d-flex gap-3 flex-wrap">
+                            @php
+                                $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                            @endphp
+
+                            @foreach ($days as $day)
+                                <div class="form-check">
+                                    {{-- name="operational_days[]" pakai kurung siku agar dikirim sebagai array --}}
+                                    <input class="form-check-input" type="checkbox" name="operational_days[]"
+                                        value="{{ $day }}" id="day_{{ $day }}"
+                                        {{ is_array(old('operational_days')) && in_array($day, old('operational_days')) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="day_{{ $day }}">
+                                        {{ $day }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('operational_days')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     {{-- Status --}}

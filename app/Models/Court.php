@@ -11,6 +11,10 @@ class Court extends Model
     protected $guarded = ['id'];
     protected $table = 'courts';
 
+    protected $casts = [
+    'operational_days' => 'array',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -38,6 +42,6 @@ class Court extends Model
 
     public function venueAdmin()
     {
-        return $this->belongsTo(VenueAdmin::class, 'venue_id');
+        return $this->belongsTo(VenueAdmin::class, 'venue_admin_id');
     }
 }

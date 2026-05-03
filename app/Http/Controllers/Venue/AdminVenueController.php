@@ -40,18 +40,30 @@ class AdminVenueController extends Controller
         return redirect()->route('home')->with('success', 'Pendaftaran venue berhasil, menunggu persetujuan admin.');
     }
     public function BookingIndex()
-{
-    // Ambil semua data booking beserta relasinya, urutkan dari yang terbaru
-    $books = \App\Models\Booking::with(['user', 'court'])->latest()->get();
+    {
+        // 1. Ambil ID Venue milik user yang sedang login
+        $venueAdminId = Auth::user()->venueAdmin->id;
 
-    // Arahkan ke file view tabel index yang sudah kita buat sebelumnya
-    return view('venue.booking.index', compact('books'));
-}
-    public function BookingShow($id) {
-        $books = Booking::with(['user', 'court'])->findOrFail($id);
+        // 2. Ambil booking khusus untuk lapangan yang dimiliki venue admin ini
+        // Asumsi: tabel 'courts' memiliki foreign key 'venue_admin_id'
+        $books = Booking::whereHas('court', function ($query) use ($venueAdminId) {
+            $query->where('venue_admin_id', $venueAdminId);
+        })->with(['user', 'court'])->latest()->get();
 
-        // Arahkan ke file view (sesuaikan struktur folder kakak)
-        // Misalnya view berada di: resources/views/venue/booking/index.blade.php
-        return view('venue.booking.index', compact('book'));
+        return view('venue.booking.index', compact('books'));
+    }
+
+    public function BookingShow($id)
+    {
+        $venueAdminId = Auth::user()->venueAdmin->id;
+
+        // Tambahkan filter yang sama di sini demi keamanan,
+        // agar admin tidak bisa mengintip detail booking venue lain lewat URL
+        $book = Booking::whereHas('court', function ($query) use ($venueAdminId) {
+            $query->where('venue_admin_id', $venueAdminId);
+        })->with(['user', 'court'])->findOrFail($id);
+
+        // Arahkan ke file view 'show', bukan 'index'
+        return view('venue.booking.show', compact('book'));
     }
 }

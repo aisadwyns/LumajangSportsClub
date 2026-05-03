@@ -28,10 +28,11 @@
 
                                 {{-- IMAGE --}}
                                 <div class="department-image">
-                                    <img src="{{ $court->image
-                                        ? asset('storage/courts/' . $court->image)
+                                    <img src="{{ $court->images->first()
+                                        ? asset('storage/courts/' . $court->images->first()->image)
                                         : asset('client/dist/assets/img/health/lapangan-1.jpg') }}"
-                                        alt="{{ $court->name }}" class="img-fluid">
+                                        alt="{{ $court->name }}" class="img-fluid"
+                                        style="object-fit: cover; width: 100%; height: 100%;">
                                 </div>
 
                                 {{-- CONTENT --}}
@@ -40,7 +41,7 @@
 
                                     <p>{{ $court->description ?? 'Lapangan olahraga berkualitas' }}</p>
 
-                                    <div class="court-info">
+                                    <div class="court-info mt-1">
 
                                         <div class="info-item">
                                             <i class="fas fa-map-marker-alt"></i>
