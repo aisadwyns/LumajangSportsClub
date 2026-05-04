@@ -143,10 +143,65 @@
             <h4 class="fw-bold"><i class="fas fa-calendar-alt text-primary me-2"></i> Pilih Jadwal Tersedia</h4>
         </div>
 
-        {{-- PILIH TANGGAL --}}
+        {{-- PILIH TANGGAL (7 Hari Kedepan) --}}
         <div class="mb-4">
-            <label class="fw-bold">Pilih Tanggal</label>
-            <input type="date" id="tanggalBooking" class="form-control mt-2" value="{{ $tanggal }}">
+            <label class="fw-bold mb-3">Pilih Tanggal</label>
+
+            <div class="d-flex gap-2 overflow-auto pb-2" style="scrollbar-width: thin;">
+                @php
+                    $today = \Carbon\Carbon::now();
+                    // Ambil tanggal dari URL jika ada, jika tidak pakai hari ini
+                    $selectedDate = request('tanggal', $today->format('Y-m-d'));
+
+                    $mapHari = [
+                        'Monday' => 'Senin',
+                        'Tuesday' => 'Selasa',
+                        'Wednesday' => 'Rabu',
+                        'Thursday' => 'Kamis',
+                        'Friday' => 'Jumat',
+                        'Saturday' => 'Sabtu',
+                        'Sunday' => 'Minggu',
+                    ];
+                    $mapBulan = [
+                        '01' => 'Jan',
+                        '02' => 'Feb',
+                        '03' => 'Mar',
+                        '04' => 'Apr',
+                        '05' => 'Mei',
+                        '06' => 'Jun',
+                        '07' => 'Jul',
+                        '08' => 'Ags',
+                        '09' => 'Sep',
+                        '10' => 'Okt',
+                        '11' => 'Nov',
+                        '12' => 'Des',
+                    ];
+                @endphp
+
+                @for ($i = 0; $i < 14; $i++)
+                    @php
+                        $date = $today->copy()->addDays($i);
+                        $dateStr = $date->format('Y-m-d');
+                        $namaHari = $mapHari[$date->format('l')];
+                        $namaBulan = $mapBulan[$date->format('m')];
+                        $tanggalAngka = $date->format('d');
+
+                        $isActive = $dateStr == $selectedDate;
+                    @endphp
+
+                    <button type="button"
+                        class="btn btn-tanggal flex-shrink-0 text-center {{ $isActive ? 'btn-primary active' : 'btn-outline-primary' }}"
+                        style="width: 80px; border-radius: 12px; padding: 10px 5px;"
+                        onclick="pilihTanggal('{{ $dateStr }}', this)">
+                        <small class="d-block fw-bold mb-1">{{ $namaHari }}</small>
+                        <h5 class="mb-0 fw-bold">{{ $tanggalAngka }}</h5>
+                        <small class="d-block" style="font-size: 0.75rem;">{{ $namaBulan }}</small>
+                    </button>
+                @endfor
+            </div>
+
+            {{-- Input hidden untuk menyimpan data tanggal saat checkout --}}
+            <input type="hidden" id="tanggalBooking" value="{{ $selectedDate }}">
         </div>
 
         {{-- SLOT --}}
@@ -154,38 +209,70 @@
             style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px;">
 
             @php
+                // 1. Cari tahu tanggal yang dipilih itu hari apa
+                $namaHariInggris = \Carbon\Carbon::parse($tanggal)->format('l');
+
+                // 2. Mapping dari bahasa Inggris ke Indonesia agar cocok dengan database
+                $mapHari = [
+                    'Monday' => 'Senin',
+                    'Tuesday' => 'Selasa',
+                    'Wednesday' => 'Rabu',
+                    'Thursday' => 'Kamis',
+                    'Friday' => 'Jumat',
+                    'Saturday' => 'Sabtu',
+                    'Sunday' => 'Minggu',
+                ];
+                $namaHariIndo = $mapHari[$namaHariInggris];
+
+                // 3. Cek apakah hari tersebut ada di array operational_days
+                $hariOperasional = is_array($court->operational_days) ? $court->operational_days : [];
+                $isLibur = !in_array($namaHariIndo, $hariOperasional);
+
                 $startHour = (int) substr($court->open_time, 0, 2);
                 $endHour = (int) substr($court->close_time, 0, 2);
             @endphp
 
-            @for ($i = $startHour; $i < $endHour; $i++)
-                @php
-                    $jam = sprintf('%02d:00', $i);
-                    // ✅ FIX: bookedSlots sekarang sudah mencakup schedules DAN bookings
-                    $isBooked = in_array($jam, $bookedSlots);
-                @endphp
-
-                <div class="slot-item {{ $isBooked ? 'booked' : '' }}"
-                    onclick="pilihJam(this, '{{ $jam }}', {{ $court->price_per_hour }})">
-
-                    @if ($isBooked)
-                        <span class="badge-sold">Full</span>
-                    @endif
-
-                    <p class="small">60 Menit</p>
-
-                    <strong>{{ $jam }} - {{ sprintf('%02d:00', $i + 1) }}</strong>
-
-                    @if (!$isBooked)
-                        <span class="text-primary fw-bold">
-                            Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}
-                        </span>
-                    @else
-                        <span class="text-muted small">Tidak tersedia</span>
-                    @endif
-
+            @if ($isLibur)
+                {{-- Tampilan jika hari tersebut adalah hari libur --}}
+                <div style="grid-column: 1 / -1;">
+                    <div class="alert alert-danger d-flex align-items-center mb-0">
+                        <i class="fas fa-door-closed fa-lg me-3"></i>
+                        <div>
+                            <strong>Mohon Maaf!</strong> Lapangan tidak beroperasi pada hari <b>{{ $namaHariIndo }}</b>.
+                            Silakan pilih tanggal lain.
+                        </div>
+                    </div>
                 </div>
-            @endfor
+            @else
+                {{-- Looping jam jika hari tersebut BUKA --}}
+                @for ($i = $startHour; $i < $endHour; $i++)
+                    @php
+                        $jam = sprintf('%02d:00', $i);
+                        $isBooked = in_array($jam, $bookedSlots);
+                    @endphp
+
+                    <div class="slot-item {{ $isBooked ? 'booked' : '' }}"
+                        onclick="pilihJam(this, '{{ $jam }}', {{ $court->price_per_hour }})">
+
+                        @if ($isBooked)
+                            <span class="badge-sold">Full</span>
+                        @endif
+
+                        <p class="small">60 Menit</p>
+
+                        <strong>{{ $jam }} - {{ sprintf('%02d:00', $i + 1) }}</strong>
+
+                        @if (!$isBooked)
+                            <span class="text-primary fw-bold">
+                                Rp{{ number_format($court->price_per_hour, 0, ',', '.') }}
+                            </span>
+                        @else
+                            <span class="text-muted small">Tidak tersedia</span>
+                        @endif
+
+                    </div>
+                @endfor
+            @endif
 
         </div>
     </div>
@@ -305,6 +392,51 @@
             url.searchParams.set('tanggal', tanggal);
             window.location.href = url;
         });
+        // Fungsi baru untuk memilih tanggal tanpa reload
+        function pilihTanggal(tanggal, el) {
+            // 1. Ubah warna tombol (UI)
+            document.querySelectorAll('.btn-tanggal').forEach(b => {
+                b.classList.remove('btn-primary', 'active', 'text-white');
+                b.classList.add('btn-outline-primary');
+            });
+            el.classList.remove('btn-outline-primary');
+            el.classList.add('btn-primary', 'active', 'text-white');
+
+            // 2. Simpan tanggal & sembunyikan bar checkout jika ada yang terbuka
+            document.getElementById('tanggalBooking').value = tanggal;
+            selectedDate = tanggal;
+            selectedTime = ''; // Reset jam
+            document.getElementById('checkout-bar').classList.add('d-none');
+
+            // 3. Tampilkan animasi loading di area jam
+            let grid = document.querySelector('.grid-slot-waktu');
+            grid.innerHTML = `
+                <div style="grid-column: 1 / -1;" class="text-center py-5">
+                    <i class="fas fa-circle-notch fa-spin fa-2x text-primary mb-3"></i>
+                    <p class="text-muted">Memuat jadwal...</p>
+                </div>
+            `;
+
+            // 4. Fetch data di belakang layar (Magic-nya ada di sini!)
+            let url = new URL(window.location.href);
+            url.searchParams.set('tanggal', tanggal);
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    // Ambil HTML dari halaman yang difetch, lalu ekstrak HANYA bagian jadwalnya
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(html, 'text/html');
+                    let newGrid = doc.querySelector('.grid-slot-waktu').innerHTML;
+
+                    // Timpa jadwal yang lama dengan jadwal yang baru
+                    grid.innerHTML = newGrid;
+                })
+                .catch(err => {
+                    grid.innerHTML =
+                        '<div style="grid-column: 1 / -1;" class="alert alert-danger">Gagal memuat jadwal. Silakan coba lagi.</div>';
+                });
+        }
 
         function pilihJam(el, jam, harga) {
 

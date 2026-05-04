@@ -2,6 +2,7 @@
 
 @section('content')
     <style>
+        /* ... (Masukkan semua kode CSS Kakak sebelumnya di sini) ... */
         .leaderboard-wrapper {
             max-width: 1000px;
             margin: 0 auto;
@@ -23,7 +24,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
-        /* Top 3 Styling */
         .lb-rank-1 {
             background: linear-gradient(to right, #fff8e1 0%, #ffffff 50%);
             border-left: 6px solid #ffc107;
@@ -51,7 +51,6 @@
             box-shadow: 0 4px 10px rgba(253, 126, 20, 0.15);
         }
 
-        /* Elements Width & Styling */
         .lb-num {
             width: 40px;
             font-weight: 800;
@@ -72,7 +71,6 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #20c997;
-            /* Warna hijau sesuai gambar */
             padding: 2px;
         }
 
@@ -102,7 +100,6 @@
             width: 150px;
             font-weight: 700;
             color: #20c997;
-            /* Warna teks tier */
             font-size: 0.95rem;
         }
 
@@ -117,7 +114,6 @@
             text-align: right;
             font-weight: 700;
             color: #e83e8c;
-            /* Warna teks XP (pink/merah) */
             font-size: 1rem;
         }
     </style>
@@ -130,108 +126,49 @@
 
         <div class="leaderboard-wrapper">
 
-            {{-- Peringkat 1 --}}
-            <div class="lb-row lb-rank-1">
-                <div class="lb-num">1</div>
-                <div class="lb-trophy"><i class="bi bi-trophy-fill text-warning"></i></div>
-                <div class="lb-avatar">
-                    <img src="https://i.pravatar.cc/150?u=roger" alt="Avatar">
-                </div>
-                <div class="lb-user-info">
-                    <div class="lb-name">Roger Korsgaard</div>
-                    <div class="lb-role">Professional Athlete</div>
-                </div>
-                <div class="lb-tier">
-                    <img src="https://ui-avatars.com/api/?name=P+V&background=d97706&color=fff&rounded=true" alt="Badge">
-                    PRO V
-                </div>
-                <div class="lb-xp">
-                    <i class="bi bi-fire"></i> 615 Pts
-                </div>
-            </div>
+            @foreach ($leaderboard as $index => $user)
+                {{-- Logika class dipindah langsung ke dalam atribut class --}}
+                <div
+                    class="lb-row {{ $index == 0 ? 'lb-rank-1' : ($index == 1 ? 'lb-rank-2' : ($index == 2 ? 'lb-rank-3' : '')) }}">
 
-            {{-- Peringkat 2 --}}
-            <div class="lb-row lb-rank-2">
-                <div class="lb-num">2</div>
-                <div class="lb-trophy"><i class="bi bi-trophy-fill" style="color: #adb5bd;"></i></div>
-                <div class="lb-avatar">
-                    <img src="https://i.pravatar.cc/150?u=charlie" alt="Avatar">
-                </div>
-                <div class="lb-user-info">
-                    <div class="lb-name">Charlie Herwitz</div>
-                    <div class="lb-role">Swing Trader / Tennis</div>
-                </div>
-                <div class="lb-tier">
-                    <img src="https://ui-avatars.com/api/?name=P+V&background=d97706&color=fff&rounded=true" alt="Badge">
-                    PRO V
-                </div>
-                <div class="lb-xp">
-                    <i class="bi bi-fire" style="color: #ff6b6b;"></i> 587 Pts
-                </div>
-            </div>
+                    <div class="lb-num">{{ $index + 1 }}</div>
 
-            {{-- Peringkat 3 --}}
-            <div class="lb-row lb-rank-3">
-                <div class="lb-num">3</div>
-                <div class="lb-trophy"><i class="bi bi-trophy-fill" style="color: #fd7e14;"></i></div>
-                <div class="lb-avatar">
-                    <img src="https://i.pravatar.cc/150?u=ahmad" alt="Avatar">
-                </div>
-                <div class="lb-user-info">
-                    <div class="lb-name">Ahmad Mango</div>
-                    <div class="lb-role">Hard Hitter / Futsal</div>
-                </div>
-                <div class="lb-tier">
-                    <img src="https://ui-avatars.com/api/?name=P+IV&background=d97706&color=fff&rounded=true"
-                        alt="Badge">
-                    PRO IV
-                </div>
-                <div class="lb-xp">
-                    <i class="bi bi-fire" style="color: #ff6b6b;"></i> 353 Pts
-                </div>
-            </div>
+                    {{-- Logika trophy menggunakan Blade if-else langsung di HTML-nya --}}
+                    @if ($index == 0)
+                        <div class="lb-trophy"><i class="bi bi-trophy-fill text-warning"></i></div>
+                    @elseif ($index == 1)
+                        <div class="lb-trophy"><i class="bi bi-trophy-fill" style="color: #adb5bd;"></i></div>
+                    @elseif ($index == 2)
+                        <div class="lb-trophy"><i class="bi bi-trophy-fill" style="color: #fd7e14;"></i></div>
+                    @else
+                        <div class="lb-trophy"></div>
+                    @endif
 
-            {{-- Peringkat 4 --}}
-            <div class="lb-row">
-                <div class="lb-num">4</div>
-                <div class="lb-trophy"></div> {{-- Dikosongkan agar sejajar --}}
-                <div class="lb-avatar">
-                    <img src="https://i.pravatar.cc/150?u=siti" alt="Avatar">
-                </div>
-                <div class="lb-user-info">
-                    <div class="lb-name">Siti Romzatul Alimah</div>
-                    <div class="lb-role">Badminton Enthusiast</div>
-                </div>
-                <div class="lb-tier">
-                    <img src="https://ui-avatars.com/api/?name=R+IV&background=e2e8f0&color=475569&rounded=true"
-                        alt="Badge">
-                    ROOKIE IV
-                </div>
-                <div class="lb-xp">
-                    <i class="bi bi-fire" style="color: #ff6b6b;"></i> 191 Pts
-                </div>
-            </div>
+                    <div class="lb-avatar">
+                        {{-- Logika avatar dijadikan satu baris (ternary) langsung di dalam src --}}
+                        <img src="{{ !empty($user->avatar) ? asset('storage/avatar_user' . $user->profile?->avatar) : asset('client/dist/assets/img/customavatar-' . (($user->id % 5) + 1) . '.png') }}"
+                            alt="Avatar {{ $user->name }}">
+                    </div>
 
-            {{-- Peringkat 5 --}}
-            <div class="lb-row">
-                <div class="lb-num">5</div>
-                <div class="lb-trophy"></div>
-                <div class="lb-avatar">
-                    <img src="https://i.pravatar.cc/150?u=tio" alt="Avatar">
+                    <div class="lb-user-info">
+                        <div class="lb-name">{{ $user->name }}</div>
+                        <div class="lb-role">Sports Enthusiast</div>
+                    </div>
+
+                    <div class="lb-tier">
+                        {{-- Logika inisial nama langsung di-echo di dalam link URL --}}
+                        <img src="https://ui-avatars.com/api/?name={{ strtoupper(substr($user->name, 0, 1)) }}&background=d97706&color=fff&rounded=true"
+                            alt="Badge">
+                        PRO V
+                    </div>
+
+                    <div class="lb-xp">
+                        <i class="bi bi-fire" style="color: #ff6b6b;"></i> {{ number_format($user->points, 0, ',', '.') }}
+                        Pts
+                    </div>
+
                 </div>
-                <div class="lb-user-info">
-                    <div class="lb-name">Muhammad Tio Helambang</div>
-                    <div class="lb-role">Basketball Player</div>
-                </div>
-                <div class="lb-tier">
-                    <img src="https://ui-avatars.com/api/?name=R+II&background=e2e8f0&color=475569&rounded=true"
-                        alt="Badge">
-                    ROOKIE II
-                </div>
-                <div class="lb-xp">
-                    <i class="bi bi-fire" style="color: #ff6b6b;"></i> 129 Pts
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>

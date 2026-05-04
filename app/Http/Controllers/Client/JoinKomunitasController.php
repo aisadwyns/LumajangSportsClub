@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -92,5 +93,54 @@ class JoinKomunitasController extends Controller {
 
         Alert::success('Sukses', 'Berhasil keluar dari komunitas');
         return back();
+    }
+
+    public function midtransCallback(Request $request)
+    {
+        // 1. Konfigurasi Midtrans
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+
+        try {
+            // Mengambil data notifikasi dari Midtrans
+            $notif = new \Midtrans\Notification();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Invalid notification'], 400);
+        }
+
+        $transactionStatus = $notif->transaction_status;
+        $orderId = $notif->order_id; // Contoh: JOIN-5-ABCDEFGH
+
+        // 2. Cek apakah ini transaksi Join Komunitas (karena Kakak pakai awalan 'JOIN-')
+        if (str_starts_with($orderId, 'JOIN-')) {
+
+            // Ekstrak ID User dari order_id (karena format Kakak tadi 'JOIN-' . $user->id . '-...')
+            $parts = explode('-', $orderId);
+            $userId = $parts[1];
+
+            if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
+
+                // A. Update status di tabel pivot (komunitas_user) menjadi success
+                DB::table('komunitas_user')
+                    ->where('order_id', $orderId)
+                    ->update(['status_pembayaran' => 'success']);
+
+                // B. 🔥 BERIKAN 20 POIN KE USER!
+                $user = User::find($userId);
+                if ($user) {
+                    $user->increment('points', 20);
+                }
+
+            } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
+
+                // Jika gagal/batal/kadaluarsa, update status jadi failed
+                DB::table('komunitas_user')
+                    ->where('order_id', $orderId)
+                    ->update(['status_pembayaran' => 'failed']);
+            }
+        }
+
+        // Midtrans butuh balasan HTTP 200 OK agar tidak mengirim notifikasi berulang-ulang
+        return response()->json(['message' => 'Callback handled successfully']);
     }
 }

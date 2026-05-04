@@ -11,6 +11,8 @@ use App\Models\Court;
 use App\Models\Schedule;
 use App\Models\Jersey;
 use App\Models\Booking;
+use App\Models\Role;
+use App\Models\User;
 
 class ClientController extends Controller
 {
@@ -45,7 +47,15 @@ class ClientController extends Controller
     }
      public function publicLeaderboard()
     {
-        return view('client.leaderboard');
+        $clientRoleId = Role::where('role_name', 'user')->value('id');
+
+        // 2. Ambil top 10 user berdasarkan poin tertinggi
+        $leaderboard = User::where('role_id', $clientRoleId)
+            ->orderBy('points', 'desc') // Urutkan dari yang terbesar
+            ->take(10) // Ambil 10 orang saja (Top 10)
+            ->get();
+
+        return view('client.leaderboard', compact('leaderboard'));
     }
     public function publicReview(){
         return view('client.testimoni');
