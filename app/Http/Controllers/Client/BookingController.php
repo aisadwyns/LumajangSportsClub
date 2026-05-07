@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Models\Court;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Illuminate\Support\Facades\Auth;
@@ -35,23 +36,29 @@ public function pay(Request $request)
             return response()->json(['success' => false, 'error' => 'Yah, slotnya udah nggak tersedia'], 400);
         }
 
-        // Kalau error database (misal mass assignment), bakal ketangkep catch di bawah
+        $court = Court::findOrFail($request->court_id);
+        $totalPrice = $court->price_per_hour;
+
         $booking = Booking::create([
             'user_id' => $user->id,
             'court_id' => $request->court_id,
             'booking_date' => $request->booking_date,
             'start_time' => $request->start_time,
             'end_time' => date('H:i:s', strtotime($request->start_time . ' +1 hour')),
-            'total_price' => 20000, // Aku sesuain sama harga 20.000 di gambar kamu
+            'total_price' => $totalPrice,
             'status' => 'pending',
         ]);
+
+        // Tambahkan baris ini agar format kode_booking terbentuk sempurna
+        $booking->refresh();
+
+        $orderId = $booking->kode_booking . '-' . \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(3));
+        $booking->update(['order_id' => $orderId]);
 
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
-
-        $orderId = $booking->kode_booking . '-' . \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(3));
 
         $params = [
             'transaction_details' => [
@@ -74,7 +81,8 @@ public function pay(Request $request)
 
         return response()->json([
             'success' => true,
-            'snap_token' => $snapToken
+            'snap_token' => $snapToken,
+            'order_id' => $orderId,
         ]);
 
     } catch (\Exception $e) {
@@ -85,4 +93,103 @@ public function pay(Request $request)
         ], 500);
     }
 }
+
+    public function bookingCallback(Request $request)
+    {
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+
+        try {
+            $notif = new \Midtrans\Notification();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Invalid notification'], 400);
+        }
+
+        $transactionStatus = $notif->transaction_status;
+        $orderId = $notif->order_id;
+
+        // Cari data booking berdasarkan order_id yang masuk
+        $booking = Booking::where('order_id', $orderId)->first();
+
+        if ($booking) {
+            if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
+                if ($booking->status != 'success') {
+                    // Update jadi success
+                    $booking->update(['status' => 'success']);
+
+                    // Tambah poin
+                    $user = \App\Models\User::find($booking->user_id);
+                    if ($user) {
+                        $user->increment('points', 50);
+                    }
+                }
+            } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
+                // Update jadi failed
+                $booking->update(['status' => 'failed']);
+            }
+        }
+
+        return response()->json(['message' => 'Booking callback handled successfully']);
+    }
+
+    public function handleUniversalCallback(Request $request)
+    {
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+
+        try {
+            $notif = new \Midtrans\Notification();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Invalid notification'], 400);
+        }
+
+        $transactionStatus = $notif->transaction_status;
+        $orderId = $notif->order_id;
+
+        // 1. Eksekusi jika ini adalah transaksi Booking Lapangan
+        if (str_starts_with($orderId, 'BK-')) {
+            $booking = Booking::where('order_id', $orderId)->first();
+            if ($booking) {
+                if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
+                    if ($booking->status != 'success') {
+                        $booking->update(['status' => 'success']);
+
+                        $user = \App\Models\User::find($booking->user_id);
+                        if ($user) {
+                            $user->increment('points', 50);
+                        }
+                    }
+                } elseif (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
+                    $booking->update(['status' => 'failed']);
+                }
+            }
+        }
+        // 2. Eksekusi jika ini adalah transaksi Join Komunitas
+        elseif (str_starts_with($orderId, 'JOIN-')) {
+            $komunitasUser = \Illuminate\Support\Facades\DB::table('join_komunitas')->where('order_id', $orderId)->first();
+            if ($komunitasUser) {
+                $parts = explode('-', $orderId);
+                $userId = $parts[1] ?? null;
+
+                if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
+                    if ($komunitasUser->status_pembayaran != 'success') {
+                        \Illuminate\Support\Facades\DB::table('join_komunitas')
+                            ->where('order_id', $orderId)
+                            ->update(['status_pembayaran' => 'success']);
+
+                        $user = \App\Models\User::find($userId);
+                        if ($user) {
+                            $user->increment('points', 20);
+                        }
+                    }
+                } elseif (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
+                    \Illuminate\Support\Facades\DB::table('join_komunitas')
+                        ->where('order_id', $orderId)
+                        ->update(['status_pembayaran' => 'failed']);
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Universal callback handled successfully']);
+    }
 }

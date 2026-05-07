@@ -54,6 +54,7 @@ Route::get('/reviews', [ClientController::class, 'publicReview'])->name('reviews
 Route::get('/leaderboard', [ClientController::class, 'publicLeaderboard'])->name('leaderboard.public');
 
 Route::post('/midtrans/callback', [JoinKomunitasController::class, 'midtransCallback'])->name('midtrans.callback');
+Route::post('/booking/callback', [BookingController::class, 'bookingCallback'])->name('booking.callback');
 
 Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');

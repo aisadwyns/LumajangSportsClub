@@ -102,7 +102,6 @@ class JoinKomunitasController extends Controller {
         \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
 
         try {
-            // Mengambil data notifikasi dari Midtrans
             $notif = new \Midtrans\Notification();
         } catch (\Exception $e) {
             return response()->json(['message' => 'Invalid notification'], 400);
@@ -111,36 +110,45 @@ class JoinKomunitasController extends Controller {
         $transactionStatus = $notif->transaction_status;
         $orderId = $notif->order_id; // Contoh: JOIN-5-ABCDEFGH
 
-        // 2. Cek apakah ini transaksi Join Komunitas (karena Kakak pakai awalan 'JOIN-')
+        // 2. Pastikan ini adalah transaksi Join Komunitas (awalan 'JOIN-')
         if (str_starts_with($orderId, 'JOIN-')) {
 
-            // Ekstrak ID User dari order_id (karena format Kakak tadi 'JOIN-' . $user->id . '-...')
-            $parts = explode('-', $orderId);
-            $userId = $parts[1];
+            // Cari data transaksi di tabel pivot (join_komunitas)
+            $komunitasUser = DB::table('join_komunitas')->where('order_id', $orderId)->first();
 
-            if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
+            if ($komunitasUser) {
+                // Ekstrak ID User dari order_id sesuai format Kakak (JOIN-{id}-{random})
+                $parts = explode('-', $orderId);
+                $userId = $parts[1];
 
-                // A. Update status di tabel pivot (komunitas_user) menjadi success
-                DB::table('komunitas_user')
-                    ->where('order_id', $orderId)
-                    ->update(['status_pembayaran' => 'success']);
+                // 3. JIKA PEMBAYARAN BERHASIL LUNAS
+                if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
 
-                // B. 🔥 BERIKAN 20 POIN KE USER!
-                $user = User::find($userId);
-                if ($user) {
-                    $user->increment('points', 20);
+                    // Mencegah Poin Nambah Dobel: Pastikan status sebelumnya bukan 'success'
+                    if ($komunitasUser->status_pembayaran != 'success') {
+
+                        // A. Update status pembayaran menjadi success
+                        DB::table('join_komunitas')
+                            ->where('order_id', $orderId)
+                            ->update(['status_pembayaran' => 'success']);
+
+                        // B. Tambahkan 20 Poin ke User!
+                        $user = User::find($userId);
+                        if ($user) {
+                            $user->increment('points', 20);
+                        }
+                    }
                 }
-
-            } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
-
-                // Jika gagal/batal/kadaluarsa, update status jadi failed
-                DB::table('komunitas_user')
-                    ->where('order_id', $orderId)
-                    ->update(['status_pembayaran' => 'failed']);
+                // 4. JIKA PEMBAYARAN GAGAL / BATAL / KADALUARSA
+                elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
+                    DB::table('join_komunitas')
+                        ->where('order_id', $orderId)
+                        ->update(['status_pembayaran' => 'failed']);
+                }
             }
         }
 
-        // Midtrans butuh balasan HTTP 200 OK agar tidak mengirim notifikasi berulang-ulang
+        // Wajib mengembalikan response 200 OK agar Midtrans tahu notifikasinya sudah diterima
         return response()->json(['message' => 'Callback handled successfully']);
     }
 }
