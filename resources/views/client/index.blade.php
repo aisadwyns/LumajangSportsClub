@@ -449,256 +449,110 @@
         <!-- Find A Doctor Section -->
         <section id="find-a-doctor" class="find-a-doctor section">
 
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Temukan Partner Olahraga</h2>
-                <p>Cari komunitas, open match, atau partner sesuai jadwal dan level permainanmu.</p>
-            </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-8 text-center">
                         <div class="search-section">
-                            <h3 class="search-title">Cari Komunitas / Partner yang Pas</h3>
-                            <p class="search-subtitle">Masukkan nama komunitas / partner, lalu pilih cabang olahraga.
+                            <h3 class="search-title">Temukan Partner Olahraga</h3>
+                            <p class="search-subtitle">Cari komunitas, open match, atau partner sesuai jadwal dan level
+                                permainanmu.
                             </p>
-                            <form class="search-form" action="#!" method="#">
-                                <div class="search-input-group">
-                                    <div class="input-wrapper">
-                                        <i class="bi bi-person"></i>
-                                        <input type="text" class="form-control" name="doctor_name"
-                                            placeholder="Masukkan nama komunitas / partner">
+                            <div id="area-komunitas" class="container mt-5">
+
+                                <form class="search-form" action="{{ route('client') }}#area-komunitas"
+                                    method="GET">
+                                    <div class="search-input-group">
+
+                                        <div class="input-wrapper">
+                                            <i class="bi bi-person"></i>
+                                            <input type="text" class="form-control" name="nama"
+                                                value="{{ request('nama') }}"
+                                                placeholder="Masukkan nama komunitas / partner">
+                                        </div>
+
+                                        <div class="select-wrapper">
+                                            <i class="bi bi-activity"></i>
+                                            <select class="form-select" name="jenis" onchange="this.form.submit()">
+                                                <option value="">Semua Olahraga</option>
+                                                @foreach ($jenisKomunitas as $jenis)
+                                                    <option value="{{ $jenis->id }}"
+                                                        {{ request('jenis') == $jenis->id ? 'selected' : '' }}>
+                                                        {{ $jenis->nama_jenis }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="search-btn">
+                                            <i class="bi bi-search"></i>
+                                            Temukan Partner
+                                        </button>
+
                                     </div>
-                                    <div class="select-wrapper">
-                                        <i class="bi bi-activity"></i>
-                                        <select class="form-select" name="specialty">
-                                            <option value="">Semua Olahraga</option>
-                                            <option value="badminton">Badminton</option>
-                                            <option value="futsal">Futsal</option>
-                                            <option value="basket">Basket</option>
-                                            <option value="voli">Voli</option>
-                                            <option value="lari">Lari</option>
-                                            <option value="tenis-meja">Tenis Meja</option>
-                                            <option value="sepeda">Sepeda</option>
-                                            <option value="gym">Gym</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="search-btn">
-                                        <i class="bi bi-search"></i>
-                                        Temukan Partner
-                                    </button>
+                                </form>
+
+                                <div class="doctors-grid" data-aos="fade-up" data-aos-delay="300">
                                 </div>
-                            </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="doctors-grid" data-aos="fade-up" data-aos-delay="300">
 
-                    <!-- Kamu bisa ganti konten card-card ini jadi "Komunitas" atau "Partner Profile" -->
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-2.webp"
-                                    alt="Komunitas Badminton Lumajang" class="img-fluid">
-                                <div class="status-indicator available"></div>
-                            </div>
-                            <div class="doctor-details">
-                                <h4>Komunitas Badminton Lumajang</h4>
-                                <span class="specialty-tag">Badminton • Intermediate</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Aktif 4x/minggu</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <span class="rating-score">4.9</span>
-                            <span class="review-count">(127 anggota)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Gabung / Jadwalkan</a>
-                        </div>
-                    </div>
+                    @foreach ($komunitas as $index => $data)
+                        <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 100 }}">
 
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-6.webp"
-                                    alt="Open Match Futsal Weekend" class="img-fluid">
-                                <div class="status-indicator busy"></div>
-                            </div>
-                            <div class="doctor-details">
-                                <h4>Open Match Futsal Weekend</h4>
-                                <span class="specialty-tag">Futsal • Beginner–Intermediate</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Butuh 2 pemain</span>
+                            <div class="profile-header">
+                                <div class="doctor-avatar">
+                                    <img src="{{ $data->logo ? asset('storage/logo_komunitas/' . $data->logo) : asset('client/dist/assets/img/default-community.webp') }}"
+                                        alt="{{ $data->nama_komunitas }}" class="img-fluid">
+                                    <div class="status-indicator available"></div>
+                                </div>
+                                <div class="doctor-details">
+                                    <h4>{{ $data->nama_komunitas }}</h4>
+                                    <span
+                                        class="specialty-tag">{{ $data->lokasi ?? 'Lokasi belum ditentukan' }}</span>
+                                    <div class="experience-info">
+                                        <i class="bi bi-award"></i>
+                                        <span>{{ $data->waktu ?? 'Jadwal belum ditentukan' }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                            </div>
-                            <span class="rating-score">4.8</span>
-                            <span class="review-count">(89 peserta)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Ikut Match</a>
-                        </div>
-                    </div>
 
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-4.webp"
-                                    alt="Komunitas Lari Pagi Lumajang" class="img-fluid">
-                                <div class="status-indicator available"></div>
-                            </div>
-                            <div class="doctor-details">
-                                <h4>Komunitas Lari Pagi Lumajang</h4>
-                                <span class="specialty-tag">Lari • All Level</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Meetup tiap Minggu</span>
+                            <div class="rating-section">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
+                                <span class="rating-score">5.0</span>
+                                <span class="review-count">({{ $data->join_komunitas_count ?? 0 }} anggota)</span>
                             </div>
-                        </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <span class="rating-score">5.0</span>
-                            <span class="review-count">(203 anggota)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Gabung</a>
-                        </div>
-                    </div>
 
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-8.webp"
-                                    alt="Sparring Basket Malam" class="img-fluid">
-                                <div class="status-indicator offline"></div>
+                            <div class="action-buttons">
+                                <a href="{{ route('komunitas.show', $data->slug) }}" class="btn-secondary">Lihat
+                                    Detail</a>
+                                @if ($data->link_wa)
+                                    <a href="{{ $data->link_wa }}" target="_blank" class="btn-primary">Gabung</a>
+                                @else
+                                    <a href="#!" class="btn-primary"
+                                        style="opacity: 0.5; pointer-events: none;">Gabung</a>
+                                @endif
                             </div>
-                            <div class="doctor-details">
-                                <h4>Sparring Basket Malam</h4>
-                                <span class="specialty-tag">Basket • Intermediate</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Jadwal belum ditentukan</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                            </div>
-                            <span class="rating-score">4.7</span>
-                            <span class="review-count">(156 peserta)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Buat Jadwal</a>
-                        </div>
-                    </div>
 
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="500">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-11.webp"
-                                    alt="Komunitas Voli Lumajang" class="img-fluid">
-                                <div class="status-indicator available"></div>
-                            </div>
-                            <div class="doctor-details">
-                                <h4>Komunitas Voli Lumajang</h4>
-                                <span class="specialty-tag">Voli • Beginner</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Latihan 2x/minggu</span>
-                                </div>
-                            </div>
                         </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                            <span class="rating-score">4.5</span>
-                            <span class="review-count">(74 anggota)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Gabung</a>
-                        </div>
-                    </div>
-
-                    <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="600">
-                        <div class="profile-header">
-                            <div class="doctor-avatar">
-                                <img src="{{ asset('client/dist') }}/assets/img/health/staff-14.webp"
-                                    alt="Venue Badminton Indoor" class="img-fluid">
-                                <div class="status-indicator available"></div>
-                            </div>
-                            <div class="doctor-details">
-                                <h4>Venue Badminton Indoor</h4>
-                                <span class="specialty-tag">Venue • Booking Available</span>
-                                <div class="experience-info">
-                                    <i class="bi bi-award"></i>
-                                    <span>Slot tersedia hari ini</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating-section">
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <span class="rating-score">4.9</span>
-                            <span class="review-count">(194 booking)</span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="#!" class="btn-secondary">Lihat Detail</a>
-                            <a href="#!" class="btn-primary">Booking</a>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
 
                 <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
-                    <a href="communities.html" class="btn-view-all">
+                    <a href="{{ route('komunitas.public') }}" class="btn-view-all">
                         Lihat Semua Komunitas
                         <i class="bi bi-arrow-right"></i>
                     </a>
@@ -725,11 +579,11 @@
                                 </p>
 
                                 <div class="cta-wrapper">
-                                    <a href="partners.html" class="primary-cta">
+                                    <a href="{{ route('komunitas.public') }}" class="primary-cta">
                                         <span>Mulai Cari Partner</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
-                                    <a href="booking.html" class="secondary-cta">
+                                    <a href="{{ route('lapangan.public') }}" class="secondary-cta">
                                         <span>Booking Lapangan</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>

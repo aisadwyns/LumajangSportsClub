@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Komunitas;
 use App\Models\Booking;
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -30,5 +31,16 @@ class RiwayatController extends Controller
             ->get();
 
         return view('client.riwayat.booking', compact('books'));
+    }
+
+    public function indexChallenges()
+    {
+        $userId = Auth::id();
+        $challenges = Challenge::where('status', 'active')
+            ->with(['participants' => function($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])->get();
+
+        return view('challenges.index', compact('challenges'));
     }
 }

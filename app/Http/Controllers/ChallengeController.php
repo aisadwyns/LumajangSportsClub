@@ -3,63 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\Challenge;
+use App\Services\ChallengeService;
+use App\Http\Requests\Admin\StoreChallengeRequest;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ChallengeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $challenges = Challenge::latest()->get(); // Disamakan dengan gaya LscTeam (menggunakan get/all)
+        return view('admin.challenges.index', compact('challenges'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.challenges.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul'          => 'required|string|max:255',
+            'deskripsi'      => 'nullable|string',
+            'tipe_misi'      => 'required|in:akumulasi_booking,akumulasi_komunitas',
+            'target_amount'  => 'required|integer|min:1',
+            'poin_reward'    => 'required|integer|min:1',
+            'start_date'     => 'required|date',
+            'end_date'       => 'required|date|after:start_date',
+        ]);
+
+        Challenge::create($request->all());
+
+        Alert::success('sukses', 'challenge baru berhasil diterbitkan');
+        return redirect()->route('admin.challenges.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Challenge $challenge)
+    public function edit(string $id)
     {
-        //
+        $challenge = Challenge::findOrFail($id);
+        return view('admin.challenges.edit', compact('challenge'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Challenge $challenge)
+    public function update(Request $request, string $id)
     {
-        //
+        $challenge = Challenge::findOrFail($id);
+
+        $request->validate([
+            'judul'          => 'required|string|max:255',
+            'deskripsi'      => 'nullable|string',
+            'tipe_misi'      => 'required|in:akumulasi_booking,akumulasi_komunitas',
+            'target_amount'  => 'required|integer|min:1',
+            'poin_reward'    => 'required|integer|min:1',
+            'start_date'     => 'required|date',
+            'end_date'       => 'required|date|after:start_date',
+            'status'         => 'required|in:active,completed',
+        ]);
+
+        $challenge->update($request->all());
+
+        Alert::success('sukses', 'challenge berhasil diupdate');
+        return redirect()->route('admin.challenges.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Challenge $challenge)
+    public function destroy(string $id)
     {
-        //
-    }
+        $challenge = Challenge::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Challenge $challenge)
-    {
-        //
+        $challenge->delete();
+
+        Alert::success('sukses', 'challenge berhasil dihapus');
+        return redirect()->route('admin.challenges.index');
     }
 }
+

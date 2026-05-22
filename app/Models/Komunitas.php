@@ -29,6 +29,10 @@ class Komunitas extends Model
                     ->withPivot('order_id', 'status_pembayaran', 'metode_pembayaran')
                     ->withTimestamps();
     }
+    public function joinKomunitas()
+    {
+        return $this->hasMany(JoinKomunitas::class, 'komunitas_id');
+    }
 
 
 }

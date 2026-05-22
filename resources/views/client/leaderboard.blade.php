@@ -155,13 +155,6 @@
                         <div class="lb-role">Sports Enthusiast</div>
                     </div>
 
-                    <div class="lb-tier">
-                        {{-- Logika inisial nama langsung di-echo di dalam link URL --}}
-                        <img src="https://ui-avatars.com/api/?name={{ strtoupper(substr($user->name, 0, 1)) }}&background=d97706&color=fff&rounded=true"
-                            alt="Badge">
-                        PRO V
-                    </div>
-
                     <div class="lb-xp">
                         <i class="bi bi-fire" style="color: #ff6b6b;"></i> {{ number_format($user->points, 0, ',', '.') }}
                         Pts

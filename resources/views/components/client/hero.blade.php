@@ -69,7 +69,7 @@
                     <div class="main-image">
                         <img src="{{ asset('client/dist') }}/assets/img/health/sangkur.jpg"
                             alt="Modern Healthcare Facility" class="img-fluid">
-                        <div class="floating-card appointment-card">
+                        {{-- <div class="floating-card appointment-card">
                             <div class="card-icon">
                                 <i class="bi bi-calendar-check"></i>
                             </div>
@@ -78,7 +78,7 @@
                                 <p>Today 2:30 PM</p>
                                 <small>LSC Badminton</small>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="floating-card rating-card">
                             <div class="card-content">
                                 <div class="rating-stars">
@@ -89,7 +89,7 @@
                                     <i class="bi bi-star-fill"></i>
                                 </div>
                                 <h6>4.9/5</h6>
-                                <small>1,234 Reviews</small>
+                                <small>15 Reviews</small>
                             </div>
                         </div>
                     </div>

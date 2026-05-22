@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('badge')->nullable(); // bisa berupa path gambar
 
             $table->enum('status', [
-                'draft',     // belum dipublish
+                'draft',     // belum dipublisha
                 'active',    // sedang berjalan
                 'completed', // selesai
                 'inactive'   // nonaktif

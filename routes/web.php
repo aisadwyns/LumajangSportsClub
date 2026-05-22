@@ -15,6 +15,7 @@ use App\Http\Controllers\VenueController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\JerseyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChallengeController;
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
@@ -35,10 +36,11 @@ use App\Http\Controllers\Venue\AdminVenueController;
 Route::get('/login', function () {
     return view('auth.login');
 });
-
-// Auth::routes();
 Auth::routes(['verify' => true]);
 
+
+##########################################################################################
+//route client
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/blogs', [ClientController::class, 'publicBlogIndex'])->name('blogs.public');
@@ -70,34 +72,7 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
 });
 
-// Route::get('/events', function () {
-//     return view('event');
-// });
 
-// //optional parameter
-// Route::get('/events/detail/{nama?}', function (?string $nama = null) {
-//     return "nama event : $nama";
-// });
-
-Route::get('/test', function () {
-    // return redirect()->to('/');
-    return redirect()->away('https://github.com/aisadwyns');
-});
-
-Route::fallback(function () {
-    return view('404');
-});
-
-Route::get('/coba_query', function () {
-    //eloquent
-    $member = Member::all();
-    dd($member->toArray());
-});
-
-//hapus seluruh data
-// Route::get('/truncate', function () {
-//     LscTeam::truncate();
-// });
 #######################################################################################
 //route super admin
 Route::middleware('auth')->group(function () {
@@ -129,6 +104,7 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
         Route::resource('event', EventController::class);
         Route::resource('blog', BlogController::class);
         Route::resource('jersey', JerseyController::class);
+        Route::resource('challenge', ChallengeController::class);
 
         Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
         Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');
@@ -139,3 +115,31 @@ Route::fallback(function () {
     return view('404');
 });
 
+//hapus seluruh data
+// Route::get('/truncate', function () {
+//     LscTeam::truncate();
+// });
+
+// Route::get('/events', function () {
+//     return view('event');
+// });
+
+// //optional parameter
+// Route::get('/events/detail/{nama?}', function (?string $nama = null) {
+//     return "nama event : $nama";
+// });
+
+Route::get('/test', function () {
+    // return redirect()->to('/');
+    return redirect()->away('https://github.com/aisadwyns');
+});
+
+Route::fallback(function () {
+    return view('404');
+});
+
+Route::get('/coba_query', function () {
+    //eloquent
+    $member = Member::all();
+    dd($member->toArray());
+});

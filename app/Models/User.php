@@ -66,6 +66,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function venueAdmin() {
         return $this->hasOne(VenueAdmin::class);
     }
-
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    public function challenges()
+    {
+        return $this->belongsToMany(Challenge::class, 'challenge_participants')
+                    ->withPivot('current_progress', 'status', 'completed_at')
+                    ->withTimestamps();
+    }
 
 }

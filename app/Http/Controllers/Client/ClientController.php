@@ -13,12 +13,32 @@ use App\Models\Jersey;
 use App\Models\Booking;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\JenisKomunitas;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('client.index');
+       $jenisKomunitas = JenisKomunitas::all();
+
+        // 2. Siapkan query dasar untuk komunitas beserta jumlah anggotanya
+        $query = Komunitas::withCount(['joinKomunitas' => function ($q) {
+            $q->where('status_pembayaran', 'success');
+        }]);
+
+        // 3. Filter berdasarkan input teks (Nama Komunitas)
+        if ($request->filled('nama')) {
+            $query->where('nama_komunitas', 'like', '%' . $request->nama . '%');
+        }
+
+        // 4. Filter berdasarkan dropdown (Jenis Olahraga)
+        if ($request->filled('jenis')) {
+            $query->where('jenis_komunitas_id', $request->jenis);
+        }
+
+        // 5. Eksekusi query (bisa menggunakan ->paginate(10) jika data sudah banyak)
+        $komunitas = $query->latest()->get();
+        return view('client.index', compact('komunitas', 'jenisKomunitas'));
     }
 
     public function publicBlogIndex() {
