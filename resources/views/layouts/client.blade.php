@@ -15,6 +15,7 @@
     <main class="main">
 
         <section id="home-about" class="home-about section">
+            @include('sweetalert::alert') {{-- <-- WAJIB ADA INI AGAR ALERTNYA MUNCUL --}}
             @yield('content')
         </section><!-- /Call To Action Section -->
 

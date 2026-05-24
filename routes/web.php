@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LscTeamController;
-use App\Http\Controllers\LapanganController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\JenisKomunitasController;
 use App\Http\Controllers\KomunitasController;
@@ -22,6 +21,7 @@ use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\Client\BookingController;
+
 
 use App\Http\Controllers\Venue\CourtController;
 use App\Http\Controllers\Venue\MemberController;
@@ -63,13 +63,14 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join');
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
     Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
-
+    Route::post('/review/kirim_review', [\App\Http\Controllers\Client\ReviewController::class, 'store'])->name('review.store');
     Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 
     Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'indexKomunitas'])->name('riwayat.komunitas');
     Route::get('/dashboard/riwayat-booking', [RiwayatController::class, 'indexBooking'])->name('riwayat.booking');
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
+
 });
 
 
