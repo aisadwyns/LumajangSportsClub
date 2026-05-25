@@ -5,6 +5,7 @@
 <script src="{{ asset('client/dist') }}/assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="{{ asset('client/dist') }}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="{{ asset('client/dist') }}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Main JS File -->
 <script src="{{ asset('client/dist') }}/assets/js/main.js"></script>

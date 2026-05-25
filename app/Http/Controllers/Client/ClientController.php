@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Blog;
 use App\Models\Event;
 use App\Models\Komunitas;
@@ -14,6 +15,7 @@ use App\Models\Booking;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\JenisKomunitas;
+use App\Models\Review;
 
 class ClientController extends Controller
 {
@@ -65,8 +67,7 @@ class ClientController extends Controller
         $komunitas = Komunitas::with('jenis')->findOrFail($id);
         return view('client.detailkomunitas', compact('komunitas'));
     }
-     public function publicLeaderboard()
-    {
+    public function publicLeaderboard(){
         $clientRoleId = Role::where('role_name', 'user')->value('id');
 
         // 2. Ambil top 10 user berdasarkan poin tertinggi
@@ -78,7 +79,8 @@ class ClientController extends Controller
         return view('client.leaderboard', compact('leaderboard'));
     }
     public function publicReview(){
-        return view('client.testimoni');
+        $reviews = Review::where('type', 'aplikasi')->where('is_active', true)->latest()->get();
+        return view('client.testimoni', compact('reviews'));
     }
     public function publicLapanganIndex(){
         $courts = Court::where('status', 'active')->get();
@@ -86,7 +88,7 @@ class ClientController extends Controller
     }
 
     public function publicLapanganShow($id, Request $request) {
-        $court = Court::with('images','venueAdmin')->findOrFail($id);
+        $court = Court::with('images','venueAdmin', 'reviews.user')->findOrFail($id);
 
         $tanggal = $request->tanggal ?? now()->toDateString();
 
@@ -106,13 +108,28 @@ class ClientController extends Controller
             ->unique()
             ->toArray();
 
+        $canReview = false;
+
+        if (Auth::check()) {
+            // Cek data di tabel bookings berdasarkan user_id, lapangan_id, dan status transaksinya
+            $hasBooked = Booking::where('user_id', Auth::id())
+                                ->where('court_id', $court->id)
+                                ->whereIn('status', ['success', 'completed'])
+                                ->exists();
+
+            if ($hasBooked) {
+                $canReview = true;
+            }
+        }
+
         // $isMember = $schedules->pluck('start_time')->contains($jam);
         // $isUserBooking = $bookings->pluck('start_time')->contains($jam);
         return view('client.detaillapangan', compact(
             'court',
             'schedules',
             'bookedSlots',
-            'tanggal'
+            'tanggal',
+            'canReview'
         ));
     }
 

@@ -155,7 +155,8 @@
                                 <p>Booking lapangan futsal di Lumajang jadi jauh lebih gampang lewat LSC. Gak perlu telpon
                                     satu-satu lagi, tinggal pilih jadwal yang kosong dan bayar via Midtrans. Mantap!</p>
                                 <div class="profile">
-                                    <img src="assets/img/person/person-m-1.webp" class="testimonial-img" alt="User LSC">
+                                    <img src="{{ asset('client/dist/assets/img/customavatar-3.png') }}"
+                                        class="testimonial-img" alt="User LSC">
                                     <div class="info">
                                         <h4>Rizky Pratama <i class="bi bi-patch-check-fill"></i></h4>
                                         <span>@rizky_futsalLMJ</span>
@@ -176,7 +177,8 @@
                                     sangat
                                     membantu.</p>
                                 <div class="profile">
-                                    <img src="assets/img/person/person-m-2.webp" class="testimonial-img" alt="Owner Venue">
+                                    <img src="{{ asset('client/dist/assets/img/customavatar-6.png') }}"
+                                        class="testimonial-img" alt="Owner Venue">
                                     <div class="info">
                                         <h4>Hadi Suwarno <i class="bi bi-patch-check-fill"></i></h4>
                                         <span>Owner GOR Lumajang</span>
@@ -195,8 +197,8 @@
                                 <p>Fitur komunitasnya keren banget! Saya jadi punya banyak teman baru buat mabar bulutangkis
                                     setiap weekend. Ekosistem olahraga di Lumajang beneran jadi digital sekarang.</p>
                                 <div class="profile">
-                                    <img src="assets/img/person/person-f-1.webp" class="testimonial-img"
-                                        alt="Community Member">
+                                    <img src="{{ asset('client/dist/assets/img/customavatar-1.png') }}"
+                                        class="testimonial-img" alt="Community Member">
                                     <div class="info">
                                         <h4>Siska Amalia <i class="bi bi-patch-check-fill"></i></h4>
                                         <span>@siska_badminton</span>
@@ -204,6 +206,43 @@
                                 </div>
                             </div>
                         </div>
+
+                        @foreach ($reviews as $review)
+                            <div class="swiper-slide">
+                                <div class="testimonial-item">
+
+                                    <div class="stars">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $review->rating)
+                                                <i class="bi bi-star-fill"></i>
+                                            @else
+                                                <i class="bi bi-star text-muted"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+
+                                    <p>{{ $review->review_message }}</p>
+
+                                    <div class="profile">
+                                        <img src="{{ $review->user->profile?->avatar ? asset('storage/avatar_user/' . $review->user->profile->avatar) : asset('client/dist/assets/img/customavatar-' . (($review->user_id % 5) + 1) . '.png') }}"
+                                            class="testimonial-img" alt="Foto {{ $review->reviewer_name }}">
+
+                                        <div class="info">
+                                            <h4>{{ $review->reviewer_name }}</h4>
+
+                                            <span>
+                                                @if ($review->user?->role === 'venue' || $review->user?->role === 'venue admin')
+                                                    Venue Admin
+                                                @else
+                                                    Sport Enthusiast
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
 
                     </div>
                     <div class="swiper-pagination"></div>

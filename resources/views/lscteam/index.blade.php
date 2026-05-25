@@ -38,7 +38,7 @@
                                 <td>{{ $data->nama_lengkap }}</td>
                                 <td>{{ $data->bagian?->nama_bagian }}</td>
                                 <td>{{ $data->nik }}</td>
-                                <td>{{ $data->user->email }}</td>
+                                <td>{{ $data->user?->email }}</td>
                                 <td>{{ $data->nomor_hp }}</td>
                                 <td>{{ $data->jobdesk }}</td>
                                 <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"

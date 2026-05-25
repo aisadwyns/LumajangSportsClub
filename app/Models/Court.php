@@ -40,8 +40,10 @@ class Court extends Model
             : null;
     }
 
-    public function venueAdmin()
-    {
+    public function venueAdmin(){
         return $this->belongsTo(VenueAdmin::class, 'venue_admin_id');
+    }
+    public function reviews(){
+        return $this->hasMany(Review::class, 'id_lapangan')->where('is_active', true)->latest();
     }
 }

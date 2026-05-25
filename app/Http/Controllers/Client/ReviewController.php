@@ -44,7 +44,7 @@ class ReviewController extends Controller
         $data = $request->all();
         $data['user_id']       = auth()->user()->id;
         $data['reviewer_name'] = auth()->user()->name;
-        $data['is_active']     = false; // Default false untuk approval admin
+        $data['is_active']     = true; // Default false untuk approval admin
 
         // Kondisi dinamis menentukan ID sesuai dengan tipenya
         if ($request->type === 'aplikasi') {

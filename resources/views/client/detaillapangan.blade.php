@@ -55,6 +55,23 @@
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
                     {{-- <button class="btn btn-outline-primary me-2 px-4">Enquire</button> --}}
+
+                    @if (!auth()->check())
+                        <button class="btn btn-outline-secondary me-2 px-3" onclick="alertBelumLogin()">
+                            <i class="bi bi-chat-left-text-fill me-1"></i> Tulis Review
+                        </button>
+                    @elseif(!$canReview)
+                        <button class="btn btn-outline-secondary me-2 px-3" onclick="alertBelumBooking()">
+                            <i class="bi bi-chat-left-text-fill me-1"></i> Tulis Review
+                        </button>
+                    @else
+                        <button class="btn btn-outline-primary me-2 px-3" style="border-color: #004AAC; color: #004AAC;"
+                            data-bs-toggle="modal" data-bs-target="#modalReviewLapangan">
+                            <i class="bi bi-chat-left-text-fill me-1"></i> Tulis Review
+                        </button>
+                    @endif
+
+
                     <button class="btn btn-primary px-4" style="background-color: #004AAC;" onclick="tampilkanJadwal()">Cek
                         Ketersediaan
                     </button>
@@ -134,8 +151,127 @@
                 </div>
             </div>
 
+
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h4 class="fw-bold text-dark mb-4">
+                        <i class="bi bi-chat-square-text-fill me-2" style="color: #004AAC;"></i> Ulasan Lapangan
+                    </h4>
+
+                    {{-- Cek apakah lapangan ini sudah memiliki ulasan yang aktif --}}
+                    @if ($court->reviews && $court->reviews->count() > 0)
+                        <div class="row">
+                            @foreach ($court->reviews as $review)
+                                <div class="col-md-6 mb-3">
+                                    <div class="card p-3 shadow-sm border-0"
+                                        style="background-color: #f8f9fa; border-radius: 8px;">
+
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center">
+                                                {{-- Avatar Statis sesuai instruksi sebelumnya --}}
+                                                <img src="{{ asset('client/dist/assets/img/customavatar-1.png') }}"
+                                                    class="rounded-circle me-2" width="40" height="40"
+                                                    alt="Avatar">
+                                                <div>
+                                                    {{-- Nama Pengulas --}}
+                                                    <h6 class="mb-0 fw-bold text-dark">{{ $review->reviewer_name }}</h6>
+                                                    {{-- Role Pengulas secara Dinamis --}}
+                                                    <small class="text-muted" style="font-size: 0.75rem;">
+                                                        @if ($review->user?->role === 'venue' || $review->user?->role === 'venue admin')
+                                                            Venue Admin
+                                                        @else
+                                                            Sport Enthusiast
+                                                        @endif
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                            {{-- Berapa Bintang yang Diberikan --}}
+                                            <div class="text-warning">
+                                                @for ($s = 1; $s <= 5; $s++)
+                                                    @if ($s <= $review->rating)
+                                                        <i class="bi bi-star-fill" style="font-size: 0.85rem;"></i>
+                                                    @else
+                                                        <i class="bi bi-star text-muted" style="font-size: 0.85rem;"></i>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                        </div>
+
+                                        {{-- Isi Pesan Review --}}
+                                        <p class="text-muted small mb-0" style="font-style: italic;">
+                                            "{{ $review->review_message }}"
+                                        </p>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        {{-- Tampilan jika ulasan masih kosong --}}
+                        <div class="text-center py-5 border rounded"
+                            style="background: #fafafa; border-style: dashed !important; border-color: #ccc !important;">
+                            <i class="bi bi-chat-left-dots text-muted" style="font-size: 2.5rem;"></i>
+                            <p class="text-muted small mt-2 mb-0">Belum ada ulasan untuk lapangan ini.</p>
+                            <small class="text-muted d-block" style="font-size: 0.75rem;">Jadilah yang pertama memberikan
+                                ulasan
+                                setelah bermain!</small>
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
     </main>
+
+
+
+    {{-- form reveiew court ya ini eheee --}}
+    @if (auth()->check() && $canReview)
+        <div class="modal fade" id="modalReviewLapangan" tabindex="-1" aria-labelledby="modalReviewLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #004AAC; color: #fff;">
+                        <h5 class="modal-title fw-bold" id="modalReviewLabel"><i
+                                class="bi bi-pencil-square me-2"></i>Berikan Ulasan Lapangan</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('review.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="type" value="lapangan">
+                        <input type="hidden" name="id_lapangan" value="{{ $court->id }}">
+
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label fw-bold small">Rating Fasilitas & Kualitas
+                                    Lapangan</label>
+                                <select class="form-select" name="rating" id="rating" required>
+                                    <option value="" disabled selected>— Pilih Bintang —</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ (5) Sangat Baik</option>
+                                    <option value="4">⭐⭐⭐⭐ (4) Bagus</option>
+                                    <option value="3">⭐⭐⭐ (3) Cukup</option>
+                                    <option value="2">⭐⭐ (2) Kurang Baik</option>
+                                    <option value="1">⭐ (1) Buruk</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label fw-bold small">Pesan / Kesan Ulasan</label>
+                                <textarea class="form-control" name="review_message" id="message" rows="4"
+                                    placeholder="Bagaimana kondisi lantai, lampu, atau fasilitas di lapangan ini?" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-sm text-white" style="background-color: #004AAC;">Kirim
+                                Ulasan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
 
 
     <div id="area-booking-jadwal" class="container" style="display:none; margin-bottom: 100px;">
@@ -528,5 +664,30 @@
                 }
             });
         });
+
+        function alertBelumLogin() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Akses Terkunci',
+                text: 'Anda harus masuk ke akun Anda terlebih dahulu untuk memberikan ulasan lapangan.',
+                confirmButtonColor: '#004AAC',
+                showCancelButton: true,
+                confirmButtonText: 'Login Sekarang',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('login') }}"; // Otomatis arahkan ke halaman login jika diklik
+                }
+            });
+        }
+
+        function alertBelumBooking() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ulasan Ditolak',
+                text: 'Maaf, Anda belum memiliki riwayat sewa (booking) yang terkonfirmasi atau selesai di lapangan ini.',
+                confirmButtonColor: '#004AAC'
+            });
+        }
     </script>
 @endsection
