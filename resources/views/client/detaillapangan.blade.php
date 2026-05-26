@@ -44,12 +44,13 @@
                 <div class="col-md-8">
                     <h1 class="fw-bold text-dark">{{ $court->name }}</h1>
                     <p class="text-muted small mb-0">
-                        <span class="text-warning"><i class="fas fa-star"></i> 5.0</span>
-                        (196 Reviews) •
+                        <span class="text-warning"><i class="fas fa-star"></i>
+                            {{ number_format($court->reviews->avg('rating') ?: 5, 1) }}</span>
+                        ({{ $court->reviews->count() }} Reviews) •
                         {{-- ✅ FIX: Status dinamis berdasarkan jam operasional --}}
-                        <span class="{{ $isOpen ? 'text-success' : 'text-danger' }}">
+                        {{-- <span class="{{ $isOpen ? 'text-success' : 'text-danger' }}">
                             {{ $isOpen ? 'Open Now' : 'Closed' }}
-                        </span> •
+                        </span> • --}}
                         {{ ucfirst($court->sport_type) }}, {{ $court->venueAdmin->city ?? 'Lumajang' }}
                     </p>
                 </div>

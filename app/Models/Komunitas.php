@@ -33,6 +33,9 @@ class Komunitas extends Model
     {
         return $this->hasMany(JoinKomunitas::class, 'komunitas_id');
     }
+    public function reviews(){
+        return $this->hasMany(Review::class, 'id_komunitas')->where('is_active', 1)->latest();
+    }
 
 
 }

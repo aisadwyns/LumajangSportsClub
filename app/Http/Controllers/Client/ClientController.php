@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Blog;
 use App\Models\Event;
 use App\Models\Komunitas;
@@ -16,6 +17,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\JenisKomunitas;
 use App\Models\Review;
+use App\Models\JoinKomunitas;
 
 class ClientController extends Controller
 {
@@ -64,8 +66,21 @@ class ClientController extends Controller
     }
     public function publicKomunitasShow($id)
     {
-        $komunitas = Komunitas::with('jenis')->findOrFail($id);
-        return view('client.detailkomunitas', compact('komunitas'));
+        $komunitas = Komunitas::with(['jenis', 'reviews.user'])->findOrFail($id);
+
+        $canReview = false;
+        if (Auth::check()) {
+            $hasJoinedAndPaid = JoinKomunitas::where('user_id', Auth::id())
+                ->where('komunitas_id', $id)
+                ->where('status_pembayaran', 'lunas')
+                ->exists();
+
+            if ($hasJoinedAndPaid) {
+                $canReview = true;
+            }
+        }
+
+        return view('client.detailkomunitas', compact('komunitas', 'canReview'));
     }
     public function publicLeaderboard(){
         $clientRoleId = Role::where('role_name', 'user')->value('id');
