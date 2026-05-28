@@ -34,7 +34,8 @@ class HomeController extends Controller
         if ($roleName === 'user') {
             // 1. Ambil 5 Top Player berdasarkan Poin tertinggi
             // withCount('bookings') akan otomatis membuat variabel 'bookings_count'
-            $topPlayers = User::withCount('bookings')
+            $topPlayers = User::where('role_id', 9)
+                ->withCount('bookings')
                 ->orderBy('points', 'desc')
                 ->take(5)
                 ->get();

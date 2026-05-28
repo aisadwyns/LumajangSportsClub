@@ -21,5 +21,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Di dalam file DatabaseSeeder.php, pada method run()
+        $this->call([
+            ChallengeTypeSeeder::class,
+        ]);
     }
 }

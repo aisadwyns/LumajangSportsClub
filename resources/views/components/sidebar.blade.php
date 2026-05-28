@@ -44,7 +44,7 @@
                     <li class="pc-item pc-caption"><label>Web Info</label><i class="ti ti-news"></i></li>
                     <x-sidebar.links title='Komunitas' icon='ti ti-layout-grid' route='komunitas.index' />
                     <x-sidebar.links title='Events' icon='ti ti-calendar' route='event.index' />
-                    <x-sidebar.links title='Challenge' icon='ti ti-clipboard-list' route='blog.index' />
+                    <x-sidebar.links title='Challenge' icon='ti ti-clipboard-list' route='challenge.index' />
                     <x-sidebar.links title='Konten' icon='ti ti-news' route='blog.index' />
 
                     <li class="pc-item pc-caption"><label>Lainnya</label><i class="ti ti-news"></i></li>

@@ -15,7 +15,7 @@
     <meta name="author" content="CodedThemes">
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('template/dist') }}/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="icon" href="{{ asset('template/dist') }}/assets/images/lsc.png" type="image/x-icon">
     <!-- [Google Font] Family -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
@@ -50,7 +50,7 @@
         <div class="auth-wrapper v3">
             <div class="auth-form">
                 <div class="auth-header">
-                    <a href="#"><img src="{{ asset('template/dist') }}/assets/images/logo-dark.svg"
+                    <a href="{{ route('client') }}"><img src="{{ asset('template/dist') }}/assets/images/lsc.png"
                             alt="img"></a>
                 </div>
                 <div class="card my-5">
@@ -74,7 +74,7 @@
 
                             <div class="form-group mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" name="password"
+                                <input type="password" name="password" id="inputPassword"
                                     class="form-control @error('password') is-invalid @enderror" placeholder="Password"
                                     autocomplete="off">
                                 @error('password')
@@ -84,10 +84,9 @@
 
                             <div class="d-flex mt-1 justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input input-primary" type="checkbox" id="customCheckc1"
-                                        checked="">
-                                    <label class="form-check-label text-muted" for="customCheckc1">Keep me sign
-                                        in</label>
+                                    <input class="form-check-input input-primary" type="checkbox" id="togglePassword">
+                                    <label class="form-check-label text-muted" for="togglePassword">Show
+                                        Password</label>
                                 </div>
                                 <h5 class="text-secondary f-w-400">Forgot Password?</h5>
                             </div>
@@ -130,16 +129,16 @@
                 <div class="auth-footer row">
                     <!-- <div class=""> -->
                     <div class="col my-1">
-                        <p class="m-0">Copyright © <a href="#">Codedthemes</a></p>
+                        <p class="m-0">Copyright © <a href="#">CV Inez 88</a></p>
                     </div>
                     <div class="col my-1">
                         <p class="m-0">Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
                     </div>
                     <div class="col-auto my-1">
                         <ul class="list-inline footer-link mb-0">
-                            <li class="list-inline-item"><a href="#">Home</a></li>
-                            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                            <li class="list-inline-item"><a href="#">Contact us</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Home</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Contact us</a></li>
                         </ul>
                     </div>
                     <!-- </div> -->
@@ -182,6 +181,22 @@
 
     <script>
         font_change("Public-Sans");
+    </script>
+    <script>
+        // Ambil elemen checkbox dan input password
+        const togglePassword = document.getElementById('togglePassword');
+        const inputPassword = document.getElementById('inputPassword');
+
+        // Jalankan fungsi setiap kali status checkbox berubah (dicentang / dilepas)
+        togglePassword.addEventListener('change', function() {
+            if (this.checked) {
+                // Jika dicentang, ubah tipe menjadi text (lihat password)
+                inputPassword.setAttribute('type', 'text');
+            } else {
+                // Jika centang dilepas, kembalikan tipe menjadi password (sembunyikan)
+                inputPassword.setAttribute('type', 'password');
+            }
+        });
     </script>
 </body>
 <!-- [Body] end -->

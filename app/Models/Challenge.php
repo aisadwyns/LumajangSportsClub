@@ -2,20 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Challenge extends Model
 {
-    use HasFactory;
-    protected $guarded = ['id'];
-    protected $table = 'challenges';
+    protected $fillable = [
+        'challenge_type_id', 'title', 'description',
+        'target_amount', 'reward_coin', 'total_winner',
+        'start_date', 'end_date', 'status'
+    ];
 
-
-    public function participants()
+    // Mengetahui tipe dari tantangan ini
+    public function challengeType(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'challenge_participants')
-                    ->withPivot('current_progress', 'status', 'completed_at')
-                    ->withTimestamps();
+        return $this->belongsTo(ChallengeType::class, 'challenge_type_id');
+    }
+
+    // Mengetahui siapa saja user yang berpartisipasi
+    public function participants(): HasMany
+    {
+        return $this->hasMany(ChallengeParticipant::class);
     }
 }

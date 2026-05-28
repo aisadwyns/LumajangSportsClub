@@ -49,7 +49,7 @@
         <div class="auth-wrapper v3">
             <div class="auth-form">
                 <div class="auth-header">
-                    <a href="#"><img src="{{ asset('template/dist') }}/assets/images/logo-dark.svg"
+                    <a href="{{ route('client') }}"><img src="{{ asset('template/dist') }}/assets/images/lsc.png"
                             alt="img"></a>
                 </div>
                 <div class="card my-5">
@@ -142,16 +142,16 @@
                 <div class="auth-footer row">
                     <!-- <div class=""> -->
                     <div class="col my-1">
-                        <p class="m-0">Copyright © <a href="#">Codedthemes</a></p>
+                        <p class="m-0">Copyright © <a href="#">CV Inez 88</a></p>
                     </div>
                     <div class="col my-1">
                         <p class="m-0">Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
                     </div>
                     <div class="col-auto my-1">
                         <ul class="list-inline footer-link mb-0">
-                            <li class="list-inline-item"><a href="#">Home</a></li>
-                            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                            <li class="list-inline-item"><a href="#">Contact us</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Home</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a href="{{ route('client') }}">Contact us</a></li>
                         </ul>
                     </div>
                     <!-- </div> -->
