@@ -1,50 +1,27 @@
 @extends('layouts.mantis')
 
 @section('content')
-    <div class="auth-main">
-        <div class="auth-wrapper v3">
-            <div class="auth-form">
-                {{-- Header/Logo (Optional, bisa dihilangkan jika tidak perlu) --}}
-                {{-- <div class="auth-header">
-                <a href="#"><img src="../assets/images/logo-dark.svg" alt="img"></a>
-            </div> --}}
+    <div class="container-fluid px-4 mt-4">
+        <div class="row">
+            <div class="col-12">
 
-                <div class="card my-5 border-0 shadow-sm" style="border-radius: 12px;">
-                    <div class="card-body">
+                <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+                    <div class="card-body p-4">
                         <form action="{{ route('profil.update', 'me') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
-                            <div class="d-flex justify-content-between align-items-end mb-4">
-                                <h3 class="mb-0"><b>Edit Profil</b></h3>
-                                <a href="{{ route('home') }}" class="link-primary text-sm text-decoration-none">Kembali</a>
-                            </div>
-
-                            {{-- Foto Profil Section --}}
-                            <div class="text-center mb-4">
-                                <div class="position-relative d-inline-block">
-                                    @php
-                                        $avatarUrl = $profile->avatar
-                                            ? asset('storage/avatar_user/' . $profile->avatar)
-                                            : asset('assets/img/default-avatar.png');
-                                    @endphp
-                                    <img src="{{ $avatarUrl }}" id="preview-avatar"
-                                        class="rounded-circle border border-4 border-light shadow-sm"
-                                        style="width: 110px; height: 110px; object-fit: cover;">
-
-                                    <label for="avatar-input"
-                                        class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 32px; height: 32px; border: 2px solid #fff; cursor: pointer;">
-                                        <i class="bi bi-camera-fill" style="font-size: 0.85rem;"></i>
-                                        <input type="file" id="avatar-input" name="avatar" class="d-none"
-                                            accept="image/*">
-                                    </label>
-                                </div>
+                            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                                <h4 class="mb-0 fw-bold text-dark">Edit Profil</h4>
+                                {{-- <a href="{{ route('home') }}" class="btn btn-sm btn-light text-secondary border">
+                                    <i class="bi bi-arrow-left me-1"></i> Kembali
+                                </a> --}}
                             </div>
 
                             {{-- Alert Error --}}
                             @if ($errors->any())
-                                <div class="alert alert-danger py-2 px-3 mb-3" style="font-size: 0.85rem;">
+                                <div class="alert alert-danger py-2 px-3 mb-4"
+                                    style="font-size: 0.85rem; border-radius: 8px;">
                                     <ul class="mb-0 ps-3">
                                         @foreach ($errors->all() as $err)
                                             <li>{{ $err }}</li>
@@ -53,55 +30,104 @@
                                 </div>
                             @endif
 
-                            <div class="row">
-                                {{-- Split Nama (First/Last) --}}
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Nama Depan*</label>
-                                        <input type="text" name="first_name" class="form-control"
-                                            value="{{ old('first_name', explode(' ', $user->name)[0]) }}"
-                                            placeholder="Nama Depan" required>
+                            <div class="row g-4">
+
+                                {{-- KOLOM KIRI: Foto Profil --}}
+                                <div class="col-lg-4 text-center border-end-lg">
+                                    <div class="card bg-light border-0 p-4 h-100 d-flex flex-column align-items-center justify-content-center"
+                                        style="border-radius: 10px;">
+                                        <div class="position-relative d-inline-block mb-3">
+                                            @php
+                                                $avatarUrl = $profile->avatar
+                                                    ? asset('storage/avatar_user/' . $profile->avatar)
+                                                    : asset('assets/img/default-avatar.png');
+                                            @endphp
+                                            <img src="{{ $avatarUrl }}" id="preview-avatar"
+                                                class="rounded-circle border border-4 border-white shadow-sm"
+                                                style="width: 130px; height: 130px; object-fit: cover;">
+
+                                            <label for="avatar-input"
+                                                class="position-absolute bottom-0 end-0 btn btn-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow"
+                                                style="width: 36px; height: 36px; border: 3px solid #fff; cursor: pointer;">
+                                                <i class="ti ti-camera" style="font-size: 0.9rem;"></i>
+                                                <input type="file" id="avatar-input" name="avatar" class="d-none"
+                                                    accept="image/*">
+                                            </label>
+                                        </div>
+                                        <h6 class="mb-1 fw-bold text-dark">{{ $user->name }}</h6>
+                                        <p class="text-muted small mb-0">Klik ikon kamera untuk mengubah foto profil</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Nama Belakang</label>
-                                        <input type="text" name="last_name" class="form-control"
-                                            value="{{ old('last_name', count(explode(' ', $user->name)) > 1 ? implode(' ', array_slice(explode(' ', $user->name), 1)) : '') }}"
-                                            placeholder="Nama Belakang">
+
+                                {{-- KOLOM KANAN: Input Data Fields --}}
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        {{-- Nama Depan --}}
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold text-secondary">Nama Depan <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="first_name" class="form-control"
+                                                value="{{ old('first_name', explode(' ', $user->name)[0]) }}"
+                                                placeholder="Nama Depan" required>
+                                        </div>
+
+                                        {{-- Nama Belakang --}}
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold text-secondary">Nama Belakang</label>
+                                            <input type="text" name="last_name" class="form-control"
+                                                value="{{ old('last_name', count(explode(' ', $user->name)) > 1 ? implode(' ', array_slice(explode(' ', $user->name), 1)) : '') }}"
+                                                placeholder="Nama Belakang">
+                                        </div>
+
+                                        {{-- Alamat Email (Disabled) --}}
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label fw-semibold text-secondary">Alamat Email <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" class="form-control bg-light text-muted"
+                                                value="{{ $user->email }}" disabled style="cursor: not-allowed;">
+                                            <div class="form-text text-muted" style="font-size: 0.75rem;">
+                                                <i class="bi bi-info-circle me-1"></i> Email akun utama tidak dapat diubah
+                                            </div>
+                                        </div>
+
+                                        {{-- Nomor WhatsApp --}}
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label fw-semibold text-secondary">Nomor WhatsApp/HP <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <span
+                                                    class="input-group-text bg-light text-secondary fw-semibold">+62</span>
+                                                <input type="text" name="phone" class="form-control"
+                                                    value="{{ old('phone', preg_replace('/^(\+62|62|0)/', '', $profile->phone)) }}"
+                                                    placeholder="Contoh: 8167243897" required>
+                                            </div>
+                                        </div>
+
+                                        {{-- Alamat Lengkap --}}
+                                        <div class="col-12 mb-2">
+                                            <label class="form-label fw-semibold text-secondary">Alamat Lengkap</label>
+                                            <textarea name="address" class="form-control" rows="3" placeholder="Masukkan alamat domisili lengkap kamu">{{ old('address', $profile->address) }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
+                                        <div>
+                                            {{-- <span class="text-muted small">Ingin mengamankan akun?</span>
+                                            <a href="#"
+                                                class="text-primary text-decoration-none fw-semibold ms-1 small">Ganti
+                                                Password</a> --}}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">
+                                            <i class="ti ti-check"></i> Simpan Perubahan
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group mb-3">
-                                <label class="form-label">Alamat Email*</label>
-                                <input type="email" class="form-control bg-light" value="{{ $user->email }}" disabled>
-                                <small class="text-muted" style="font-size: 0.7rem;">Email tidak dapat diubah</small>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="form-label">Nomor WhatsApp/HP*</label>
-                                <input type="text" name="phone" class="form-control"
-                                    value="{{ old('phone', $profile->phone) }}" placeholder="Contoh: 08123456789" required>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="form-label">Alamat Lengkap</label>
-                                <textarea name="address" class="form-control" rows="3" placeholder="Masukkan alamat domisili">{{ old('address', $profile->address) }}</textarea>
-                            </div>
-
-                            <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary py-2 fw-bold">Simpan Perubahan</button>
                             </div>
                         </form>
-
-                        {{-- Link Ganti Password (Opsional) --}}
-                        <div class="text-center mt-3">
-                            <p class="text-sm text-muted mb-0">Ingin mengubah keamanan? <a href="#"
-                                    class="text-primary text-decoration-none">Ganti Password</a></p>
-                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

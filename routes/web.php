@@ -70,6 +70,8 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'indexKomunitas'])->name('riwayat.komunitas');
     Route::get('/dashboard/riwayat-booking', [RiwayatController::class, 'indexBooking'])->name('riwayat.booking');
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
+    Route::get('/challenges', [RiwayatController::class, 'indexChallenges'])->name('challenges.index');
+    Route::post('/challenges/{id}/join', [RiwayatController::class, 'joinChallenge'])->name('challenges.join');
 
 });
 

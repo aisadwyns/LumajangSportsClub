@@ -37,8 +37,8 @@
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <!-- Anda bisa mengganti ini dengan avatar dari DB jika ada -->
-                                                <img src="{{ asset('assets/img/default-avatar.png') }}" alt="user"
-                                                    class="rounded-circle"
+                                                <img src="{{ $player->profile?->avatar ? asset('storage/avatar_user/' . $player->profile->avatar) : asset('client/dist/assets/img/customavatar-' . (($player->id % 5) + 1) . '.png') }}"
+                                                    alt="user" class="rounded-circle"
                                                     style="width: 35px; height: 35px; object-fit: cover;">
                                             </div>
                                             <div class="flex-grow-1 ms-3">

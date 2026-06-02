@@ -23,7 +23,7 @@
                             <th>Judul Tantangan</th>
                             <th>Tipe Kriteria</th>
                             <th>Target Akumulasi</th>
-                            <th>Hadiah Koin</th>
+                            <th>Poin Reward</th>
                             <th>Kuota Pemenang</th>
                             <th>Periode Kontes</th>
                             <th>Status</th>
@@ -39,7 +39,7 @@
                                 <td><strong>{{ $challenge->title }}</strong></td>
                                 <td>{{ $challenge->challengeType->name }}</td>
                                 <td>{{ number_format($challenge->target_amount, 0, ',', '.') }}x Selesai</td>
-                                <td>{{ number_format($challenge->reward_coin, 0, ',', '.') }} Koin</td>
+                                <td>{{ number_format($challenge->reward_coin, 0, ',', '.') }} Poin</td>
                                 <td>{{ $challenge->total_winner }} User</td>
                                 <td>
                                     <small>

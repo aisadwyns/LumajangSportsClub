@@ -80,7 +80,7 @@
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
-                        <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('assets/img/default-avatar.png') }}"
+                        <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('client/dist/assets/img/customavatar-' . ((auth()->user()->id % 5) + 1) . '.png') }}"
                             alt="user-image" class="user-avtar">
                         <span>{{ auth()->user()->name }}</span>
                     </a>
@@ -90,7 +90,7 @@
                                 <div class="flex-shrink-0">
                                     {{-- <img src="{{ asset('template/dist') }}/assets/images/user/avatar-2.jpg"
                                         alt="user-image" class="user-avtar wid-35"> --}}
-                                    <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('assets/img/default-avatar.png') }}"
+                                    <img src="{{ auth()->user()->profile?->avatar ? asset('storage/avatar_user/' . auth()->user()->profile->avatar) : asset('client/dist/assets/img/customavatar-' . ((auth()->user()->id % 5) + 1) . '.png') }}"
                                         alt="user-image" class="user-avtar">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
