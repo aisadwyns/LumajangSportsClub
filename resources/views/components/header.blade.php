@@ -3,13 +3,26 @@
         <div class="me-auto pc-mob-drp">
             <ul class="list-unstyled">
                 <!-- ======= Menu collapse Icon ===== -->
-                <li class="pc-h-item pc-sidebar-collapse">
+                <li class="pc-h-item pc-sidebar-collapse d-none d-lg-inline-flex">
                     <a href="#" class="pc-head-link" data-pc-toggle="sidebar" data-pc-target=".pc-sidebar"
                         id="sidebar-hide">
                         <i class="ti ti-menu-2"></i>
                     </a>
                 </li>
-                {{-- <li class="pc-h-item pc-sidebar-popup">
+
+                <li class="pc-h-item pc-sidebar-popup d-inline-flex d-lg-none">
+                    <a href="#" class="pc-head-link ms-0" data-pc-toggle="sidebar" data-pc-target=".pc-sidebar"
+                        id="mobile-collapse">
+                        <i class="ti ti-menu-2"></i>
+                    </a>
+                </li>
+                {{-- <li class="pc-h-item pc-sidebar-collapse">
+                    <a href="#" class="pc-head-link" data-pc-toggle="sidebar" data-pc-target=".pc-sidebar"
+                        id="sidebar-hide">
+                        <i class="ti ti-menu-2"></i>
+                    </a>
+                </li>
+                 <li class="pc-h-item pc-sidebar-popup">
                     <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
                         <i class="ti ti-menu-2"></i>
                     </a>

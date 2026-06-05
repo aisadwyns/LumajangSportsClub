@@ -2,10 +2,10 @@
 <div class="col-md-6 col-xl-3">
     <div class="card">
         <div class="card-body">
-            <h6 class="mb-2 f-w-400 text-muted">Data Pengunjung</h6>
-            <h4 class="mb-3">12,540 <span class="badge bg-light-primary border border-primary"><i
-                        class="ti ti-trending-up"></i> 15%</span></h4>
-            <p class="mb-0 text-muted text-sm">Total views bulan ini <span class="text-primary">+1,200</span></p>
+            <h6 class="mb-2 f-w-400 text-muted">Data Pengunjung Hari ini</h6>
+            <h4 class="mb-3">15 <span class="badge bg-light-primary border border-primary"><i
+                        class="ti ti-trending-up"></i> kali dikunjungi</span></h4>
+            <p class="mb-0 text-muted text-sm">Total views bulan ini <span class="text-primary">115</span></p>
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
 <!-- Baris 2: Chart Pengunjung & Ikhtisar Pendapatan -->
 <div class="col-md-12 col-xl-8">
     <div class="d-flex align-items-center justify-content-between mb-3">
-        <h5 class="mb-0">Unique Visitor (LSC Web)</h5>
+        <h5 class="mb-0">Visitor (LSC Web)</h5>
         <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="chart-tab-home-tab" data-bs-toggle="pill" data-bs-target="#chart-tab-home"
@@ -56,7 +56,7 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="chart-tab-profile-tab" data-bs-toggle="pill"
                     data-bs-target="#chart-tab-profile" type="button" role="tab" aria-controls="chart-tab-profile"
-                    aria-selected="false">Week</button>
+                    aria-selected="false">Month</button>
             </li>
         </ul>
     </div>

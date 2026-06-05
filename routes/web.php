@@ -13,14 +13,17 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\JerseyController;
+use App\Http\Controllers\MerchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChallengeController;
+
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\JoinKomunitasController;
 use App\Http\Controllers\Client\RiwayatController;
 use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\Client\BookingController;
+use App\Http\Controllers\Client\PointController;
 
 
 use App\Http\Controllers\Venue\CourtController;
@@ -64,7 +67,7 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
     Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
     Route::post('/review/kirim_review', [\App\Http\Controllers\Client\ReviewController::class, 'store'])->name('review.store');
-    Route::resource('profil', ProfileController::class)->only(['edit', 'update']);
+    Route::resource('profil', ProfileController::class)->only(['update'])->names(['profil.update']);
     Route::put('profil/password', [ProfileController::class, 'updatePassword']) ->name('profil.password');
 
     Route::get('/dashboard/riwayat-komunitas', [RiwayatController::class, 'indexKomunitas'])->name('riwayat.komunitas');
@@ -72,6 +75,7 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profil.index');
     Route::get('/challenges', [RiwayatController::class, 'indexChallenges'])->name('challenges.index');
     Route::post('/challenges/{id}/join', [RiwayatController::class, 'joinChallenge'])->name('challenges.join');
+    Route::get('/point-history', [PointController::class, 'index'])->name('point.history');
 
 });
 
@@ -107,6 +111,7 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
         Route::resource('event', EventController::class);
         Route::resource('blog', BlogController::class);
         Route::resource('jersey', JerseyController::class);
+        Route::resource('merch', MerchController::class);
         Route::resource('challenge', ChallengeController::class);
 
         Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');

@@ -390,7 +390,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="{{ asset('client/dist') }}/assets/img/health/maternal-2.webp"
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/bundaran (1).jpg"
                                         alt="Komunitas" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
@@ -403,7 +403,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="{{ asset('client/dist') }}/assets/img/health/vaccination-3.webp"
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/bundaran (2).jpg"
                                         alt="Open Match" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
@@ -416,7 +416,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="{{ asset('client/dist') }}/assets/img/health/emergency-1.webp"
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/bundaran (4).jpg"
                                         alt="Booking Lapangan" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">
@@ -429,7 +429,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="{{ asset('client/dist') }}/assets/img/health/facilities-6.webp"
+                                    <img src="{{ asset('client/dist') }}/assets/img/health/bundaran (3).jpg"
                                         alt="Leaderboard" class="img-fluid" loading="lazy">
                                 </div>
                                 <div class="specialty-content">

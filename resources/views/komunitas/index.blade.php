@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $data->id }}</td>
-                                <td>{{ $data->jenis?->nama ?? '-' }}</td>
+                                <td>{{ $data->jenis?->nama_jenis ?? '-' }}</td>
                                 <td>{{ $data->nama_komunitas }}</td>
                                 <td>{{ $data->lokasi ?? '-' }}</td>
                                 <td>{{ $data->kontak ?? '-' }}</td>

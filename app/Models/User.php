@@ -73,8 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function challenges()
     {
         return $this->belongsToMany(Challenge::class, 'challenge_participants')
-                    ->withPivot('current_progress', 'status', 'completed_at')
+                    ->withPivot('progress', 'status', 'completed_at', 'reward_coin') // 🔧 tambah reward_coin
                     ->withTimestamps();
+    }
+    public function pointHistories(){
+        return $this->hasMany(Point::class)->orderBy('created_at', 'desc');
     }
 
 }

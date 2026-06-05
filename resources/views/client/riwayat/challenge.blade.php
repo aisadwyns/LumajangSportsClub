@@ -51,132 +51,134 @@
                                 <div class="my-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <small class="text-white-50" style="font-size: 12px;">Progres Kamu</small>
+                                        {{-- <span class="fw-bold text-white"
+                                            style="font-size: 14px;">{{ round($percentage) }}%</span> --}}
                                         <span class="fw-bold text-white"
-                                            style="font-size: 14px;">{{ round($percentage) }}%</span>
+                                            style="font-size: 14px;">{{ $participation->progress }}/{{ $challenge->target_amount }}</span>
+                                        <div class="progress"
+                                            style="height: 6px; background-color: rgba(255, 255, 255, 0.2); border-radius: 10px;">
+                                            <div class="progress-bar bg-white" role="progressbar"
+                                                style="width: {{ $percentage }}%; border-radius: 10px;"></div>
+                                        </div>
                                     </div>
-                                    <div class="progress"
-                                        style="height: 6px; background-color: rgba(255, 255, 255, 0.2); border-radius: 10px;">
-                                        <div class="progress-bar bg-white" role="progressbar"
-                                            style="width: {{ $percentage }}%; border-radius: 10px;"></div>
-                                    </div>
-                                </div>
 
-                                {{-- 3-Column Statistics Sederhana di Bagian Bawah Card --}}
-                                <div class="row text-center my-3 bg-black-50 p-2 rounded-3"
-                                    style="background: rgba(0,0,0,0.15);">
-                                    <div class="col-4 border-end border-white-10">
-                                        <h4 class="fw-bold mb-0 text-white">{{ $challenge->target_amount }}</h4>
-                                        <small class="text-white-50 text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Target</small>
+                                    {{-- 3-Column Statistics Sederhana di Bagian Bawah Card --}}
+                                    <div class="row text-center my-3 bg-black-50 p-2 rounded-3"
+                                        style="background: rgba(0,0,0,0.15);">
+                                        <div class="col-4 border-end border-white-10">
+                                            <h4 class="fw-bold mb-0 text-white">{{ $challenge->target_amount }}</h4>
+                                            <small class="text-white-50 text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Target</small>
+                                        </div>
+                                        <div class="col-4 border-end border-white-10">
+                                            <h4 class="fw-bold mb-0 text-warning">{{ $currentProgress }}</h4>
+                                            <small class="text-white-50 text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Selesai</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <h4 class="fw-bold mb-0 text-white">{{ $challenge->total_winner }}</h4>
+                                            <small class="text-white-50 text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Kuota</small>
+                                        </div>
                                     </div>
-                                    <div class="col-4 border-end border-white-10">
-                                        <h4 class="fw-bold mb-0 text-warning">{{ $currentProgress }}</h4>
-                                        <small class="text-white-50 text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Selesai</small>
+
+                                    {{-- Action Button & Status Badge Footer --}}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        @if ($participation->status == 'completed')
+                                            <span class="badge bg-success px-3 py-2"
+                                                style="border-radius: 6px;">FINISHED</span>
+                                            <button class="btn btn-light btn-sm disabled fw-bold" disabled><i
+                                                    class="ti ti-check"></i> Selesai</button>
+                                        @else
+                                            <span class="badge bg-info px-3 py-2 text-dark fw-bold"
+                                                style="background-color: #D1F4FF !important; border-radius: 6px;">DIIKUTI</span>
+                                            <button class="btn btn-white btn-sm fw-bold shadow-sm"
+                                                style="background: #fff; color: #004aac; border-radius: 8px;" disabled>
+                                                Running...
+                                            </button>
+                                        @endif
                                     </div>
-                                    <div class="col-4">
-                                        <h4 class="fw-bold mb-0 text-white">{{ $challenge->total_winner }}</h4>
-                                        <small class="text-white-50 text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Kuota</small>
-                                    </div>
-                                </div>
-
-                                {{-- Action Button & Status Badge Footer --}}
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    @if ($participation->status == 'completed')
-                                        <span class="badge bg-success px-3 py-2" style="border-radius: 6px;">FINISHED</span>
-                                        <button class="btn btn-light btn-sm disabled fw-bold" disabled><i
-                                                class="ti ti-check"></i> Selesai</button>
-                                    @else
-                                        <span class="badge bg-info px-3 py-2 text-dark fw-bold"
-                                            style="background-color: #D1F4FF !important; border-radius: 6px;">DIIKUTI</span>
-                                        <button class="btn btn-white btn-sm fw-bold shadow-sm"
-                                            style="background: #fff; color: #004aac; border-radius: 8px;" disabled>
-                                            Running...
-                                        </button>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- KONDISI 2: JIKA USER BELUM JOIN (Tampilan Card Putih dengan Aksen Biru LSC) --}}
-                    @else
-                        <div class="card h-100 shadow-sm border border-light"
-                            style="border-radius: 16px; min-height: 380px; background: #ffffff;">
-                            <div class="card-body d-flex flex-column justify-content-between p-4">
-
-                                {{-- Top Row Meta --}}
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge px-2 py-1"
-                                        style="font-size: 11px; border-radius: 6px; background-color: #e6f0ff; color: #004aac !important;">
-                                        <i class="ti ti-coins"></i> +{{ number_format($challenge->reward_coin) }} Poin
-                                    </span>
-                                    <div class="text-muted"><i class="ti ti-dots-vertical"></i></div>
-                                </div>
-
-                                {{-- Main Title Section --}}
-                                <div>
-                                    <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">
-                                        {{ $challenge->title }}</h4>
-                                    <small class="text-muted d-block mb-2">
-                                        Batas Akhir: {{ \Carbon\Carbon::parse($challenge->end_date)->format('d/m/Y') }}
-                                    </small>
-                                    <p class="text-muted small text-truncate-2" style="font-size: 13px;">
-                                        {{ $challenge->description ?? 'Mainkan tipe olahraga pilihanmu dan akumulasikan kemenangan kontes sekarang.' }}
-                                    </p>
-                                </div>
-
-                                {{-- Progress Bar Baris Tunggal Status 0% --}}
-                                <div class="my-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <small class="text-muted" style="font-size: 12px;">Progres Capaian</small>
-                                        <span class="fw-bold text-muted" style="font-size: 14px;">0%</span>
-                                    </div>
-                                    <div class="progress"
-                                        style="height: 6px; background-color: #EAECF0; border-radius: 10px;">
-                                        <div class="progress-bar" role="progressbar"
-                                            style="width: 0%; border-radius: 10px; background-color: #004aac;"></div>
-                                    </div>
-                                </div>
-
-                                {{-- 3-Column Statistics Sederhana di Bagian Bawah Card --}}
-                                <div class="row text-center my-3 bg-light p-2 rounded-3"
-                                    style="background-color: #F9FAFB !important;">
-                                    <div class="col-4 border-end border-200">
-                                        <h4 class="fw-bold mb-0 text-dark" style="color: #1D2939;">
-                                            {{ $challenge->target_amount }}</h4>
-                                        <small class="text-muted text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Target</small>
-                                    </div>
-                                    <div class="col-4 border-end border-200">
-                                        <h4 class="fw-bold mb-0 text-muted">0</h4>
-                                        <small class="text-muted text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Selesai</small>
-                                    </div>
-                                    <div class="col-4">
-                                        <h4 class="fw-bold mb-0 text-dark" style="color: #1D2939;">
-                                            {{ $challenge->total_winner }}</h4>
-                                        <small class="text-muted text-uppercase d-block"
-                                            style="font-size: 9px; letter-spacing: 0.5px;">Kuota</small>
-                                    </div>
-                                </div>
-
-                                {{-- Action Button & Status Badge Footer --}}
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <span class="badge bg-light text-muted px-3 py-2"
-                                        style="background-color: #F2F4F7 !important; border-radius: 6px; color: #344054 !important;">AVAILABLE</span>
-
-                                    <form action="{{ route('challenges.join', $challenge->id) }}" method="POST"
-                                        class="m-0">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm text-white fw-bold"
-                                            style="border-radius: 8px; background-color: #004aac; border-color: #004aac;">
-                                            Ikut Misi
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
+
+                            {{-- KONDISI 2: JIKA USER BELUM JOIN (Tampilan Card Putih dengan Aksen Biru LSC) --}}
+                        @else
+                            <div class="card h-100 shadow-sm border border-light"
+                                style="border-radius: 16px; min-height: 380px; background: #ffffff;">
+                                <div class="card-body d-flex flex-column justify-content-between p-4">
+
+                                    {{-- Top Row Meta --}}
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge px-2 py-1"
+                                            style="font-size: 11px; border-radius: 6px; background-color: #e6f0ff; color: #004aac !important;">
+                                            <i class="ti ti-coins"></i> +{{ number_format($challenge->reward_coin) }} Poin
+                                        </span>
+                                        <div class="text-muted"><i class="ti ti-dots-vertical"></i></div>
+                                    </div>
+
+                                    {{-- Main Title Section --}}
+                                    <div>
+                                        <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">
+                                            {{ $challenge->title }}</h4>
+                                        <small class="text-muted d-block mb-2">
+                                            Batas Akhir: {{ \Carbon\Carbon::parse($challenge->end_date)->format('d/m/Y') }}
+                                        </small>
+                                        <p class="text-muted small text-truncate-2" style="font-size: 13px;">
+                                            {{ $challenge->description ?? 'Mainkan tipe olahraga pilihanmu dan akumulasikan kemenangan kontes sekarang.' }}
+                                        </p>
+                                    </div>
+
+                                    {{-- Progress Bar Baris Tunggal Status 0% --}}
+                                    <div class="my-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <small class="text-muted" style="font-size: 12px;">Progres Capaian</small>
+                                            <span class="fw-bold text-muted" style="font-size: 14px;">0%</span>
+                                        </div>
+                                        <div class="progress"
+                                            style="height: 6px; background-color: #EAECF0; border-radius: 10px;">
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: 0%; border-radius: 10px; background-color: #004aac;"></div>
+                                        </div>
+                                    </div>
+
+                                    {{-- 3-Column Statistics Sederhana di Bagian Bawah Card --}}
+                                    <div class="row text-center my-3 bg-light p-2 rounded-3"
+                                        style="background-color: #F9FAFB !important;">
+                                        <div class="col-4 border-end border-200">
+                                            <h4 class="fw-bold mb-0 text-dark" style="color: #004aac;">
+                                                {{ $challenge->target_amount }}</h4>
+                                            <small class="text-muted text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Target</small>
+                                        </div>
+                                        <div class="col-4 border-end border-200">
+                                            <h4 class="fw-bold mb-0 text-muted">0</h4>
+                                            <small class="text-muted text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Selesai</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <h4 class="fw-bold mb-0 text-dark" style="color: #004aac;">
+                                                {{ $challenge->total_winner }}</h4>
+                                            <small class="text-muted text-uppercase d-block"
+                                                style="font-size: 9px; letter-spacing: 0.5px;">Kuota</small>
+                                        </div>
+                                    </div>
+
+                                    {{-- Action Button & Status Badge Footer --}}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <span class="badge bg-light text-muted px-3 py-2"
+                                            style="background-color: #F2F4F7 !important; border-radius: 6px; color: #344054 !important;">AVAILABLE</span>
+
+                                        <form action="{{ route('challenges.join', $challenge->id) }}" method="POST"
+                                            class="m-0">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm text-white fw-bold"
+                                                style="border-radius: 8px; background-color: #004aac; border-color: #004aac;">
+                                                Ikut Misi
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                     @endif
                 </div>
             @empty

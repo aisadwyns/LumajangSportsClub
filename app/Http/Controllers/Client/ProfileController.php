@@ -25,40 +25,46 @@ class ProfileController extends Controller
         return view('client.profile.index', compact('user', 'profile'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name'   => 'required|string|max:255',
-            'phone'  => 'nullable|string|max:255',
-            'alamat' => 'nullable|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
 
-        $userId = Auth::id();
-        $user = User::findOrFail($userId);
+public function update(Request $request, $id)
+{
+    // Jika kamu menggunakan parameter manual ($id), Laravel akan mengirimkan ID dari $profile->id tadi.
+    $userId = Auth::id();
+    $request->validate([
+        'first_name' => 'required|string|max:255',
+        'phone'      => 'required',
+        'avatar'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
 
-        $data = $request->all();
+    // 1. Ambil data user yang sedang login
+    $user = User::findOrFail($userId);
 
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $fileName = Str::uuid() . '.' . $avatar->getClientOriginalExtension();
+    // 2. Gabungkan kembali nama depan dan belakang
+    $fullName = trim($request->first_name . ' ' . $request->last_name);
+    $user->update([
+        'name' => $fullName
+    ]);
 
-            // (opsional) hapus avatar lama kalau ada
-            if ($user->avatar && Storage::disk('public')->exists('avatar_user/' . $user->avatar)) {
-                Storage::disk('public')->delete('avatar_user/' . $user->avatar);
-            }
+    // 3. Ambil data profil berdasarkan ID yang dikirim atau langsung dari user login
+    $profile = Profile::findOrFail($id);
 
-            Storage::disk('public')->putFileAs('avatar_user', $avatar, $fileName);
+    // Proses upload avatar jika ada file baru
+    if ($request->hasFile('avatar')) {
+        $file = $request->file('avatar');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/avatar_user', $filename);
 
-            // simpan yang ke DB hanya nama filenya, sama kayak logo komunitas kamu
-            $data['avatar'] = $fileName;
-        }
-
-        $user->update($data);
-
-        Alert::success('sukses', 'Profil berhasil diperbarui');
-        return back();
+        // Simpan nama file baru ke object profile
+        $profile->avatar = $filename;
     }
+
+    // 4. Update sisa field lainnya
+    $profile->phone = $request->phone;
+    $profile->address = $request->address;
+    $profile->save();
+
+    return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
+}
 
     public function updatePassword(Request $request)
     {

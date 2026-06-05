@@ -12,7 +12,7 @@ class JerseyController extends Controller
 {
     public function index()
 {
-    $jerseys = Jersey::latest()->paginate(9);
+    $jerseys = Jersey::latest()->paginate(9)->where('jenis_katalog', 'jersey');
 
     // Pindahkan ke sini agar SweetAlert me-load script-nya di halaman index
     $title = 'Hapus Jersey!';
@@ -24,7 +24,7 @@ class JerseyController extends Controller
 
     public function show()
     {
-        $jerseys = Jersey::latest()->get();
+        $jerseys = Jersey::latest()->where('jenis_katalog', 'jersey')->get();
 
     // Siapkan konfirmasi hapus untuk SweetAlert
     confirmDelete('Hapus Jersey!', 'Apakah kamu yakin?');

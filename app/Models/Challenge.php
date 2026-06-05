@@ -25,4 +25,11 @@ class Challenge extends Model
     {
         return $this->hasMany(ChallengeParticipant::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'challenge_participants')
+                    ->withPivot('progress', 'status')
+                    ->withTimestamps();
+    }
 }

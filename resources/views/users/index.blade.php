@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-content-center">
                 <div class="card-title">
-                    <h4>Daftar Users</h4>
+                    <h4>Daftar Pengguna</h4>
                 </div>
                 <div>
 

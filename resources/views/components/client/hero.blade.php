@@ -41,7 +41,7 @@
                             <p>Member</p>
                         </div>
                         <div class="stat-item">
-                            <h3><span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="2"
+                            <h3><span data-purecounter-start="0" data-purecounter-end="9" data-purecounter-duration="2"
                                     class="purecounter"></span>+</h3>
                             <p>Veneu</p>
                         </div>

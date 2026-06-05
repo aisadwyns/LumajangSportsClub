@@ -7,15 +7,12 @@
 
                 <div class="card border-0 shadow-sm" style="border-radius: 12px;">
                     <div class="card-body p-4">
-                        <form action="{{ route('profil.update', 'me') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('profil.update', $profile->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
                                 <h4 class="mb-0 fw-bold text-dark">Edit Profil</h4>
-                                {{-- <a href="{{ route('home') }}" class="btn btn-sm btn-light text-secondary border">
-                                    <i class="bi bi-arrow-left me-1"></i> Kembali
-                                </a> --}}
                             </div>
 
                             {{-- Alert Error --}}
@@ -47,9 +44,9 @@
                                                 style="width: 130px; height: 130px; object-fit: cover;">
 
                                             <label for="avatar-input"
-                                                class="position-absolute bottom-0 end-0 btn btn-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow"
-                                                style="width: 36px; height: 36px; border: 3px solid #fff; cursor: pointer;">
-                                                <i class="ti ti-camera" style="font-size: 0.9rem;"></i>
+                                                class="position-absolute bottom-0 end-0 text-white rounded-circle d-flex align-items-center justify-content-center shadow"
+                                                style="width: 36px; height: 36px; border: 3px solid #fff; cursor: pointer; background-color: #4680ff;">
+                                                <i class="ti ti-camera" style="font-size: 1rem;"></i>
                                                 <input type="file" id="avatar-input" name="avatar" class="d-none"
                                                     accept="image/*">
                                             </label>
@@ -110,15 +107,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
-                                        <div>
-                                            {{-- <span class="text-muted small">Ingin mengamankan akun?</span>
-                                            <a href="#"
-                                                class="text-primary text-decoration-none fw-semibold ms-1 small">Ganti
-                                                Password</a> --}}
-                                        </div>
+                                    <div class="d-flex justify-content-end align-items-center mt-3 pt-2 border-top">
                                         <button type="submit" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">
-                                            <i class="ti ti-check"></i> Simpan Perubahan
+                                            <i class="ti ti-check me-1"></i> Simpan Perubahan
                                         </button>
                                     </div>
                                 </div>

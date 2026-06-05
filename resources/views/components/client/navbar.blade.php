@@ -85,7 +85,7 @@
                                 <span class="d-block fw-bold small text-dark">{{ auth()->user()->name }}</span>
                                 <span class="text-muted small" style="font-size: 11px;">{{ auth()->user()->email }}</span>
                             </li>
-                            <li><a href="{{ route('profil.edit', 'me') }}">Profil Saya</a></li>
+                            <li><a href="{{ route('profil.index', auth()->user()->id) }}">Profil Saya</a></li>
                             <li><a href="{{ route('komunitas.index') }}">Riwayat</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST" class="d-inline">

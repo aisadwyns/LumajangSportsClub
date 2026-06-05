@@ -18,7 +18,7 @@
                     <li class="pc-item pc-caption"><label>Leaderboard & Challenge</label><i class="ti ti-dashboard"></i>
                     </li>
                     <x-sidebar.links title='Challenges' icon='ti ti-clipboard-list' route='challenges.index' />
-                    <x-sidebar.links title='Point' icon='ti ti-confetti' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Point History' icon='ti ti-confetti' route='point.history' />
                     <li class="pc-item pc-caption"><label>Profile</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Edit Profile' icon='ti ti-mood-happy' route='profil.index' />
                 @endif
@@ -61,8 +61,9 @@
                             <x-sidebar.links title='Bagian' icon='ti ti-clipboard-list' route='bagian.index' />
                             <x-sidebar.links title='Jenis Komunitas' icon='ti ti-layout-grid'
                                 route='jenis-komunitas.index' />
-                            <li class="pc-item"><a class="pc-link" href="#!">Galeri</a></li>
+                            <li class="pc-item"><a class="pc-link" href="#!">Galeri Jersey dan Merch</a></li>
                             <x-sidebar.links title='Jersey' icon='ti ti-clipboard-list' route='jersey.index' />
+                            <x-sidebar.links title='Merch' icon='ti ti-clipboard-list' route='merch.index' />
                             <li class="pc-item pc-hasmenu">
                                 <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i
                                             data-feather="chevron-right"></i></span></a>

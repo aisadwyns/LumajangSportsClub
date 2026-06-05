@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Models\Court;
+use App\Models\Point;;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Illuminate\Support\Facades\Auth;
@@ -117,10 +118,55 @@ public function pay(Request $request)
                     // Update jadi success
                     $booking->update(['status' => 'success']);
 
-                    // Tambah poin
+                    // Ambil data user pemboking
                     $user = \App\Models\User::find($booking->user_id);
                     if ($user) {
-                        $user->increment('points', 50);
+                        $pointGained = 50;
+
+                        // 1. Tambah poin user
+                        $user->increment('points', $pointGained);
+
+                        // 2. Gunakan pemicu langsung via Model untuk memastikan mass assignment berjalan aman
+                        \App\Models\Point::create([
+                            'user_id'       => $user->id,
+                            'amount'        => $pointGained,
+                            'activity_type' => 'booking',
+                            'description'   => 'Mendapatkan poin dari penyewaan lapangan #' . $booking->kode_booking,
+                        ]);
+
+                    // ✅ Perbaikan: wherePivot status pakai 'joined' (sesuai enum schema)
+                    $activeBookingChallenges = $user->challenges()
+                        ->where('status', 'active')
+                        ->whereHas('type', function ($query) {
+                            $query->where('slug', 'booking');
+                        })
+                        ->wherePivot('status', 'joined') // 🔧 'progress' → 'joined'
+                        ->get();
+
+                    foreach ($activeBookingChallenges as $challenge) {
+                        $newProgress = $challenge->pivot->progress + 1;
+
+                        if ($newProgress >= $challenge->target_amount) {
+                            $user->challenges()->updateExistingPivot($challenge->id, [
+                                'progress'     => $challenge->target_amount, // 🔧 current_amount → progress
+                                'status'       => 'completed',               // ✅ sesuai enum
+                                'completed_at' => now(),                     // ✅ isi completed_at
+                            ]);
+
+                            $user->increment('points', $challenge->reward_coin);
+
+                            // 🔧 Model Point → tabel point_histories, pastikan $table = 'point_histories'
+                            \App\Models\Point::create([
+                                'user_id'       => $user->id,
+                                'amount'        => $challenge->reward_coin,
+                                'activity_type' => 'challenge_completed', // ✅ sesuai enum
+                                'description'   => 'Menyelesaikan Tantangan: ' . $challenge->title,
+                            ]);
+                        } else {
+                            $user->challenges()->updateExistingPivot($challenge->id, [
+                                'progress' => $newProgress, // 🔧 current_amount → progress
+                            ]);
+                        }
                     }
                 }
             } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
@@ -129,7 +175,8 @@ public function pay(Request $request)
             }
         }
 
-        return response()->json(['message' => 'Booking callback handled successfully']);
+            return response()->json(['message' => 'Booking callback handled successfully']);
+        }
     }
 
     public function handleUniversalCallback(Request $request)
@@ -156,7 +203,53 @@ public function pay(Request $request)
 
                         $user = \App\Models\User::find($booking->user_id);
                         if ($user) {
-                            $user->increment('points', 50);
+                            $pointGained = 50;
+
+                            // 1. Tambah poin user
+                            $user->increment('points', $pointGained);
+
+                            // 2. Gunakan pemicu langsung via Model untuk memastikan mass assignment berjalan aman
+                            \App\Models\Point::create([
+                                'user_id'       => $user->id,
+                                'amount'        => $pointGained,
+                                'activity_type' => 'booking',
+                                'description'   => 'Mendapatkan poin dari penyewaan lapangan #' . $booking->kode_booking,
+                            ]);
+
+                            // ✅ Perbaikan: wherePivot status pakai 'joined' (sesuai enum schema)
+                            $activeBookingChallenges = $user->challenges()
+                                ->where('status', 'active')
+                                ->whereHas('type', function ($query) {
+                                    $query->where('slug', 'booking');
+                                })
+                                ->wherePivot('status', 'joined') // 🔧 'progress' → 'joined'
+                                ->get();
+
+                            foreach ($activeBookingChallenges as $challenge) {
+                                $newProgress = $challenge->pivot->progress + 1;
+
+                                if ($newProgress >= $challenge->target_amount) {
+                                    $user->challenges()->updateExistingPivot($challenge->id, [
+                                        'progress'     => $challenge->target_amount, // 🔧 current_amount → progress
+                                        'status'       => 'completed',               // ✅ sesuai enum
+                                        'completed_at' => now(),                     // ✅ isi completed_at
+                                    ]);
+
+                                    $user->increment('points', $challenge->reward_coin);
+
+                                    // 🔧 Model Point → tabel point_histories, pastikan $table = 'point_histories'
+                                    \App\Models\Point::create([
+                                        'user_id'       => $user->id,
+                                        'amount'        => $challenge->reward_coin,
+                                        'activity_type' => 'challenge_completed', // ✅ sesuai enum
+                                        'description'   => 'Menyelesaikan Tantangan: ' . $challenge->title,
+                                    ]);
+                                } else {
+                                    $user->challenges()->updateExistingPivot($challenge->id, [
+                                        'progress' => $newProgress, // 🔧 current_amount → progress
+                                    ]);
+                                }
+                            }
                         }
                     }
                 } elseif (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
