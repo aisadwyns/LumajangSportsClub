@@ -38,9 +38,9 @@
                                             <td><strong>{{ $user->name }}</strong></td>
                                             <td>
                                                 @if ($user->pivot->metode_pembayaran == 'cod')
-                                                    <span>Bayar di Tempat (COD)</span>
+                                                    <span>Bayar di Tempat</span>
                                                 @elseif($user->pivot->metode_pembayaran == 'midtrans')
-                                                    <span>Transfer (Midtrans)</span>
+                                                    <span>Transfer</span>
                                                 @else
                                                     <span>-</span>
                                                 @endif
@@ -49,7 +49,7 @@
                                                 @if ($user->pivot->status_pembayaran == 'paid')
                                                     <span class="badge bg-success">Lunas</span>
                                                 @elseif($user->pivot->status_pembayaran == 'cod')
-                                                    <span class="badge bg-info text-dark">COD</span>
+                                                    <span class="badge bg-success">-</span>
                                                 @elseif($user->pivot->status_pembayaran == 'pending')
                                                     <span class="badge bg-warning text-dark">Pending</span>
                                                 @else

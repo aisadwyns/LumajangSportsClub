@@ -1,5 +1,7 @@
-<header class="pc-header">
-    <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+{{-- <header class="pc-header " style="background: #00347a !important;"> --}}
+<header class="pc-header ">
+    <div class="header-wrapper">
+        <!-- [Mobile Media Block] start -->
         <div class="me-auto pc-mob-drp">
             <ul class="list-unstyled">
                 <!-- ======= Menu collapse Icon ===== -->
