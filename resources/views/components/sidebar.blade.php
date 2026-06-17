@@ -12,9 +12,9 @@
             <ul class="pc-navbar">
                 @if (Auth::user()->role->role_name == 'user')
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
-                    <li class="pc-item pc-caption"><label>Riwayat</label><i class="ti ti-dashboard"></i></li>
+                    {{-- <li class="pc-item pc-caption"><label>Riwayat</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Riwayat Booking' icon='ti ti-history' route='riwayat.booking' />
-                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-users' route='riwayat.komunitas' />
+                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-users' route='riwayat.komunitas' /> --}}
                     <li class="pc-item pc-caption"><label>Leaderboard & Challenge</label><i class="ti ti-dashboard"></i>
                     </li>
                     <x-sidebar.links title='Challenges' icon='ti ti-clipboard-list' route='challenges.index' />
@@ -27,8 +27,8 @@
                     <x-sidebar.links title='Dashboard' icon='ti ti-dashboard' route='home' />
                     <li class="pc-item pc-caption"><label>Booking Data</label><i class="ti ti-dashboard"></i></li>
                     <x-sidebar.links title='Booking' icon='ti ti-clipboard' route='venue.booking.index' />
-
-                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' />
+                    {{--
+                    <x-sidebar.links title='Riwayat Komunitas' icon='ti ti-user' route='riwayat.komunitas' /> --}}
                     <li class="pc-item pc-caption"><label>Other</label><i class="ti ti-news"></i></li>
                     <x-sidebar.links title='Jadwal' icon='ti ti-calendar' route='venue.schedule.index' />
 

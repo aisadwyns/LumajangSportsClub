@@ -40,9 +40,12 @@ class ClientController extends Controller
             $query->where('jenis_komunitas_id', $request->jenis);
         }
 
+        $averageRating = DB::table('reviews')->avg('rating') ?? 0.0;
+        $totalReviews = DB::table('reviews')->count();
+
         // 5. Eksekusi query (bisa menggunakan ->paginate(10) jika data sudah banyak)
         $komunitas = $query->latest()->get();
-        return view('client.index', compact('komunitas', 'jenisKomunitas'));
+        return view('client.index', compact('komunitas', 'jenisKomunitas', 'averageRating', 'totalReviews'));
     }
 
     public function publicBlogIndex() {

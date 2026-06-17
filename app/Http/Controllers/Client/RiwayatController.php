@@ -113,7 +113,7 @@ class RiwayatController extends Controller
         if ($status === 'completed') {
             Alert::success('Luar Biasa!', 'Kamu langsung menyelesaikan tantangan ini dari akumulasi riwayat booking-mu! Koin berhasil didapatkan.');
         } else {
-            Alert::success('Berhasil Bergabung', 'Progres awal kamu dimulai dari ' . $initialProgress . ' berdasarkan riwayat booking-mu di periode ini.');
+            Alert::success('Berhasil Bergabung', 'Progres awal kamu dimulai dari ' . $initialProgress . ' berdasarkan riwayat di periode ini.');
         }
         return redirect()->route('challenges.index');
     }

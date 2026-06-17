@@ -95,7 +95,7 @@
                             </div>
                         </form>
 
-                        <div class="saprator mt-3">
+                        {{-- <div class="saprator mt-3">
                             <span>Login with</span>
                         </div>
                         <div class="row">
@@ -123,7 +123,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="auth-footer row">

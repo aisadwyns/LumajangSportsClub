@@ -20,7 +20,11 @@
                                 @php
                                     $avatarUrl = $profile->avatar
                                         ? asset('storage/avatar_user/' . $profile->avatar)
-                                        : asset('assets/img/default-avatar.png');
+                                        : asset(
+                                            'client/dist/assets/img/customavatar-' .
+                                                ((auth()->user()->id % 5) + 1) .
+                                                '.png',
+                                        );
                                 @endphp
 
                                 <img src="{{ $avatarUrl }}" class="rounded-circle mb-3" width="96" height="96"

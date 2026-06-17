@@ -50,9 +50,13 @@ public function update(Request $request, $id)
 
     // Proses upload avatar jika ada file baru
     if ($request->hasFile('avatar')) {
+        if ($profile->avatar) {
+            Storage::disk('public')->delete('avatar_user/' . $profile->avatar);
+        }
+
         $file = $request->file('avatar');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/avatar_user', $filename);
+        $filename = Str::uuid() . '_' . $file->getClientOriginalName();
+        Storage::disk('public')->putFileAs('avatar_user', $file, $filename);
 
         // Simpan nama file baru ke object profile
         $profile->avatar = $filename;

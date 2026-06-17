@@ -13,7 +13,7 @@
 
     <main class="main">
         <!-- Hero Section -->
-        <x-client.hero />
+        <x-client.hero :averageRating="$averageRating" :totalReviews="$totalReviews" />
         <!-- /Hero Section -->
 
         {{-- Certifications --}}
@@ -22,9 +22,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h3>Sponsorship &amp; Partner</h3>
-                        <p class="section-description">Recognized by leading healthcare organizations for our commitment
-                            to
-                            quality care</p>
+                        <p class="section-description"></p>
                     </div>
                 </div>
 
@@ -96,12 +94,12 @@
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="15" data-purecounter-duration="1"></div>
+                                        data-purecounter-end="6" data-purecounter-duration="1"></div>
                                     <div class="stat-label">Komunitas Aktif</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="20" data-purecounter-duration="1"></div>
+                                        data-purecounter-end="4" data-purecounter-duration="1"></div>
                                     <div class="stat-label">Venue &amp; Lapangan Partner</div>
                                 </div>
                             </div>
@@ -168,11 +166,8 @@
                                     permainan.
                                     Cocok untuk latihan rutin, sparring, atau open match.
                                 </p>
-                                <div class="specialty-features">
-                                    <span><i class="bi bi-check-circle-fill"></i>Match sesuai jadwal</span>
-                                    <span><i class="bi bi-check-circle-fill"></i>Filter level &amp; lokasi</span>
-                                </div>
-                                <a href="partners.html" class="specialty-link">
+
+                                <a href="{{ route('komunitas.public') }}" class="specialty-link">
                                     Mulai Cari Partner <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -197,12 +192,8 @@
                                     Cek ketersediaan, booking instan, dan kelola jadwal main bareng komunitas.
                                     Semua slot rapi, transparan, dan mudah dipantau.
                                 </p>
-                                <div class="specialty-features">
-                                    <span><i class="bi bi-check-circle-fill"></i>Ketersediaan real-time</span>
-                                    <span><i class="bi bi-check-circle-fill"></i>Booking &amp; pengingat
-                                        otomatis</span>
-                                </div>
-                                <a href="venues.html" class="specialty-link">
+
+                                <a href="{{ route('lapangan.public') }}" class="specialty-link">
                                     Lihat Venue <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -223,15 +214,15 @@
                             </div>
                             <h4>Event &amp; Open Match</h4>
                             <p>
-                                Ikut game yang lagi cari pemain, bikin jadwal bareng, atau gabung turnamen mini
-                                komunitas.
+                                Akses beragam informasi seputar kegiatan olahraga di Lumajang. Dari turnamen, open
+                                match, sampai event komunitas—semua cabang olahraga!
                             </p>
                             <ul class="highlight-list">
-                                <li>Open Match</li>
+                                <li>Sport Event</li>
                                 <li>Friendly Match</li>
-                                <li>Turnamen Mini</li>
+                                <li>Turnamen</li>
                             </ul>
-                            <a href="events.html" class="highlight-cta">Learn More</a>
+                            <a href="{{ route('events.public') }}" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
@@ -250,7 +241,7 @@
                                 <li>Chat Koordinasi</li>
                                 <li>Rekrut Member</li>
                             </ul>
-                            <a href="communities.html" class="highlight-cta">Learn More</a>
+                            <a href="{{ route('komunitas.public') }}" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
@@ -269,7 +260,7 @@
                                 <li>Poin Aktivitas</li>
                                 <li>Badge &amp; Reward</li>
                             </ul>
-                            <a href="leaderboard.html" class="highlight-cta">Learn More</a>
+                            <a href="{{ route('leaderboard.public') }}" class="highlight-cta">Learn More</a>
                         </div>
                     </div><!-- End Department Highlight -->
 
@@ -286,7 +277,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 text-lg-end">
-                            <a href="booking.html" class="emergency-btn">
+                            <a href="{{ route('lapangan.public') }}" class="emergency-btn">
                                 <i class="bi bi-calendar-check-fill"></i>
                                 Buat Jadwal Sekarang
                             </a>
@@ -329,7 +320,7 @@
                                     Jelajahi komunitas, temukan partner selevel, lalu booking venue tanpa ribet.
                                     Aktivitasmu tercatat dan bisa masuk ke sistem poin &amp; leaderboard.
                                 </p>
-                                <a href="features.html" class="main-cta">Explore Fitur LSC</a>
+                                {{-- <a href="features.html" class="main-cta">Explore Fitur LSC</a> --}}
                             </div>
                         </div>
                     </div>
@@ -347,23 +338,11 @@
                                         Pilih cabang olahraga &amp; area, lalu join komunitas terdekat untuk mulai
                                         aktif.
                                     </p>
-                                    <a href="communities.html" class="service-link">Learn More</a>
+                                    <a href="{{ route('komunitas.public') }}" class="service-link">Learn More</a>
                                 </div>
                             </div>
 
-                            <div class="service-item" data-aos="fade-up" data-aos-delay="500">
-                                <div class="service-icon-wrapper">
-                                    <i class="bi bi-person-plus"></i>
-                                </div>
-                                <div class="service-info">
-                                    <h4>Cari Partner</h4>
-                                    <p>
-                                        Match berdasarkan jadwal, level, dan preferensi main biar nggak susah cari
-                                        teman.
-                                    </p>
-                                    <a href="partners.html" class="service-link">Learn More</a>
-                                </div>
-                            </div>
+
 
                             <div class="service-item" data-aos="fade-up" data-aos-delay="600">
                                 <div class="service-icon-wrapper">
@@ -375,7 +354,21 @@
                                         Lihat slot kosong dan booking lapangan langsung, lengkap dengan pengingat
                                         jadwal.
                                     </p>
-                                    <a href="booking.html" class="service-link">Learn More</a>
+                                    <a href="{{ route('lapangan.public') }}" class="service-link">Learn More</a>
+                                </div>
+                            </div>
+
+                            <div class="service-item" data-aos="fade-up" data-aos-delay="500">
+                                <div class="service-icon-wrapper">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="service-info">
+                                    <h4>Selesaikan Challenge</h4>
+                                    <p>
+                                        Ayo ikuti berbagai challenge seru untuk naik peringkat di leaderboard dan
+                                        dapatkan banyak point!
+                                    </p>
+                                    <a href="{{ route('challenges.index') }}" class="service-link">Learn More</a>
                                 </div>
                             </div>
 
@@ -610,8 +603,9 @@
                                 <div class="feature-icon">
                                     <i class="bi bi-funnel"></i>
                                 </div>
-                                <h3>Match Sesuai Level</h3>
-                                <p>Filter berdasarkan level, lokasi, dan jadwal supaya ketemu partner yang pas.</p>
+                                <h3>Akses Informasi</h3>
+                                <p>Dapatkan informasi terkini tentang komunitas, venue, dan event olahraga di Lumajang.
+                                </p>
                             </div>
                         </div>
 
@@ -653,11 +647,14 @@
 
                         <div class="col-lg-4">
                             <div class="contact-actions" data-aos="fade-up" data-aos-delay="300">
-                                <a href="tel:5551234567" class="emergency-call">
-                                    <i class="bi bi-telephone"></i>
+                                <a href="{{ route('venue.create') }}" class="emergency-call">
+                                    <i class="bi bi-plus-circle"></i>
+                                    <span>Daftarkan Venue</span>
+                                </a>
+                                <a href="https://wa.me/6285231560171" class="contact-link" target="_blank">
+                                    <i class="bi bi-whatsapp"></i>
                                     <span>Hubungi Admin</span>
                                 </a>
-                                <a href="{{ route('venue.create') }}" class="contact-link">Daftarkan Venue</a>
                             </div>
                         </div>
 

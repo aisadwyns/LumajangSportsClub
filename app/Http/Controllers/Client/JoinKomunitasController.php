@@ -135,7 +135,52 @@ class JoinKomunitasController extends Controller {
                         // B. Tambahkan 20 Poin ke User!
                         $user = User::find($userId);
                         if ($user) {
-                            $user->increment('points', 20);
+                            $pointGained = 20;
+                            $user->increment('points', $pointGained);
+
+                            \App\Models\Point::create([
+                                'user_id'       => $user->id,
+                                'amount'        => $pointGained,
+                                'activity_type' => 'join_community',
+                                'description'   => 'Mendapatkan poin dari join komunitas #' . ($komunitasUser->order_id ?? $komunitasUser->id),
+                            ]);
+
+                            $activeKomunitasChallenges = $user->challenges()
+                                ->where('status', 'active')
+                                ->where('challenge_type_id', 2)
+                                ->wherePivot('status', 'joined') // Membaca kolom status di tabel challenge_participants
+                                ->get();
+
+                            foreach ($activeKomunitasChallenges as $challenge) {
+                                // Mengambil progress saat ini dari tabel pivot
+                                $currentProgress = $challenge->pivot->progress;
+                                $newProgress = $currentProgress + 1;
+
+                                if ($newProgress >= $challenge->target_amount) {
+                                    // Jika progress mencapai target, set completed pada tabel challenge_participants
+                                    $user->challenges()->updateExistingPivot($challenge->id, [
+                                        'progress'     => $challenge->target_amount,
+                                        'status'       => 'completed',
+                                        'completed_at' => now(), // Pastikan kolom ini ada di tabel challenge_participants jika ingin diisi
+                                    ]);
+
+                                    // Berikan reward koin/poin dari tantangan tersebut
+                                    $user->increment('points', $challenge->reward_coin);
+
+                                    // Catat riwayat poin tantangan selesai
+                                    \App\Models\Point::create([
+                                        'user_id'       => $user->id,
+                                        'amount'        => $challenge->reward_coin,
+                                        'activity_type' => 'challenge_completed',
+                                        'description'   => 'Menyelesaikan Tantangan: ' . $challenge->title,
+                                    ]);
+                                } else {
+                                    // Jika belum mencapai target, update progress-nya saja di tabel challenge_participants
+                                    $user->challenges()->updateExistingPivot($challenge->id, [
+                                        'progress' => $newProgress,
+                                    ]);
+                                }
+                            }
                         }
                     }
                 }

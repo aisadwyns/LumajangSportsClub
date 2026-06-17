@@ -107,7 +107,7 @@
                                 <button type="submit" class="btn btn-primary">Create Account</button>
                             </div>
                         </form>
-                        <div class="saprator mt-3">
+                        {{-- <div class="saprator mt-3">
                             <span>Sign up with</span>
                         </div>
                         <div class="row">
@@ -135,7 +135,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

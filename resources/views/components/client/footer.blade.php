@@ -24,7 +24,7 @@
                             </div>
                             <div class="contact-item">
                                 <i class="bi bi-telephone"></i>
-                                <span>+62 8xx-xxxx-xxxx</span>
+                                <span>+62 852-3156-0171</span>
                             </div>
                             <div class="contact-item">
                                 <i class="bi bi-envelope"></i>
@@ -57,9 +57,7 @@
                                 <div class="nav-column">
                                     <h6>Layanan</h6>
                                     <nav class="footer-nav">
-                                        <a href="{{ url('/booking') }}">Pemesanan Lapangan</a>
-                                        <a href="{{ url('/events') }}">Event Olahraga</a>
-                                        <a href="{{ url('/membership') }}">Keanggotaan</a>
+                                        <a href="https://wa.me/6281234567890">Sponsorship</a>
                                         <a href="{{ url('/mitra') }}">Mitra Venue</a>
                                     </nav>
                                 </div>
@@ -71,9 +69,9 @@
                                     <h6>Informasi</h6>
                                     <nav class="footer-nav">
                                         <a href="{{ route('blogs.public') }}">Artikel & Berita</a>
-                                        <a href="{{ url('/faq') }}">FAQ</a>
-                                        <a href="{{ url('/tentang-kami') }}">Tentang Kami</a>
-                                        <a href="{{ url('/kontak') }}">Kontak</a>
+                                        <a href="{{ url('/events') }}">Event</a>
+                                        <a href="{{ url('/reviews') }}">Tentang Kami</a>
+                                        <a href="+62 852-3156-0171">Sosial Media</a>
                                     </nav>
                                 </div>
                             </div>
@@ -119,12 +117,12 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <div class="legal-links">
                             <a href="{{ url('/privacy-policy') }}">Kebijakan Privasi</a>
                             <a href="{{ url('/terms') }}">Syarat & Ketentuan</a>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
