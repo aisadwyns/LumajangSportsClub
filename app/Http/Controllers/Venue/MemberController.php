@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Venue;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
     public function index()
     {
-        $datamember = Member::all();
+        $user = Auth::user();
+        $datamember = Member::where('venue_admin_id', $user->venueAdmin->id)->get();
         return view('venue.member.index', compact('datamember'));
     }
 
@@ -22,11 +24,13 @@ class MemberController extends Controller
 
     public function store(Request $request)
     {
+         $user = Auth::user();
         //cek inputas
         $request->validate([
             'nama_lengkap' => 'required',
             'nama_club' => 'required',
             'no_telpon' => 'required',
+
         ], [
             'nama_lengkap.required' => 'nama lengkap belum di isi.',
             'nama_club.required' => 'nama club belum di isi.',
@@ -39,8 +43,10 @@ class MemberController extends Controller
         //     'no_telpon'    => $request['no_telpon'],
         // ]);
 
+        $data = $request->all();
+        $data['venue_admin_id'] = $user->venueAdmin->id;
         //cara yang lebih simpel
-        Member::create($request->all());
+        Member::create($data);
 
         return redirect(route('venue.member.index'))->with('success', 'Data member berhasil disimpan.');
     }

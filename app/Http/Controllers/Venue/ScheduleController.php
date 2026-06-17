@@ -31,7 +31,7 @@ class ScheduleController extends Controller
             ->orderBy('start_time')
             ->get();
 
-        $members = Member::all();
+        $members = Member::where('venue_admin_id', $venue->id)->get();
         $courts = Court::where('venue_admin_id', $venue->id)->get();
 
         return view('venue.schedule.index', compact('schedules', 'members', 'courts'));
@@ -47,7 +47,7 @@ class ScheduleController extends Controller
 
         $venue = $user->venueAdmin;
 
-        $members = Member::all();
+        $members = Member::where('venue_admin_id', $venue->id)->get();
         $courts = Court::where('venue_admin_id', $venue->id)->get();
 
         return view('venue.schedule.create', compact('members', 'courts'));

@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\User;
 use App\Models\Challenge;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -210,22 +211,27 @@ class HomeController extends Controller
             ));
 
         } elseif ($roleName === 'venue') {
+            $venueAdminId = Auth::user()->venueAdmin->id;
             $hariIni = Carbon::today();
 
             // 1. Total Lapangan
-            $totalLapangan = Court::count();
+            $totalLapangan = Court::where('venue_admin_id', $venueAdminId)->count();
 
             // 3. Slot Booking & Total Booking Hari Ini
             // Menghitung jumlah booking yang masuk untuk tanggal hari ini
-            $bookingHariIni = Booking::whereDate('booking_date', $hariIni)->count();
+            $bookingHariIni = Booking::whereHas('court', function ($query) use ($venueAdminId) {
+                $query->where('venue_admin_id', $venueAdminId);
+            })->whereDate('booking_date', $hariIni)->count();
 
             // 4. Total Pemasukan Hari Ini (Hanya dari status success)
             $pemasukanHariIni = Booking::whereDate('created_at', $hariIni)
-                ->where('status', 'success')
+                ->where('status', 'success')->whereHas('court', function ($query) {
+                    $query->where('venue_admin_id', Auth::user()->venueAdmin->id);
+                })
                 ->sum('total_price');
 
             // 5. Booking Terbaru (Ambil 5 transaksi terakhir beserta relasi lapangan)
-            $venueAdminId = Auth::user()->venueAdmin->id;
+
             // 2. Ambil booking khusus untuk lapangan yang dimiliki venue admin ini
             // Asumsi: tabel 'courts' memiliki foreign key 'venue_admin_id'
             $bookingTerbaru = Booking::whereHas('court', function ($query) use ($venueAdminId) {
@@ -239,16 +245,90 @@ class HomeController extends Controller
             $totalKapasitasHarian = $totalLapangan * 10;
             $slotTerisi = $totalKapasitasHarian > 0 ? round(($bookingHariIni / $totalKapasitasHarian) * 100) : 0;
 
+            // ========================================================
+            // ---- LOGIKA GRAFIK BOOKING KHUSUS VENUE INI (BULANAN) ----
+            // ========================================================
+            $venueChartLabels = [];
+            $venueBookingData = [];
+
+            // 1. Ambil ID Venue milik admin yang sedang login
+            $currentVenueId = $venueAdminId;
+            // 2. Lakukan perulangan mundur dari 5 bulan lalu sampai 0 (bulan ini)
+            for ($i = 5; $i >= 0; $i--) {
+                // subMonths($i) akan menghitung mundur berdasarkan bulan berjalan saat ini
+                $date = \Carbon\Carbon::now()->subMonths($i);
+
+                // Label grafik: Jan, Feb, Mar... (dinamis mengikuti bulan sekarang)
+                $venueChartLabels[] = $date->translatedFormat('M');
+
+                // 3. Hitung jumlah booking khusus venue ini pada bulan tersebut
+                $bookingCount = \App\Models\Booking::whereHas('court', function ($query) use ($currentVenueId) {
+                    $query->where('venue_admin_id', $currentVenueId);
+                })
+                    // ->where('status_pembayaran', 'success') // Aktifkan jika hanya ingin yang sukses
+                    ->whereYear('created_at', $date->year)
+                    ->whereMonth('created_at', $date->month)
+                    ->count();
+
+                $venueBookingData[] = $bookingCount;
+            }
+
+
             return view('home', compact(
                 'totalLapangan',
                 'totalMember',
                 'bookingHariIni',
                 'pemasukanHariIni',
                 'bookingTerbaru',
-                'slotTerisi'
+                'slotTerisi',
+                'venueChartLabels',
+                'venueBookingData'
             ));
         }
 
         return view('home');
+    }
+
+    public function exportPdf() {
+        // Pastikan hanya role superadmin yang bisa menembak fungsi ini
+        if (Auth::user()->role->role_name !== 'superadmin') {
+            abort(403, 'Akses tidak sah.');
+        }
+
+        $currentYear = \Carbon\Carbon::now()->year;
+
+        // 1. DATA VISITOR GLOBAL BULAN INI
+        $totalPageViews = \App\Models\WebVisitor::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', $currentYear)
+            ->count();
+
+        $totalSessions = \App\Models\WebVisitor::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', $currentYear)
+            ->distinct('session_id')
+            ->count('session_id');
+
+        // 2. DATA BOOKING GLOBAL 6 BULAN TERAKHIR (Tanpa filter venue_id)
+        $reportData = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $date = \Carbon\Carbon::now()->subMonths($i);
+
+            // Menghitung seluruh transaksi se-aplikasi LSC
+            $bookingCount = \App\Models\Booking::whereYear('created_at', $date->year)
+                ->whereMonth('created_at', $date->month)
+                ->count();
+
+            $reportData[] = [
+                'bulan' => $date->translatedFormat('F Y'),
+                'jumlah' => $bookingCount
+            ];
+        }
+
+        // 3. Render HTML ke DomPDF
+        $pdf = Pdf::loadView('admin.reports.executive_summary', compact('totalPageViews', 'totalSessions', 'reportData'));
+
+        // Set ukuran kertas kertas A4 Portrait
+        $pdf->setPaper('a4', 'portrait');
+
+        return $pdf->download('LSC_Executive_Summary_'.now()->format('M_Y').'.pdf');
     }
 }

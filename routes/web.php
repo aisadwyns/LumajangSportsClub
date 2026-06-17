@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('schedule', ScheduleController::class);
         Route::get('booking', [AdminVenueController::class, 'BookingIndex'])->name('booking.index');
     });
+
 });
 
 #######################################################################################
@@ -117,6 +118,7 @@ Route::middleware([ 'auth', 'preventBackHistory'])->group(function () {
         Route::get('/admin/venues', [VenueController::class, 'index'])->name('admin.venues');
         Route::post('/admin/venues/{id}/approve', [VenueController::class, 'approve'])->name('admin.venues.approve');
         Route::post('/admin/venues/{id}/reject', [VenueController::class, 'reject'])->name('admin.venues.reject');
+        Route::get('/admin/dashboard/export-pdf', [HomeController::class, 'exportPdf'])->name('dashboard.export-pdf');
     });
 });
 Route::fallback(function () {

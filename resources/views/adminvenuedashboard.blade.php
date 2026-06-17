@@ -14,7 +14,8 @@
     <div class="card">
         <div class="card-body">
             <h6 class="mb-2 f-w-400 text-muted">Total Member</h6>
-            <h4 class="mb-3">120 <span class="badge bg-light-success border border-success"><i class="ti ti-user"></i>
+            <h4 class="mb-3">{{ $totalMember }} <span class="badge bg-light-success border border-success"><i
+                        class="ti ti-user"></i>
                     Aktif</span></h4>
             <p class="mb-0 text-muted text-sm">Member terdaftar di venue</p>
         </div>
@@ -96,7 +97,7 @@
     </div>
 </div>
 
-<div class="col-md-12 col-xl-4">
+{{-- <div class="col-md-12 col-xl-4">
     <h5 class="mb-3">Statistik Venue</h5>
     <div class="card">
         <div class="list-group list-group-flush">
@@ -106,13 +107,12 @@
                 <span class="h5 mb-0">{{ $bookingHariIni }}</span>
             </a>
 
-            <a href="#"
+             <a href="#"
                 class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
                 Slot Terisi
                 <span class="h5 mb-0">{{ $slotTerisi }}%</span>
             </a>
-
-            <a href="#"
+             <a href="#"
                 class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
                 Kepuasan Member
                 <span class="h5 mb-0 text-success">Tinggi</span>
@@ -122,4 +122,111 @@
             <div id="analytics-report-chart"></div>
         </div>
     </div>
+</div> --}}
+<div class="col-md-12 col-xl-4 d-flex flex-column">
+    <h5 class="mb-3" style="font-weight: 600; color: #2D3748;">Statistik Venue</h5>
+    <div class="card border-0 shadow-sm mb-4 flex-fill d-flex flex-column" style="border-radius: 12px;">
+        <div class="list-group list-group-flush border-0"
+            style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+            <div class="list-group-item d-flex align-items-center justify-content-between p-3 border-0 bg-transparent">
+                <span style="font-weight: 500; color: #4A5568;">Booking Hari Ini</span>
+                <span class="h5 mb-0" style="font-weight: 700; color: #1A202C;">{{ $bookingHariIni }}</span>
+            </div>
+        </div>
+        <div class="card-body p-3 d-flex flex-column justify-content-between flex-fill mt-auto">
+            <div id="grafik-booking-venue-baru" class="w-100"></div>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Warna oranye/kuning hangat agar senada dengan nuansa visual di gambar contohmu
+        const colorBookingVenue = '#F59E0B';
+
+        const optionsVenue = {
+            chart: {
+                type: 'line', // Jenis grafik garis (line chart) sesuai mockup gambar ke-7 kamu
+                height: 260,
+                parentHeightOffset: 0,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+            },
+            colors: [colorBookingVenue],
+            stroke: {
+                curve: 'smooth', // Garis melengkung halus (smooth)
+                width: 3
+            },
+            markers: {
+                size: 4, // Memberikan titik bulatan kecil pada setiap koordinat minggu
+                colors: [colorBookingVenue],
+                strokeColors: '#fff',
+                strokeWidth: 2,
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [{
+                name: 'Total Booking',
+                data: @json($venueBookingData) // Data dinamis jumlah booking per minggu dari controller
+            }],
+            grid: {
+                borderColor: '#f1f5f9',
+                strokeDashArray: 4, // Garis latar belakang putus-putus samar seperti gambar mockup
+                padding: {
+                    top: 10,
+                    right: 15,
+                    bottom: 0,
+                    left: 10
+                }
+            },
+            xaxis: {
+                categories: @json($venueChartLabels), // Otomatis berisi 6 nama bulan terakhir
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                tickAmount: 5, // Mengatur kerapatan grid horizontal untuk 6 titik
+                labels: {
+                    style: {
+                        colors: '#a0aec0',
+                        fontSize: '11px',
+                        fontWeight: 500
+                    }
+                }
+            },
+            yaxis: {
+                tickAmount: 4,
+                labels: {
+                    style: {
+                        colors: '#a0aec0'
+                    },
+                    formatter: function(val) {
+                        return Math.round(
+                            val
+                        ); // Memastikan angka di sumbu Y selalu bulat (karena jumlah booking tidak mungkin desimal)
+                    }
+                }
+            },
+            tooltip: {
+                theme: 'light',
+                y: {
+                    formatter: function(val) {
+                        return val + " Kali Booking";
+                    }
+                }
+            }
+        };
+
+        // Render grafik baru ke dalam container ID baru kita
+        const chartVenue = new ApexCharts(document.querySelector("#grafik-booking-venue-baru"), optionsVenue);
+        chartVenue.render();
+    });
+</script>

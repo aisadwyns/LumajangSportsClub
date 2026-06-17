@@ -1,4 +1,5 @@
 <!-- Baris 1: 4 Kartu Metrik Utama -->
+
 <div class="col-md-6 col-xl-3">
     <div class="card">
         <div class="card-body">
@@ -170,6 +171,15 @@
         </div>
     </div>
 </div>
+<a href="{{ route('dashboard.export-pdf') }}" class="btn btn-primary d-flex align-items-center gap-2"
+    style="border-radius: 8px; font-weight: 500;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+        <path
+            d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.33-.52.625-.718.822a3.44 3.44 0 0 1-.361-.33c.177-.247.536-.616.99-.948zM14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+    </svg>
+    Cetak Ringkasan Eksekutif (PDF)
+</a>
 
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
