@@ -289,46 +289,79 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function exportPdf() {
-        // Pastikan hanya role superadmin yang bisa menembak fungsi ini
+    public function exportPdf()
+    {
+        // Pastikan hanya role superadmin yang bisa mengakses
         if (Auth::user()->role->role_name !== 'superadmin') {
             abort(403, 'Akses tidak sah.');
         }
 
         $currentYear = \Carbon\Carbon::now()->year;
+        $currentMonth = \Carbon\Carbon::now()->month;
 
-        // 1. DATA VISITOR GLOBAL BULAN INI
-        $totalPageViews = \App\Models\WebVisitor::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', $currentYear)
-            ->count();
+        // ========================================================
+        // 1. DATA METRIK UTAMA (BULAN INI)
+        // ========================================================
+        $totalPageViews = \App\Models\WebVisitor::whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)->count();
 
-        $totalSessions = \App\Models\WebVisitor::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', $currentYear)
-            ->distinct('session_id')
-            ->count('session_id');
+        $totalSessions = \App\Models\WebVisitor::whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)->distinct('session_id')->count('session_id');
 
-        // 2. DATA BOOKING GLOBAL 6 BULAN TERAKHIR (Tanpa filter venue_id)
+        // Total seluruh pengguna terdaftar sampai bulan ini
+        $totalPengguna = \App\Models\User::whereHas('role', function($query) {
+            $query->where('role_name', 'user');
+        })->count();
+
+
+        // ========================================================
+        // 2. DATA AGREGASI & TREN (6 BULAN TERAKHIR)
+        // ========================================================
         $reportData = [];
+        $grandTotalPenghasilan = 0; // Untuk menampung total penghasilan 6 bulan
+
         for ($i = 5; $i >= 0; $i--) {
             $date = \Carbon\Carbon::now()->subMonths($i);
+            $monthStr = $date->month;
+            $yearStr = $date->year;
 
-            // Menghitung seluruh transaksi se-aplikasi LSC
-            $bookingCount = \App\Models\Booking::whereYear('created_at', $date->year)
-                ->whereMonth('created_at', $date->month)
-                ->count();
+            // A. Hitung Jumlah Booking Lapangan (Venue)
+            $bookingCount = \App\Models\Booking::whereYear('created_at', $yearStr)
+                ->whereMonth('created_at', $monthStr)->count();
+
+            // B. Hitung Jumlah Transaksi Komunitas (Join Komunitas Sukses)
+            $komunitasCount = \Illuminate\Support\Facades\DB::table('join_komunitas')
+                ->where('status_pembayaran', 'success')
+                ->whereYear('created_at', $yearStr)
+                ->whereMonth('created_at', $monthStr)->count();
+
+            // C. Hitung Nominal Pemasukan Komunitas di Bulan Tersebut
+            $pemasukanBulanIni = \Illuminate\Support\Facades\DB::table('join_komunitas')
+                ->join('komunitas', 'join_komunitas.komunitas_id', '=', 'komunitas.id')
+                ->where('join_komunitas.status_pembayaran', 'success')
+                ->whereYear('join_komunitas.created_at', $yearStr)
+                ->whereMonth('join_komunitas.created_at', $monthStr)
+                ->sum('komunitas.harga_per_sesi');
+
+            // Akumulasikan ke Grand Total
+            $grandTotalPenghasilan += $pemasukanBulanIni;
 
             $reportData[] = [
                 'bulan' => $date->translatedFormat('F Y'),
-                'jumlah' => $bookingCount
+                'booking_count' => $bookingCount,
+                'komunitas_count' => $komunitasCount,
+                'pemasukan' => $pemasukanBulanIni
             ];
         }
 
-        // 3. Render HTML ke DomPDF
-        $pdf = Pdf::loadView('admin.reports.executive_summary', compact('totalPageViews', 'totalSessions', 'reportData'));
+        // 3. Render HTML ke DomPDF dengan Kertas A4 Portrait
+        $pdf = Pdf::loadView('admin.reports.executive_summary', compact(
+            'totalPageViews', 'totalSessions', 'totalPengguna',
+            'reportData', 'grandTotalPenghasilan'
+        ));
 
-        // Set ukuran kertas kertas A4 Portrait
         $pdf->setPaper('a4', 'portrait');
 
-        return $pdf->download('LSC_Executive_Summary_'.now()->format('M_Y').'.pdf');
+        return $pdf->download('LSC_Superadmin_Executive_Summary_'.now()->format('M_Y').'.pdf');
     }
 }

@@ -313,6 +313,9 @@
                         '11' => 'Nov',
                         '12' => 'Des',
                     ];
+
+                    // Ambil daftar hari operasional untuk pengecekan warna tombol tanggal
+                    $hariOperasionalKolom = is_array($court->operational_days) ? $court->operational_days : [];
                 @endphp
 
                 @for ($i = 0; $i < 14; $i++)
@@ -324,15 +327,32 @@
                         $tanggalAngka = $date->format('d');
 
                         $isActive = $dateStr == $selectedDate;
+
+                        // Cek apakah tanggal di loopingan ini termasuk hari libur
+                        $isTanggalLibur = !in_array($namaHari, $hariOperasionalKolom);
+
+                        // Tentukan style inline berdasarkan status aktif atau libur
+                        if ($isActive) {
+                            $inlineStyle = 'width: 80px; border-radius: 12px; padding: 10px 5px;';
+                        } elseif ($isTanggalLibur) {
+                            // Style khusus abu-abu untuk hari libur operasional
+                            $inlineStyle =
+                                'width: 80px; border-radius: 12px; padding: 10px 5px; color: #8c98a5; background-color: #f8f9fa; border: 1px solid #dcdcdc;';
+                        } else {
+                            $inlineStyle = 'width: 80px; border-radius: 12px; padding: 10px 5px;';
+                        }
                     @endphp
 
                     <button type="button"
-                        class="btn btn-tanggal flex-shrink-0 text-center {{ $isActive ? 'btn-primary active' : 'btn-outline-primary' }}"
-                        style="width: 80px; border-radius: 12px; padding: 10px 5px;"
-                        onclick="pilihTanggal('{{ $dateStr }}', this)">
+                        class="btn btn-tanggal flex-shrink-0 text-center {{ $isActive ? 'btn-primary active' : ($isTanggalLibur ? '' : 'btn-outline-primary') }}"
+                        style="{{ $inlineStyle }}" onclick="pilihTanggal('{{ $dateStr }}', this)">
                         <small class="d-block fw-bold mb-1">{{ $namaHari }}</small>
                         <h5 class="mb-0 fw-bold">{{ $tanggalAngka }}</h5>
-                        <small class="d-block" style="font-size: 0.75rem;">{{ $namaBulan }}</small>
+                        <small class="d-block" style="font-size: 0.75rem;">
+                            {{ $namaBulan }} {!! $isTanggalLibur
+                                ? '<span class="d-block text-danger" style="font-size: 0.65rem; font-weight:600;">Libur</span>'
+                                : '' !!}
+                        </small>
                     </button>
                 @endfor
             </div>
@@ -348,22 +368,10 @@
             @php
                 // 1. Cari tahu tanggal yang dipilih itu hari apa
                 $namaHariInggris = \Carbon\Carbon::parse($tanggal)->format('l');
-
-                // 2. Mapping dari bahasa Inggris ke Indonesia agar cocok dengan database
-                $mapHari = [
-                    'Monday' => 'Senin',
-                    'Tuesday' => 'Selasa',
-                    'Wednesday' => 'Rabu',
-                    'Thursday' => 'Kamis',
-                    'Friday' => 'Jumat',
-                    'Saturday' => 'Sabtu',
-                    'Sunday' => 'Minggu',
-                ];
                 $namaHariIndo = $mapHari[$namaHariInggris];
 
                 // 3. Cek apakah hari tersebut ada di array operational_days
-                $hariOperasional = is_array($court->operational_days) ? $court->operational_days : [];
-                $isLibur = !in_array($namaHariIndo, $hariOperasional);
+                $isLibur = !in_array($namaHariIndo, $hariOperasionalKolom);
 
                 $startHour = (int) substr($court->open_time, 0, 2);
                 $endHour = (int) substr($court->close_time, 0, 2);

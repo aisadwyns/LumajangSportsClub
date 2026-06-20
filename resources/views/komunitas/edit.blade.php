@@ -9,8 +9,8 @@
 
         <div class="card-body">
             <form action="{{ route('komunitas.update', $komunitas->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf @method('PUT')
-
+                @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-6 form-group my-2">
                         <label for="jenis_komunitas_id">Jenis Komunitas</label>

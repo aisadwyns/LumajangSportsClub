@@ -103,9 +103,8 @@
                                     <div class="stat-label">Venue &amp; Lapangan Partner</div>
                                 </div>
                             </div>
-
                             <div class="cta-section">
-                                <a href="about-lsc.html" class="btn-primary">Kenal Lumajang Sports Club</a>
+                                <a href="#featured-services" class="btn-primary">Kenali Lumajang Sports Club</a>
                             </div>
                         </div>
                     </div>
