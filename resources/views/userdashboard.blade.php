@@ -79,8 +79,8 @@
             <div class="card-body p-4">
                 @forelse($activeChallenges as $challenge)
                     @php
-                        // Ambil data progress user dari relasi participant
-                        $currentProgress = $challenge->userParticipant->progress ?? 0;
+                        // 🌟 REVISI: Ambil langsung dari data pivot yang dikirim oleh relasi user
+                        $currentProgress = $challenge->pivot->progress ?? 0;
                         $target = $challenge->target_amount;
 
                         // Hitung persentase progress bar (maksimal 100%)
@@ -104,6 +104,7 @@
                                 <h6 class="mb-0" style="font-weight: 600; color: #1A202C;">{{ $challenge->title }}
                                 </h6>
 
+                                {{-- 🌟 Kondisi dinamis membaca status dari data pivot --}}
                                 @if ($currentProgress >= $target)
                                     <span class="text-success small fw-bold"><i class="ti ti-check"></i> Done</span>
                                 @else
@@ -132,7 +133,8 @@
                 @endforelse
             </div>
             <div class="card-footer bg-transparent border-0 text-center pb-4">
-                <a href="#!" class="btn btn-link-primary p-0 fw-semibold">View All Challenges</a>
+                <a href="{{ route('challenges.index') }}" class="btn btn-link-primary p-0 fw-semibold">Lihat Semua
+                    Challenges</a>
             </div>
         </div>
     </div>

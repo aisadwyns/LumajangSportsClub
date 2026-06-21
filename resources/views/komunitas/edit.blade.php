@@ -113,10 +113,27 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
+                    <div class="col-md-12 form-group my-2">
+                        <label for="status" class="fw-bold text-primary">Status Publikasi Komunitas</label>
+                        <select id="status" name="status" class="form-control @error('status') is-invalid @enderror"
+                            required>
+                            {{-- <option value="pending" {{ old('status', $komunitas->status) == 'pending' ? 'selected' : '' }}>
+                                ⏳ Pending (Menunggu Persetujuan)</option> --}}
+                            <option value="publish" {{ old('status', $komunitas->status) == 'publish' ? 'selected' : '' }}>
+                                ✅ Publish</option>
+                            <option value="unpublish"
+                                {{ old('status', $komunitas->status) == 'unpublish' ? 'selected' : '' }}>❌ Unpublish
+                            </option>
+                        </select>
+                        @error('status')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="mt-3 d-flex justify-content-end">
-                    <button class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>

@@ -149,25 +149,29 @@ class BookingController extends Controller
                             ]);
 
                             $activeBookingChallenges = $user->challenges()
-                                ->where('status', 'active')
-                                ->whereHas('type', function ($query) {
-                                    $query->where('slug', 'booking');
-                                })
+                                ->where('challenges.challenge_type_id', 1)
+                                ->where('challenges.status', 'active')
                                 ->wherePivot('status', 'joined')
                                 ->get();
 
                             foreach ($activeBookingChallenges as $challenge) {
+                                $currentProgress = (int) $challenge->pivot->progress;
                                 $newProgress = $challenge->pivot->progress + 1;
 
-                                if ($newProgress >= $challenge->target_amount) {
+                                $targetAmount = (int) $challenge->target_amount;
+
+                                if ($newProgress >= $targetAmount) {
+                                    // Jika progress mencapai atau melebihi target, set completed
                                     $user->challenges()->updateExistingPivot($challenge->id, [
-                                        'progress'     => $challenge->target_amount,
-                                        'status'       => 'completed',
+                                        'progress'     => $targetAmount,
+                                        'status'       => 'completed', // Mengupdate status partisipasi di pivot menjadi completed
                                         'completed_at' => now(),
                                     ]);
 
+                                    // Tambahkan reward koin dari tantangan ke user
                                     $user->increment('points', $challenge->reward_coin);
 
+                                    // Catat riwayat poin tantangan selesai
                                     \App\Models\Point::create([
                                         'user_id'       => $user->id,
                                         'amount'        => $challenge->reward_coin,
@@ -175,6 +179,7 @@ class BookingController extends Controller
                                         'description'   => 'Menyelesaikan Tantangan: ' . $challenge->title,
                                     ]);
                                 } else {
+                                    // Jika belum mencapai target, update progress-nya saja di tabel pivot
                                     $user->challenges()->updateExistingPivot($challenge->id, [
                                         'progress' => $newProgress,
                                     ]);

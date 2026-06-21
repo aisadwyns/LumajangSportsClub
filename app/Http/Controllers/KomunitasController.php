@@ -39,6 +39,7 @@ class KomunitasController extends Controller
             'harga_per_sesi' => 'nullable|numeric|min:0',
             'waktu' => 'nullable|string|max:255',
             'link_wa' => 'nullable|string|max:255',
+            'status' => 'required|in:pending,publish,unpublish',
         ]);
 
         $data = $request->all();
@@ -65,23 +66,31 @@ class KomunitasController extends Controller
         return view('komunitas.edit', compact('komunitas', 'jenis'));
     }
 
-    public function update(Request $request, Komunitas $komunitas)
+    public function update(Request $request, string $id) // 👈 Ubah dari Komunitas $komunitas menjadi string $id
     {
+        // 1. Cari datanya terlebih dahulu berdasarkan ID
+        $komunitas = Komunitas::findOrFail($id);
+
         $request->validate([
             'jenis_komunitas_id' => 'required|exists:jenis_komunitas,id',
-            'nama_komunitas' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'lokasi' => 'nullable|string|max:255',
-            'kontak' => 'nullable|string|max:255',
-            'harga_per_sesi' => 'nullable|numeric|min:0',
-            'waktu' => 'nullable|string|max:255',
-            'link_wa' => 'nullable|string|max:255',
+            'nama_komunitas'     => 'required|string|max:255',
+            'deskripsi'          => 'nullable|string',
+            'logo'               => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'lokasi'             => 'nullable|string|max:255',
+            'kontak'             => 'nullable|string|max:255',
+            'harga_per_sesi'     => 'nullable|numeric|min:0',
+            'waktu'              => 'nullable|string|max:255',
+            'link_wa'            => 'nullable|string|max:255',
+            'status'             => 'required|in:pending,publish,unpublish',
         ]);
 
         $data = $request->all();
+
+        // Pengecekan slug menggunakan ID yang dicari ($id)
         $slug = Str::slug($request->nama_komunitas);
-        if (Komunitas::where('slug', $slug)->where('id', '!=', $komunitas->id)->exists()) $slug .= '-' . now()->format('His');
+        if (Komunitas::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+            $slug .= '-' . now()->format('His');
+        }
         $data['slug'] = $slug;
 
         $fileName = $komunitas->logo;
@@ -94,6 +103,8 @@ class KomunitasController extends Controller
         }
 
         $data['logo'] = $fileName;
+
+        // 2. Eksekusi update pada data yang sudah ditemukan
         $komunitas->update($data);
 
         Alert::success('sukses', 'data berhasil diupdate');

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Blog;
 use App\Models\Event;
 use App\Models\Komunitas;
@@ -64,8 +67,15 @@ class ClientController extends Controller
     }
 
     public function publicKomunitasIndex(){
-        $komunitas = Komunitas::with('jenis')->latest()->get();
-        return view('client.komunitas', compact('komunitas'));
+        $komunitas = Komunitas::with('jenis')->latest()->get()->where('status', 'publish');
+        $riwayat_komunitas = collect(); // Default koleksi kosong jika belum login
+        if (Auth::check()) {
+            $riwayat_komunitas = Komunitas::with('jenis')
+                ->where('user_id', Auth::id()) // Pastikan kamu punya kolom user_id penanda pemilik pengajuan
+                ->latest()
+                ->get();
+        }
+        return view('client.komunitas', compact('komunitas', 'riwayat_komunitas'));
     }
     public function publicKomunitasShow($id)
     {
@@ -85,6 +95,51 @@ class ClientController extends Controller
 
         return view('client.detailkomunitas', compact('komunitas', 'canReview'));
     }
+    public function publicKomunitasCreate() {
+        $jenisKomunitas = JenisKomunitas::all();
+        return view('client.createkomunitas', compact('jenisKomunitas'));
+    }
+    public function publicKomunitasStore(Request $request) {
+        // 1. Validasi kiriman data dari form client
+        $request->validate([
+            'jenis_komunitas_id' => 'required|exists:jenis_komunitas,id',
+            'nama_komunitas'     => 'required|string|max:255',
+            'deskripsi'          => 'nullable|string',
+            'logo'               => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'lokasi'             => 'nullable|string|max:255',
+            'kontak'             => 'nullable|string|max:255',
+            'harga_per_sesi'     => 'nullable|numeric|min:0',
+            'waktu'              => 'nullable|string|max:255',
+            'link_wa'            => 'nullable|string|max:255',
+        ]);
+
+        // 2. Ambil semua data inputan
+        $data = $request->all();
+
+        // 3. Buat Slug Otomatis dari Nama Komunitas
+        $slug = Str::slug($request->nama_komunitas);
+        if (Komunitas::where('slug', $slug)->exists()) {
+            $slug .= '-' . now()->format('His');
+        }
+        $data['slug'] = $slug;
+
+        // 4. KUNCI STATUS MENJADI PENDING
+        // Agar tidak bisa dimanipulasi dari inspect element form oleh user
+        $data['status'] = 'pending';
+
+        // 5. Proses Upload Logo Komunitas
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $fileName = Str::uuid() . '.' . $logo->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('logo_komunitas', $logo, $fileName);
+            $data['logo'] = $fileName;
+        }
+        Komunitas::create($data);
+        Alert::success('Sukses', 'Pengajuan komunitas berhasil dikirim! Mohon tunggu persetujuan dari Admin agar komunitas Anda dapat diterbitkan.');
+
+        return redirect()->route('komunitas.public');
+    }
+
     public function publicLeaderboard(){
         $clientRoleId = Role::where('role_name', 'user')->value('id');
 

@@ -65,6 +65,9 @@ Route::middleware(['auth','preventBackHistory'])->group(function () {
     Route::post('/komunitas/{id}/join-bayar-sekarang', [JoinKomunitasController::class, 'joinbayarsekarang'])->name('komunitas.joinbayarsekarang');
     Route::post('/komunitas/{id}/join', [JoinKomunitasController::class, 'join'])->name('komunitas.join');
     Route::post('/komunitas/{id}/leave', [JoinKomunitasController::class, 'leave'])->name('komunitas.leave');
+    Route::get('/komunitas/buat/baru', [ClientController::class, 'publicKomunitasCreate'])->name('client.komunitas.create');
+    Route::post('/komunitas/buat/simpan', [ClientController::class, 'publicKomunitasStore'])->name('client.komunitas.store');
+
     Route::post('/booking/pay', [BookingController::class, 'pay'])->name('booking.pay');
     Route::post('/review/kirim_review', [\App\Http\Controllers\Client\ReviewController::class, 'store'])->name('review.store');
     Route::resource('profil', ProfileController::class)->only(['update'])->names(['profil.update']);

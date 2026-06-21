@@ -12,8 +12,17 @@ class Komunitas extends Model
     protected $table = 'komunitas';
 
     protected $fillable = [
-        'jenis_komunitas_id','nama_komunitas','slug','deskripsi','logo',
-        'lokasi','kontak','harga_per_sesi','waktu','link_wa'
+    'jenis_komunitas_id',
+    'nama_komunitas',
+    'slug',
+    'deskripsi',
+    'logo',
+    'lokasi',
+    'kontak',
+    'harga_per_sesi',
+    'waktu',
+    'link_wa',
+    'status',
     ];
 
     protected $casts = ['harga_per_sesi' => 'decimal:2'];
@@ -35,6 +44,9 @@ class Komunitas extends Model
     }
     public function reviews(){
         return $this->hasMany(Review::class, 'id_komunitas')->where('is_active', 1)->latest();
+    }
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 

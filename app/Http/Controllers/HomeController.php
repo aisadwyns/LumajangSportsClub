@@ -71,8 +71,9 @@ class HomeController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            $activeChallenges = Challenge::with(['participants'])
-                ->where('status', 'active')
+            $activeChallenges = Auth::user()->challenges()
+                ->where('challenges.status', 'active') // Status global tantangan harus aktif
+                ->withPivot('progress', 'status', 'completed_at') // Memastikan kolom status milik pivot ikut terambil
                 ->get();
 
             return view('home', compact(
